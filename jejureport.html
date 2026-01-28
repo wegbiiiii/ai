@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>제주 성·연령별 관광객 유동인구 EDA 분석 보고서 (휴일)</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --surface:#0f1b33;
+      --card:#111f3b;
+      --text:#e8eefc;
+      --muted:#b8c5e6;
+      --line:rgba(232,238,252,.12);
+      --accent:#6aa6ff;
+      --accent2:#7cf0c5;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(106,166,255,.25), transparent 65%),
+        radial-gradient(900px 600px at 90% 0%, rgba(124,240,197,.20), transparent 60%),
+        radial-gradient(800px 500px at 50% 120%, rgba(106,166,255,.12), transparent 60%),
+        var(--bg);
+      line-height:1.65;
+    }
+
+    a{color:inherit;}
+
+    /* Layout */
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 20px 64px;
+    }
+
+    header{
+      position:relative;
+      padding:26px 22px;
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(17,31,59,.88), rgba(15,27,51,.88));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    header:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(600px 220px at 0% 0%, rgba(106,166,255,.18), transparent 60%),
+        radial-gradient(520px 220px at 100% 0%, rgba(124,240,197,.14), transparent 60%);
+      pointer-events:none;
+    }
+
+    .kicker{
+      position:relative;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+      background:rgba(15,27,51,.55);
+    }
+
+    h1{
+      position:relative;
+      margin:14px 0 8px;
+      font-size: clamp(22px, 4vw, 34px);
+      line-height:1.15;
+      letter-spacing:-.3px;
+    }
+
+    .subtitle{
+      position:relative;
+      margin:0;
+      color:var(--muted);
+      max-width:72ch;
+    }
+
+    .meta{
+      position:relative;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(11,18,32,.35);
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+
+    @media (min-width: 980px){
+      .grid{grid-template-columns: 340px 1fr; align-items:start;}
+      .toc{position:sticky; top:18px;}
+    }
+
+    /* Cards */
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(17,31,59,.80), rgba(15,27,51,.80));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card .hd{
+      padding:16px 18px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+
+    .card .hd h2{
+      margin:0;
+      font-size:16px;
+      letter-spacing:-.2px;
+    }
+
+    .card .bd{padding:16px 18px;}
+
+    /* TOC */
+    .toc ul{list-style:none; padding:0; margin:0; display:grid; gap:8px;}
+    .toc a{
+      display:block;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid transparent;
+      text-decoration:none;
+      color:var(--muted);
+      background:rgba(11,18,32,.25);
+    }
+    .toc a:hover{border-color:var(--line); color:var(--text); background:rgba(11,18,32,.40);}
+
+    /* Content */
+    section{scroll-margin-top:18px;}
+    .sec-title{
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      margin:0 0 10px;
+    }
+    .sec-title h3{margin:0; font-size:18px; letter-spacing:-.2px;}
+    .sec-title .tag{
+      font-size:12px;
+      color:var(--muted);
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(11,18,32,.28);
+      white-space:nowrap;
+    }
+
+    p{margin:0 0 12px; color:var(--text);}
+    .muted{color:var(--muted);}
+
+    .list{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:var(--text);
+    }
+    .list li{margin:7px 0;}
+
+    /* Insight box */
+    .insight{
+      border:1px solid rgba(106,166,255,.35);
+      background:linear-gradient(180deg, rgba(106,166,255,.12), rgba(17,31,59,.55));
+      border-radius:16px;
+      padding:14px 14px;
+      margin:12px 0 14px;
+    }
+    .insight strong{color:#ffffff;}
+
+    /* Figure */
+    figure{margin:0;}
+    .figure{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(11,18,32,.25);
+      padding:12px;
+      margin:12px 0 16px;
+    }
+    .figure img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:12px;
+      border:1px solid rgba(232,238,252,.10);
+    }
+    figcaption{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* Footer */
+    footer{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:rgba(15,27,51,.55);
+      color:var(--muted);
+    }
+
+    /* Print */
+    @media print{
+      :root{ --bg:#fff; --text:#111; --muted:#444; --line:#ddd; --surface:#fff; --card:#fff; --shadow:none; }
+      body{background:#fff; color:#111;}
+      header,.card,footer{box-shadow:none;}
+      .toc{display:none;}
+      a{text-decoration:none;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="kicker">휴일 기준 · PNU(지번) 단위 · 성·연령별 유동인구</div>
+      <h1>제주특별자치도 성·연령별 관광객 유동인구<br/>EDA 분석 보고서</h1>
+      <p class="subtitle">성별·연령대별 관광객 유동 구조를 탐색적으로 분석하여 공간 편중, 수요 중심 연령층, 성별 동조 이동 패턴 등 핵심 특징을 도출하고 정책/마케팅/입지 전략에 활용 가능한 시사점을 정리한다.</p>
+      <div class="meta">
+        <div class="pill">분석 범위: 일변량 + 다변량 시각화</div>
+        <div class="pill">주요 변수: 유동인구 수 · 유동인구 비율</div>
+        <div class="pill">연령 구분: 10대↓ · 20 · 30 · 40 · 50 · 60대↑</div>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- TOC -->
+      <aside class="card toc" aria-label="목차">
+        <div class="hd"><h2>목차</h2><span class="muted" style="font-size:12px;">클릭 이동</span></div>
+        <div class="bd">
+          <ul>
+            <li><a href="#sec1">1. 분석 목적</a></li>
+            <li><a href="#sec2">2. 데이터 개요</a></li>
+            <li><a href="#sec3">3. 일변량 시각화 분석</a></li>
+            <li><a href="#sec4">4. 다변량 시각화 분석</a></li>
+            <li><a href="#sec5">5. 종합 해석 및 시사점</a></li>
+            <li><a href="#sec6">6. 결론</a></li>
+          </ul>
+          <div class="insight" style="margin-top:14px;">
+            <strong>요약 인사이트</strong><br/>
+            <span class="muted">핵심 수요층은 20~40대 중심이며, 동일 연령대 남녀 유동은 높은 동조성을 보인다. 일부 지번에 유동이 집중되는 편중 구조가 관찰된다.</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <main class="card" aria-label="보고서 본문">
+        <div class="hd">
+          <h2>보고서 본문</h2>
+          <span class="muted" style="font-size:12px;">EDA 결과 기반</span>
+        </div>
+        <div class="bd">
+
+          <section id="sec1">
+            <div class="sec-title"><h3>1. 분석 목적</h3><span class="tag">Objective</span></div>
+            <p>제주특별자치도 관광객의 <strong>성별·연령대별 공간 분포 특성</strong>과 <strong>이동 구조</strong>를 파악하기 위해 지번(PNU) 단위 유동인구 데이터를 활용한 탐색적 데이터 분석(EDA)을 수행하였다.</p>
+            <ul class="list">
+              <li>연령대별/성별 유동인구 분포의 <strong>편중·왜도</strong> 확인</li>
+              <li>변수 간 관계(상관 구조) 및 성별 동조 이동 패턴 파악</li>
+              <li>정책·마케팅·입지 전략 수립에 활용 가능한 <strong>정량 근거</strong> 도출</li>
+            </ul>
+          </section>
+
+          <section id="sec2" style="margin-top:18px;">
+            <div class="sec-title"><h3>2. 데이터 개요</h3><span class="tag">Dataset</span></div>
+            <p class="muted">데이터는 제주 관광객 유동인구 공공데이터를 기반으로 하며, 휴일 기준·지번(PNU) 단위로 집계되어 있다.</p>
+            <div class="insight">
+              <strong>핵심 변수 구성</strong>
+              <ul class="list" style="margin-top:8px;">
+                <li>성별·연령대별 관광객 <strong>유동인구 수</strong></li>
+                <li>성별·연령대별 <strong>유동인구 비율</strong></li>
+              </ul>
+            </div>
+            <p>연령 구분은 10대 이하, 20대, 30대, 40대, 50대, 60대 이상이며, 성별은 남/여로 구성된다.</p>
+          </section>
+
+          <section id="sec3" style="margin-top:18px;">
+            <div class="sec-title"><h3>3. 일변량 시각화 분석</h3><span class="tag">Univariate</span></div>
+            <p>히스토그램 기반 분포 확인 결과, 대부분의 변수에서 <strong>우측 꼬리가 긴 비대칭 분포</strong>가 관찰되어 일부 지번에 유동인구가 집중되는 공간 편중 가능성이 시사되었다.</p>
+            <div class="insight">
+              <strong>해석 포인트</strong><br/>
+              <span class="muted">특정 관광지/상권/교통 거점에 유동이 집중되면 분포가 비대칭(heavy tail) 형태를 띠는 경향이 있으며, 연령대별 편중 정도를 비교해 타깃 권역 설정에 활용 가능하다.</span>
+            </div>
+            <ul class="list">
+              <li><strong>20~30대</strong>는 고빈도 지역과 저빈도 지역 간 격차가 커, 상권/핵심 관광거점 중심의 집중도가 높게 나타날 가능성이 있다.</li>
+              <li>비율 변수는 특정 구간에 밀집되면서도 일부 지역에서 성별/연령별 편중이 관측될 수 있어, 관광 콘텐츠 유형에 따른 선호 차이 해석에 유용하다.</li>
+            </ul>
+          </section>
+
+          <section id="sec4" style="margin-top:18px;">
+            <div class="sec-title"><h3>4. 다변량 시각화 분석</h3><span class="tag">Multivariate</span></div>
+
+            <h4 style="margin:12px 0 8px; font-size:15px;">4.1 상관관계 히트맵</h4>
+            <div class="figure">
+              <figure>
+                <img src="correlation_heatmap.png" alt="수치형 변수 간 상관관계 히트맵" />
+                <figcaption>그림 1. 수치형 변수 간 상관관계 히트맵(유동인구 수/비율 포함)</figcaption>
+              </figure>
+            </div>
+            <ul class="list">
+              <li>동일 연령대 내 <strong>남녀 유동인구 간 양(+)의 상관</strong>이 전반적으로 높게 나타나는 패턴이 관찰된다.</li>
+              <li>절대 유동인구와 비율 변수 간에도 구조적 상관이 형성되어, 특정 연령층 유입이 큰 지역에서 해당 연령층 비율이 동반 상승하는 경향을 시사한다.</li>
+            </ul>
+
+            <h4 style="margin:16px 0 8px; font-size:15px;">4.2 연령대별 남녀 유동인구 비교</h4>
+            <div class="figure">
+              <figure>
+                <img src="age_gender_comparison.png" alt="연령대별 남녀 유동인구 비교" />
+                <figcaption>그림 2. 연령대별 남녀 유동인구 합계 비교</figcaption>
+              </figure>
+            </div>
+            <p>연령대별 합산 유동인구 비교에서 <strong>20~40대 중심의 수요 구조</strong>가 두드러지며, 20·30대에서 남녀 모두 높은 유입 규모를 보이는 경향이 확인된다.</p>
+
+            <h4 style="margin:16px 0 8px; font-size:15px;">4.3 20대 남녀 유동인구 산점도</h4>
+            <div class="figure">
+              <figure>
+                <img src="scatter_20s_male_female.png" alt="20대 남녀 유동인구 산점도" />
+                <figcaption>그림 3. 지번(PNU) 단위 20대 남녀 유동인구 산점도</figcaption>
+              </figure>
+            </div>
+            <p>산점도에서 비교적 뚜렷한 동조 패턴이 나타나면, 동일 공간에서 20대 남녀가 함께 유입되는 <strong>동반 이동 구조</strong>(커플/친구/소셜 관광 활동)의 영향 가능성을 시사한다.</p>
+          </section>
+
+          <section id="sec5" style="margin-top:18px;">
+            <div class="sec-title"><h3>5. 종합 해석 및 시사점</h3><span class="tag">Implications</span></div>
+            <ol class="list">
+              <li><strong>관광 수요의 연령 중심 구조</strong><br/>
+                <span class="muted">제주 관광은 20~40대가 핵심 수요층으로 작동하며, 해당 연령대의 공간 집중이 전체 유동 패턴을 주도한다.</span>
+              </li>
+              <li><strong>성별 동반 이동 패턴의 공간적 일관성</strong><br/>
+                <span class="muted">동일 연령대 남녀 간 높은 상관은 개인 단위보다 동반/집단 단위 관광의 비중이 높을 가능성을 뒷받침한다.</span>
+              </li>
+              <li><strong>입지·정책·마케팅 적용 포인트</strong>
+                <ul class="list">
+                  <li>상권/체험시설 입지 선정 시 20~30대 밀집 지번을 핵심 타깃 권역으로 설정</li>
+                  <li>연령·성별 맞춤형 콘텐츠(야간관광, 체험형 액티비티, 감성형 포토스팟 등)의 공간 배치 전략 수립</li>
+                  <li>교통·안전·편의 인프라 배치에서 젊은 층 유동 밀집 구간 우선 고려</li>
+                </ul>
+              </li>
+            </ol>
+          </section>
+
+          <section id="sec6" style="margin-top:18px;">
+            <div class="sec-title"><h3>6. 결론</h3><span class="tag">Conclusion</span></div>
+            <p>본 EDA를 통해 제주 관광객의 성·연령별 유동 구조는 <strong>연령 중심의 집중성</strong>과 <strong>성별 동조 이동 패턴</strong>이라는 두 가지 핵심 특징을 보임을 확인하였다. 본 결과는 향후 관광 정책 수립, 상권 활성화 전략, 스마트 관광 서비스 기획에 있어 정량적 근거 자료로 활용될 수 있다.</p>
+          </section>
+
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <div><strong>사용 방법</strong></div>
+      <div style="margin-top:8px;">
+        1) 이 HTML 파일과 동일 폴더에 아래 이미지 3개를 함께 두면 그대로 렌더링됩니다.<br/>
+        <span class="muted">correlation_heatmap.png · age_gender_comparison.png · scatter_20s_male_female.png</span><br/>
+        2) 브라우저에서 열거나, 웹서버에 업로드해 사용하세요.
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

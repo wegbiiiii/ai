@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주특별자치도 유동인구 데이터 분석 보고서</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0A4D68;
+            --secondary-blue: #088395;
+            --accent-teal: #05BFDB;
+            --light-bg: #F0F8FF;
+            --text-dark: #1A3A4A;
+            --text-muted: #5A7A8A;
+            --cream: #FFF9F0;
+            --coral: #FF6B6B;
+            --warm-yellow: #FFD93D;
+            --card-shadow: 0 8px 32px rgba(10, 77, 104, 0.08);
+            --hover-shadow: 0 12px 48px rgba(10, 77, 104, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #F0F8FF 0%, #E8F5FD 100%);
+            overflow-x: hidden;
+        }
+
+        /* 웨이브 배경 효과 */
+        .wave-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(5, 191, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(8, 131, 149, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(10, 77, 104, 0.05) 0%, transparent 40%);
+        }
+
+        /* 헤더 */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 5rem 2rem 8rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></svg>');
+            background-size: 40px 40px;
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(20px); }
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 Q300,0 600,60 T1200,60 L1200,120 L0,120 Z" fill="%23F0F8FF"/></svg>');
+            background-size: cover;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .meta-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .meta-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* 내비게이션 */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 100;
+            animation: slideDown 0.5s ease-out 0.5s both;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--accent-teal);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-blue);
+            background: rgba(5, 191, 219, 0.1);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* 메인 컨텐츠 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal), transparent);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-blue);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(10, 77, 104, 0.05);
+        }
+
+        .card:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-4px);
+        }
+
+        /* 통계 그리드 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--cream) 0%, white 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(5, 191, 219, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* 테이블 */
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+        }
+
+        th {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(5, 191, 219, 0.05);
+            transform: scale(1.01);
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(240, 248, 255, 0.5);
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid rgba(10, 77, 104, 0.08);
+        }
+
+        .highlight-row {
+            background: rgba(255, 215, 61, 0.15) !important;
+            font-weight: 600;
+        }
+
+        /* 이미지 컨테이너 */
+        .image-container {
+            margin: 3rem 0;
+            text-align: center;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+            transition: all 0.5s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 64px rgba(0, 0, 0, 0.18);
+        }
+
+        .image-caption {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* 강조 박스 */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(5, 191, 219, 0.1) 0%, rgba(8, 131, 149, 0.1) 100%);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .highlight-box h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .highlight-box li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .highlight-box li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* 키 포인트 */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .key-point {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent-teal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-point::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(5, 191, 219, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .key-point:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .key-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .key-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 푸터 */
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 6rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,60 Q300,120 600,60 T1200,60 L1200,0 L0,0 Z" fill="%230A4D68"/></svg>');
+            background-size: cover;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .stats-grid,
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                justify-content: flex-start;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 인용구 스타일 */
+        blockquote {
+            border-left: 4px solid var(--accent-teal);
+            padding-left: 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* 프로그레스 바 (상관관계 등에 사용) */
+        .progress-bar {
+            background: #E0E0E0;
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-teal), var(--secondary-blue));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        /* 배지 스타일 */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--accent-teal), var(--secondary-blue));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .badge.secondary {
+            background: linear-gradient(135deg, var(--coral), var(--warm-yellow));
+        }
+    </style>
+</head>
+<body>
+    <div class="wave-bg"></div>
+
+    <header>
+        <div class="header-content">
+            <h1>제주특별자치도 유동인구 데이터 분석 보고서</h1>
+            <p class="subtitle">성·연령별 관광객 유동인구 패턴 분석</p>
+            
+            <div class="meta-info">
+                <div class="meta-card">
+                    <div class="meta-label">분석 기준일</div>
+                    <div class="meta-value">2015.11 (휴일)</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">분석 지역</div>
+                    <div class="meta-value">733개 지번</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">총 유동인구</div>
+                    <div class="meta-value">91,626명</div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-label">보고서 작성</div>
+                    <div class="meta-value">2026.01.28</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#overview" class="nav-link">분석 개요</a>
+            <a href="#univariate" class="nav-link">일변량 분석</a>
+            <a href="#multivariate" class="nav-link">다변량 분석</a>
+            <a href="#conclusion" class="nav-link">결론 및 시사점</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 분석 개요 -->
+        <section id="overview" class="fade-in-section">
+            <h2>📊 분석 개요</h2>
+            
+            <div class="card">
+                <p style="font-size: 1.1rem; line-height: 1.9; margin-bottom: 1.5rem;">
+                    본 보고서는 2015년 11월 휴일을 기준으로 제주특별자치도 내 733개 지번(PNU 단위)의 성별·연령대별 유동인구 데이터를 분석한 결과를 담고 있습니다. 
+                    일변량 분석과 다변량 분석을 통해 제주 지역의 유동인구 분포 특성, 성별·연령별 패턴, 그리고 변수 간 상관관계를 종합적으로 파악했습니다.
+                </p>
+
+                <h3>🎯 데이터 구성</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                        분석 대상: 제주특별자치도 733개 지번
+                    </li>
+                    <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                        데이터 기준: 2015년 11월 휴일
+                    </li>
+                    <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                        변수: 성별(남/여) × 연령대(10대이하, 20대, 30대, 40대, 50대, 60대이상) = 12개 변수
+                    </li>
+                    <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                        총 유동인구: 91,626명 (남자 49,579명, 여자 42,048명)
+                    </li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">📈 분석 방법</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                    <div style="background: rgba(5, 191, 219, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(5, 191, 219, 0.2);">
+                        <strong style="color: var(--primary-blue);">일변량 분석</strong><br>
+                        <span style="font-size: 0.95rem; color: var(--text-muted);">각 변수의 분포, 중심경향, 산포도 분석</span>
+                    </div>
+                    <div style="background: rgba(8, 131, 149, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(8, 131, 149, 0.2);">
+                        <strong style="color: var(--primary-blue);">다변량 분석</strong><br>
+                        <span style="font-size: 0.95rem; color: var(--text-muted);">변수 간 상관관계, 회귀분석, 분산분석</span>
+                    </div>
+                    <div style="background: rgba(10, 77, 104, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(10, 77, 104, 0.2);">
+                        <strong style="color: var(--primary-blue);">통계적 검정</strong><br>
+                        <span style="font-size: 0.95rem; color: var(--text-muted);">정규성 검정, ANOVA, 카이제곱 검정</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 일변량 분석 -->
+        <section id="univariate" class="fade-in-section">
+            <h2>📍 일변량 분석 결과</h2>
+
+            <h3>전체 유동인구 분포</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    제주 지역 유동인구는 극단적으로 편향된 분포를 보입니다. 대부분의 지역(약 90%)은 소규모 유동인구를 보이는 반면, 
+                    소수의 핵심 관광지역에 유동인구가 집중되어 있습니다.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">125.0</div>
+                        <div class="stat-label">평균 유동인구 (명)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">23.6</div>
+                        <div class="stat-label">중앙값 (명)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">13,926</div>
+                        <div class="stat-label">최댓값 (명)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">17.48</div>
+                        <div class="stat-label">왜도 (Skewness)</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>통계량</th>
+                                <th>값</th>
+                                <th>의미</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>평균</strong></td>
+                                <td>125.0명</td>
+                                <td>지역당 평균 유동인구</td>
+                            </tr>
+                            <tr>
+                                <td><strong>중앙값</strong></td>
+                                <td>23.6명</td>
+                                <td>과반수 지역이 24명 미만</td>
+                            </tr>
+                            <tr>
+                                <td><strong>최댓값</strong></td>
+                                <td>13,926명</td>
+                                <td>제주시 연동 (핵심 관광지)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>왜도</strong></td>
+                                <td>17.48</td>
+                                <td>극단적 오른쪽 편향</td>
+                            </tr>
+                            <tr>
+                                <td><strong>첨도</strong></td>
+                                <td>366.23</td>
+                                <td>극단값이 매우 많음</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3>성별 분포</h3>
+            <div class="card">
+                <div class="stats-grid">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #E3F2FD 0%, white 100%);">
+                        <div class="stat-number" style="color: #1976D2;">49,579</div>
+                        <div class="stat-label">남자 유동인구 (54.1%)</div>
+                    </div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #FCE4EC 0%, white 100%);">
+                        <div class="stat-number" style="color: #C2185B;">42,048</div>
+                        <div class="stat-label">여자 유동인구 (45.9%)</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>📌 주요 발견</h4>
+                    <p>남자 유동인구가 여자보다 약 <strong style="color: var(--primary-blue);">17.9%</strong> 많으며, 
+                    이는 통계적으로 유의한 차이입니다 (카이제곱 검정, p < 0.001).</p>
+                </div>
+            </div>
+
+            <h3>연령대별 분포</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    40대가 가장 많은 유동인구를 보이며, 30대와 50대가 그 뒤를 잇습니다. 
+                    10대 이하와 60대 이상은 상대적으로 적은 비중을 차지합니다.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>연령대</th>
+                                <th>남자</th>
+                                <th>여자</th>
+                                <th>전체 비율</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>10대이하</strong></td>
+                                <td>1,439명 (2.9%)</td>
+                                <td>1,473명 (3.5%)</td>
+                                <td>3.2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>20대</strong></td>
+                                <td>5,059명 (10.2%)</td>
+                                <td>6,097명 (14.5%)</td>
+                                <td>12.2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>30대</strong></td>
+                                <td>10,719명 (21.6%)</td>
+                                <td>10,577명 (25.2%)</td>
+                                <td>23.2%</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>40대</strong></td>
+                                <td>14,040명 (28.3%)</td>
+                                <td>10,497명 (25.0%)</td>
+                                <td><strong>26.8%</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>50대</strong></td>
+                                <td>12,879명 (26.0%)</td>
+                                <td>9,059명 (21.5%)</td>
+                                <td>23.9%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>60대이상</strong></td>
+                                <td>5,444명 (11.0%)</td>
+                                <td>4,345명 (10.3%)</td>
+                                <td>10.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🎯 주요 발견사항</h4>
+                <ul>
+                    <li><strong>유동인구 집중도:</strong> 상위 10% 지역이 전체의 72.9%를 차지하는 극단적 집중 현상</li>
+                    <li><strong>성별 패턴:</strong> 남자 유동인구가 17.9% 더 많음 (통계적으로 유의)</li>
+                    <li><strong>연령대 특성:</strong> 40대가 가장 많은 연령대 (전체의 26.8%)</li>
+                    <li><strong>중장년층 비중:</strong> 30~50대가 전체 유동인구의 74%를 차지</li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="일변량 분석 시각화" style="background: #f5f5f5; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+                <div class="image-caption">※ 일변량 분석 시각화 자료 (18개 차트) - 보고서 원본 파일 참조</div>
+            </div>
+        </section>
+
+        <!-- 다변량 분석 -->
+        <section id="multivariate" class="fade-in-section">
+            <h2>🔗 다변량 분석 결과</h2>
+
+            <h3>상관관계 분석</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    변수 간 상관관계 분석 결과, 남녀 유동인구 간에 <strong>거의 완벽한 양의 상관관계</strong>가 발견되었습니다. 
+                    이는 특정 지역의 관광 매력도가 성별과 무관하게 일관되게 나타남을 의미합니다.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>변수 쌍</th>
+                                <th>상관계수 (r)</th>
+                                <th>해석</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight-row">
+                                <td><strong>남자 총계 ↔ 여자 총계</strong></td>
+                                <td><strong>0.9990</strong></td>
+                                <td><strong>거의 완벽한 상관</strong></td>
+                            </tr>
+                            <tr>
+                                <td>30대 남녀</td>
+                                <td>0.9987</td>
+                                <td>가장 높은 연령대 상관</td>
+                            </tr>
+                            <tr>
+                                <td>40대 남녀</td>
+                                <td>0.9986</td>
+                                <td>매우 강한 상관</td>
+                            </tr>
+                            <tr>
+                                <td>20대 남녀</td>
+                                <td>0.9970</td>
+                                <td>매우 강한 상관</td>
+                            </tr>
+                            <tr>
+                                <td>10대이하 남녀</td>
+                                <td>0.9963</td>
+                                <td>가장 낮은 연령대 상관</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary-blue);">상관계수 시각화</h4>
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span>남녀 총계</span>
+                            <span style="font-weight: 700; color: var(--primary-blue);">0.9990</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 99.9%;"></div>
+                        </div>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span>30대 남녀</span>
+                            <span style="font-weight: 700; color: var(--secondary-blue);">0.9987</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 99.87%;"></div>
+                        </div>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span>10대이하 남녀</span>
+                            <span style="font-weight: 700; color: var(--text-muted);">0.9963</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 99.63%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>회귀 분석</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    남자 유동인구를 독립변수로, 여자 유동인구를 종속변수로 하는 선형 회귀분석을 수행했습니다.
+                </p>
+
+                <div style="background: linear-gradient(135deg, rgba(255, 215, 61, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); text-align: center; margin-bottom: 1rem;">
+                        여자 = 0.8751 × 남자 - 1.8246
+                    </div>
+                    <div style="text-align: center; color: var(--text-muted);">회귀식</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" style="font-size: 2.5rem;">0.9980</div>
+                        <div class="stat-label">결정계수 (R²)</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">변동의 99.8% 설명</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" style="font-size: 2rem;">p < 0.001</div>
+                        <div class="stat-label">통계적 유의성</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">매우 유의함</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>💡 해석</h4>
+                    <p>남자 유동인구 10명 증가 시 여자 유동인구 약 <strong style="color: var(--primary-blue);">8.75명 증가</strong></p>
+                </div>
+            </div>
+
+            <h3>분산 분석 (ANOVA)</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    연령대별 유동인구 차이가 통계적으로 유의한지 검정했습니다.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <div style="background: linear-gradient(135deg, rgba(136, 77, 255, 0.1) 0%, rgba(68, 114, 196, 0.1) 100%); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary-blue); margin-bottom: 1rem;">남자 연령대별</div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--primary-blue); margin-bottom: 0.5rem;">F = 8.79</div>
+                        <div style="color: var(--text-muted); margin-bottom: 1rem;">p < 0.001</div>
+                        <span class="badge">유의한 차이 있음</span>
+                    </div>
+                    <div style="background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%); padding: 2rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary-blue); margin-bottom: 1rem;">여자 연령대별</div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--primary-blue); margin-bottom: 0.5rem;">F = 6.54</div>
+                        <div style="color: var(--text-muted); margin-bottom: 1rem;">p < 0.001</div>
+                        <span class="badge">유의한 차이 있음</span>
+                    </div>
+                </div>
+
+                <p style="margin-top: 2rem; padding: 1.5rem; background: rgba(5, 191, 219, 0.05); border-radius: 12px;">
+                    남녀 모두에서 연령대별 유동인구는 통계적으로 유의한 차이를 보입니다. 
+                    이는 <strong style="color: var(--primary-blue);">연령대가 유동인구 분포에 중요한 요인</strong>임을 의미합니다.
+                </p>
+            </div>
+
+            <h3>정규성 검정</h3>
+            <div class="card">
+                <p style="margin-bottom: 2rem;">
+                    Shapiro-Wilk 검정을 통해 데이터의 정규성을 확인했습니다.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>데이터</th>
+                                <th>p-value</th>
+                                <th>결론</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>원본 (남자)</td>
+                                <td>< 0.001</td>
+                                <td><span style="color: #C00000; font-weight: 600;">비정규분포</span></td>
+                            </tr>
+                            <tr>
+                                <td>원본 (여자)</td>
+                                <td>< 0.001</td>
+                                <td><span style="color: #C00000; font-weight: 600;">비정규분포</span></td>
+                            </tr>
+                            <tr>
+                                <td>로그 변환 (남자)</td>
+                                <td>< 0.001</td>
+                                <td><span style="color: #70AD47; font-weight: 600;">정규분포에 근접</span></td>
+                            </tr>
+                            <tr>
+                                <td>로그 변환 (여자)</td>
+                                <td>< 0.001</td>
+                                <td><span style="color: #70AD47; font-weight: 600;">정규분포에 근접</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4>📊 권장사항</h4>
+                    <p>원본 데이터는 극단적으로 편향된 분포로 인해 정규성을 만족하지 않습니다. 
+                    <strong style="color: var(--primary-blue);">로그 변환을 적용하면 정규분포에 가까워지므로, 통계 분석 시 로그 변환 사용을 권장합니다.</strong></p>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="다변량 분석 시각화" style="background: #f5f5f5; min-height: 400px;">
+                <div class="image-caption">※ 다변량 분석 시각화 자료 (30개 차트) - 보고서 원본 파일 참조</div>
+            </div>
+        </section>
+
+        <!-- 결론 및 시사점 -->
+        <section id="conclusion" class="fade-in-section">
+            <h2>💡 종합 결론 및 시사점</h2>
+
+            <div class="card">
+                <h3>주요 발견사항 요약</h3>
+                
+                <div class="key-points">
+                    <div class="key-point">
+                        <div class="key-icon">📍</div>
+                        <div class="key-title">유동인구 집중도</div>
+                        <div class="key-description">
+                            상위 10% 지역이 전체 유동인구의 72.9%를 차지하는 극단적 집중 현상
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-icon">👥</div>
+                        <div class="key-title">성별 패턴</div>
+                        <div class="key-description">
+                            남녀 유동인구 간 거의 완벽한 상관관계 (r=0.999), 성별 무관한 관광지 매력도
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-icon">📊</div>
+                        <div class="key-title">연령대 특성</div>
+                        <div class="key-description">
+                            중장년층(30~50대)이 74% 차지, 40대가 최다 연령대 (26.8%)
+                        </div>
+                    </div>
+                    <div class="key-point">
+                        <div class="key-icon">📈</div>
+                        <div class="key-title">통계적 특성</div>
+                        <div class="key-description">
+                            극단적 편향 분포, 로그 변환 시 정규분포에 근접
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🎯 실무적 시사점</h3>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: var(--primary-blue); margin-bottom: 1rem;">관광 마케팅 전략</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                            핵심 관광지(상위 10%) 집중 관리를 통한 효율적 자원 배분
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                            중장년층(30~50대) 타겟 마케팅 강화
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--accent-teal); font-weight: bold;">▸</span>
+                            성별 구분 없는 가족 단위 관광 상품 개발
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: var(--primary-blue); margin-bottom: 1rem;">인프라 개선</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--secondary-blue); font-weight: bold;">▸</span>
+                            주요 관광지의 과밀화 해소 방안 마련
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--secondary-blue); font-weight: bold;">▸</span>
+                            중장년층 친화적 편의시설 확충
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--secondary-blue); font-weight: bold;">▸</span>
+                            비인기 지역의 관광 자원 발굴 및 활성화
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: var(--primary-blue); margin-bottom: 1rem;">정책 방향</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--coral); font-weight: bold;">▸</span>
+                            관광 분산 정책을 통한 지역 균형 발전
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--coral); font-weight: bold;">▸</span>
+                            연령대별 맞춤형 관광 프로그램 개발
+                        </li>
+                        <li style="padding: 0.8rem 0; padding-left: 2rem; position: relative;">
+                            <span style="position: absolute; left: 0; color: var(--coral); font-weight: bold;">▸</span>
+                            데이터 기반 관광 수요 예측 시스템 구축
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚠️ 분석의 한계 및 향후 연구 방향</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: rgba(255, 107, 107, 0.08); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--coral);">
+                        <h4 style="color: var(--coral); margin-bottom: 1rem;">분석의 한계</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                            <li style="padding: 0.5rem 0;">• 단일 시점 데이터</li>
+                            <li style="padding: 0.5rem 0;">• 시계열 변화 미반영</li>
+                            <li style="padding: 0.5rem 0;">• 평일/휴일 차이 미고려</li>
+                            <li style="padding: 0.5rem 0;">• 질적 정보 부재</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(112, 173, 71, 0.08); padding: 2rem; border-radius: 12px; border-left: 4px solid #70AD47;">
+                        <h4 style="color: #70AD47; margin-bottom: 1rem;">향후 연구 방향</h4>
+                        <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+                            <li style="padding: 0.5rem 0;">• 시계열 패턴 분석</li>
+                            <li style="padding: 0.5rem 0;">• 계절별 비교 연구</li>
+                            <li style="padding: 0.5rem 0;">• 외부 요인 연관성</li>
+                            <li style="padding: 0.5rem 0;">• 머신러닝 예측 모델</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 4rem 0 2rem; padding: 2rem; background: linear-gradient(135deg, rgba(10, 77, 104, 0.05) 0%, rgba(5, 191, 219, 0.05) 100%); border-radius: 16px;">
+                <div style="font-size: 2rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 1rem;">
+                    감사합니다
+                </div>
+                <div style="color: var(--text-muted);">
+                    본 보고서에 대한 문의사항이 있으시면 언제든지 연락 주시기 바랍니다.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p style="font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 500;">제주특별자치도 유동인구 데이터 분석 보고서</p>
+        <p style="opacity: 0.8; font-size: 0.95rem;">2026.01.28</p>
+    </footer>
+
+    <script>
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 네비게이션 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 프로그레스 바 애니메이션
+        const progressBars = document.querySelectorAll('.progress-fill');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('style').match(/width:\s*([^;]+)/)[1];
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => {
+            const originalWidth = bar.style.width;
+            bar.style.width = '0';
+            progressObserver.observe(bar);
+            setTimeout(() => {
+                bar.style.width = originalWidth;
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>진달래 꽃</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", Arial, sans-serif;
+      background: linear-gradient(180deg, #fff8fb 0%, #fffdfd 100%);
+      color: #2f2430;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 48px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 24px;
+      padding: 48px 36px;
+      box-shadow: 0 16px 40px rgba(120, 80, 110, 0.12);
+      border: 1px solid rgba(210, 180, 200, 0.35);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1.2;
+      text-align: center;
+      color: #000000;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      margin: 14px 0 0;
+      font-size: 22px;
+      font-weight: 500;
+      text-align: right;
+      color: #6e5a67;
+    }
+
+    .divider {
+      width: 72px;
+      height: 3px;
+      background: #d98bb2;
+      border-radius: 999px;
+      margin: 28px auto 36px;
+    }
+
+    .poem {
+      display: grid;
+      gap: 24px;
+    }
+
+    .stanza {
+      padding: 20px 22px;
+      border-radius: 18px;
+      background: #fff7fa;
+      border: 1px solid #f1d9e5;
+      font-size: 24px;
+      line-height: 1.9;
+      white-space: pre-line;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 36px 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .stanza {
+        font-size: 20px;
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>진달래 꽃</h1>
+    <h2>지은이 김소월</h2>
+    <div class="divider"></div>
+
+    <section class="poem">
+      <div class="stanza">나 보기가
+역겨워
+가실때에는</div>
+
+      <div class="stanza">말 없이
+고이
+보내 드리오리다</div>
+
+      <div class="stanza">영변에
+약산
+진달래 꽃</div>
+
+      <div class="stanza">진달래
+진달래 꽃
+피웠네</div>
+    </section>
+  </main>
+</body>
+</html>

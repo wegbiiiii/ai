@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색엔진(이미지)</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        /* 메인 컨테이너 */
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        /* 제목 스타일 */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        /* 공통 가로 구분선 스타일 */
+        .divider {
+            border: none;
+            border-top: 1.5px solid #a52a2a; /* 시안의 붉은 계열 선 */
+            margin: 10px auto;
+            width: 200px; /* 기본 너비 */
+        }
+
+        /* 3번째 구분선 전용 스타일 (400px) */
+        .divider.wide {
+            width: 400px;
+        }
+
+        /* 로고 리스트 스타일 - 중앙 정렬 강화 */
+        .logo-list {
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 자식 요소들을 가로 중앙으로 정렬 */
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo-list a {
+            text-decoration: none;
+            display: flex; /* 내부 이미지를 중앙 정렬하기 위해 flex 사용 */
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .logo-list a:hover {
+            transform: scale(1.05);
+        }
+
+        /* 로고 이미지 크기 조정 */
+        .logo-img {
+            display: block;
+            height: auto;
+        }
+
+        /* 각 로고별 너비 조절 */
+        .logo-naver { width: 160px; }
+        .logo-daum { width: 150px; }
+        .logo-google { width: 140px; }
+
+        /* 하단 링크 스타일 */
+        .text-link {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .text-link a {
+            color: #0000ff;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+
+        /* 푸터 스타일 */
+        footer {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* 반응형 대응 */
+        @media (max-width: 480px) {
+            .logo-naver { width: 130px; }
+            .logo-daum { width: 120px; }
+            .logo-google { width: 110px; }
+            
+            h1 {
+                font-size: 20px;
+            }
+            .divider.wide {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 상단 제목 -->
+        <h1>검색엔진(이미지)</h1>
+        
+        <!-- 1번째 구분선 (200px) -->
+        <hr class="divider">
+
+        <!-- 검색엔진 로고 리스트 (가운데 정렬 적용됨) -->
+        <div class="logo-list">
+            <!-- 네이버 로고 -->
+            <a href="https://www.naver.com" target="_blank" title="네이버로 이동">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Naver_Logotype.svg" alt="Naver" class="logo-img logo-naver">
+            </a>
+            
+            <!-- 다음 로고 -->
+            <a href="https://www.daum.net" target="_blank" title="다음으로 이동">
+                <img src="https://t1.daumcdn.net/daumtop_chanel/op/20200723055344399.png" alt="Daum" class="logo-img logo-daum">
+            </a>
+            
+            <!-- 구글 로고 -->
+            <a href="https://www.google.com" target="_blank" title="구글로 이동">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="logo-img logo-google">
+            </a>
+        </div>
+
+        <!-- 2번째 구분선 (200px) -->
+        <hr class="divider">
+
+        <!-- 하단 텍스트 링크 -->
+        <div class="text-link">
+            <a href="./ai_search.html">[검색엔진(문자)로 가기]</a>
+        </div>
+
+        <!-- 3번째 구분선 (400px) -->
+        <hr class="divider wide">
+
+        <!-- 카피라이트 -->
+        <footer>
+            CopyWrite © 이호연 닷컴 All Right
+        </footer>
+    </div>
+
+</body>
+</html>

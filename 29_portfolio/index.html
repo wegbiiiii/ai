@@ -18,6 +18,8 @@
       --radius: 24px;
       --max-width: 1200px;
       --nav-height: 76px;
+      --hero-offset: clamp(8px, 3vw, 40px);
+      --nav-side-padding: clamp(20px, 4vw, 56px);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,12 +63,17 @@
       background: rgba(10, 15, 29, 0.42);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+    .nav-shell {
+      width: 100%;
+      padding: 0 var(--nav-side-padding);
+    }
     .nav {
+      width: 100%;
       height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 2rem;
     }
     .logo {
       display: inline-flex;
@@ -75,6 +82,8 @@
       font-weight: 700;
       font-size: 1rem;
       letter-spacing: -0.03em;
+      margin-left: var(--hero-offset);
+      flex-shrink: 0;
     }
     .logo-mark {
       width: 42px;
@@ -124,10 +133,17 @@
       font-weight: 500;
       color: rgba(245,247,251,0.82);
     }
+    .nav nav {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
     .nav-links {
+      width: 100%;
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      justify-content: flex-end;
+      gap: clamp(1.25rem, 2.4vw, 2.5rem);
       color: rgba(245,247,251,0.78);
     }
     .nav-links a { transition: color 0.25s ease; }
@@ -143,6 +159,7 @@
       border-radius: 14px;
       cursor: pointer;
       position: relative;
+      flex-shrink: 0;
     }
     .menu-btn span {
       position: absolute;
@@ -187,7 +204,7 @@
     }
     .hero-copy {
       width: min(740px, 100%);
-      margin-left: clamp(8px, 3vw, 40px);
+      margin-left: var(--hero-offset);
       text-align: left;
     }
     .eyebrow {
@@ -204,8 +221,8 @@
       backdrop-filter: blur(8px);
     }
     .hero-title {
-      font-size: clamp(3rem, 7vw, 6.2rem);
-      line-height: 0.98;
+      font-size: 3rem;
+      line-height: 1.08;
       letter-spacing: -0.05em;
       margin-bottom: 1.2rem;
       text-shadow: 0 14px 35px rgba(0,0,0,0.25);
@@ -820,7 +837,10 @@
         grid-template-columns: 1fr;
       }
       .hero-inner { justify-content: flex-start; }
-      .hero-copy { margin-left: clamp(12px, 2.5vw, 28px); }
+      :root {
+        --hero-offset: clamp(12px, 2.5vw, 28px);
+        --nav-side-padding: clamp(16px, 3vw, 28px);
+      }
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -833,6 +853,12 @@
 
     @media (max-width: 768px) {
       .section { padding: 88px 0; }
+      .nav-shell {
+        padding: 0 1rem;
+      }
+      .nav {
+        gap: 1rem;
+      }
       .nav-links {
         position: absolute;
         top: calc(var(--nav-height) + 10px);
@@ -850,16 +876,23 @@
       }
       .nav-links.open { display: flex; }
       .menu-btn { display: inline-block; }
+      .nav nav {
+        flex: initial;
+      }
       .hero {
         padding: calc(var(--nav-height) + 24px) 0 70px;
         background-position: 62% center;
       }
-      .hero-inner { justify-content: flex-start; }
+      :root {
+        --hero-offset: 8px;
+      }
+      .logo {
+        margin-left: var(--hero-offset);
+      }
       .hero-copy {
-        margin-left: 8px;
         margin-right: 16px;
       }
-      .hero-title { font-size: clamp(2.5rem, 12vw, 4.4rem); }
+      .hero-title { font-size: 3rem; }
       .hero-desc { font-size: 0.98rem; }
       .hero-actions {
         flex-direction: column;
@@ -903,26 +936,28 @@
 </head>
 <body>
   <header class="header">
-    <div class="container nav">
-      <a href="#home" class="logo" aria-label="choi portfolio home">
-        <span class="logo-mark" aria-hidden="true"></span>
-        <span class="logo-text"><strong>ch</strong><span>oi</span></span>
-      </a>
+    <div class="nav-shell">
+      <div class="nav">
+        <a href="#home" class="logo" aria-label="choi portfolio home">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text"><strong>ch</strong><span>oi</span></span>
+        </a>
 
-      <nav>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#process" class="nav-link">Process</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
+        <nav>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#process" class="nav-link">Process</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
 
-      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
-        <span></span><span></span><span></span>
-      </button>
+        <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -1142,7 +1177,7 @@
                 <div class="process-step">02</div>
                 <div class="process-content">
                   <h3>정보 구조 및 사용자 흐름 설계</h3>
-                  <p>서비스 구조를 정리하고, 사용자가 목표에 도달하는 동선을 직관적으로 설계합니다.</p>
+                  <p>서비스 구조를 정리하고, 사용자가 목표에 도달하기까지의 동선을 직관적으로 설계합니다.</p>
                   <div class="process-meta">
                     <span>IA</span>
                     <span>User Flow</span>
@@ -1234,8 +1269,8 @@
           <article class="project-card reveal">
             <div class="project-thumb" style="background-image:url('./images/mock1.png');"></div>
             <div class="project-content">
-              <span class="project-tag">App design</span>
-              <h3 class="project-title">Modern Brand Page</h3>
+              <span class="project-tag">Web Design</span>
+              <h3 class="project-title">Modern Landing Page</h3>
               <p class="project-text">브랜드의 첫인상을 강화하는 감각적인 랜딩페이지 프로젝트입니다. 구조와 비주얼을 단순하면서도 강렬하게 구성했습니다.</p>
               <a href="#" class="project-link">자세히 보기 →</a>
             </div>
@@ -1244,9 +1279,9 @@
           <article class="project-card reveal">
             <div class="project-thumb" style="background-image:url('./images/mock2.png');"></div>
             <div class="project-content">
-              <span class="project-tag">Info page</span>
+              <span class="project-tag">Dashboard</span>
               <h3 class="project-title">Data Visual Dashboard</h3>
-              <p class="project-text">제품을 시각적, 상세내용을 쉽게 이해할 수 있도록 설계한 상품페이지입니다. 정보 구조와 가독성을 중심으로 디자인했습니다.</p>
+              <p class="project-text">데이터를 시각적으로 쉽게 이해할 수 있도록 설계한 대시보드입니다. 정보 구조와 가독성을 중심으로 디자인했습니다.</p>
               <a href="#" class="project-link">자세히 보기 →</a>
             </div>
           </article>
@@ -1254,7 +1289,7 @@
           <article class="project-card reveal">
             <div class="project-thumb" style="background-image:url('./images/mock3.png');"></div>
             <div class="project-content">
-              <span class="project-tag">Mobile UI</span>
+              <span class="project-tag">Mobile UX</span>
               <h3 class="project-title">Responsive App Concept</h3>
               <p class="project-text">모바일 중심 경험을 강화한 앱 콘셉트 프로젝트입니다. 직관적인 화면 흐름과 사용성을 강조했습니다.</p>
               <a href="#" class="project-link">자세히 보기 →</a>

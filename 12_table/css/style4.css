@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+table {
+    border: 1px solid #000;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 400px;
+}
+
+th {
+    width: 400px;
+    height: 40px;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+td {
+    border: 1px solid #000;
+    text-align: center;
+    height: 40px;
+}
+
+.th2 {
+    width: 130px;
+    text-align: center;
+}
+
+.th3 {
+    width: 270px;
+    text-align: center;
+}
+
+.tb2 {
+    text-align: center;
+    width: 130px;
+    height: 80px;
+}
+
+.td3 {
+    text-align: center;
+    width: 270px;
+    height: 40px;
+}

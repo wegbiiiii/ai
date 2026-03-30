@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕", "malgun gothic", "sans-serif";
+}
+/*모든 tag 초기화*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    /*가로 500*/
+    width: 500px;
+    /*테두리선 약식코딩*/
+    border: 5px solid #000;
+    /*배경색*/
+    background-color: #ffa500;
+    /*box 바깥쪽 여백*/
+    margin-bottom: 20px;
+    /*box 안쪽 여백*/
+    padding: 24px;
+    padding : 50px, 20px, 10px, 30px;
+}

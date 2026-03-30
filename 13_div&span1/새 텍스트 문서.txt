@@ -1,0 +1,29 @@
+
+
+
+1)div태그는 box를 만드는 태그
+
+2)span태그는 inline 태그 요소로 일부 내용만 디자인하는 태그
+	
+span, strong, em, a    inline 태그
+h1-h6, p, hr, ul, li, ol, table   블록태그
+
+
+3)여백 주기
+   박스 안쪽 여백 -> padding
+   박스 바깥쪽 여백 -> margin
+
+4)자간 (글자와 글자사이간격) 
+   letter-spacing
+
+5)행간 (행과 행 사이 간격)
+   line-height
+
+6)양쪽정렬
+   text-align: justfy
+
+7)웹표준(html:5)검증
+
+
+8)css 검증
+

@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+body {
+  font-family: "Malgun Gothic", sans-serif;
+  padding: 30px;
+}
+
+.sales-table,
+.site-table {
+  width: 400px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+}
+
+.sales-table {
+  margin-bottom: 60px;
+}
+
+.sales-table th,
+.sales-table td,
+.site-table th,
+.site-table td {
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.sales-table th,
+.site-table th {
+  font-weight: bold;
+}
+
+.sales-table tr:nth-child(3) td,
+.sales-table tr:nth-child(4) td {
+  width: 100px;
+}
+
+.site-table a {
+  color: blue;
+  text-decoration: underline;
+}

@@ -23,14 +23,16 @@ div h1 {
     margin-bottom: 28px;
 }
 
-div h4 {
+div .sp {
     color: blue;
     font-weight: 400;
     margin-bottom: 24px;
+    font-size: 18px;
 }
 
-div h3 {
+div .np {
     margin-bottom: 20px;
+    font-size: 18px;
 }
 
 div h2 {
@@ -42,16 +44,10 @@ div h2 {
 }
 
 div .torh4 {
-    line-height: 0px;
+    font-size: 14px;
+    line-height: 18px;
     color: #000;
-    font-weight: 300;
-    padding: 0 20px;
-}
-
-div .torh4r {
-    line-height: 0px;
-    color: #000;
-    font-weight: 300;
+    font-weight: 400;
     padding: 0 20px;
     margin-bottom: 42px;
 }

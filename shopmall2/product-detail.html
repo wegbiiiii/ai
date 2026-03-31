@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Soft Minimal Chic Shop</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="page-header">
+            <a href="javascript:history.back()" class="back-button" aria-label="뒤로가기">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+            </a>
+            <h1 class="page-title">Detail</h1>
+        </header>
+
+        <div class="detail-page" id="product-detail-page">
+            <img src="" alt="상품 이미지" class="detail-hero-image" id="detail-main-image">
+
+            <section class="detail-content">
+                <span class="detail-category-chip" id="detail-category">상의</span>
+                <h2 class="detail-name" id="detail-name">상품명</h2>
+                <p class="detail-description" id="detail-description">상품 설명</p>
+
+                <div class="detail-price-row">
+                    <span class="detail-price" id="detail-price">0원</span>
+                    <span class="detail-original-price" id="detail-original-price">0원</span>
+                    <span class="detail-discount-badge" id="detail-discount-rate">0% OFF</span>
+                </div>
+
+                <div class="detail-info-card">
+                    <h3 class="detail-info-title">구매 정보</h3>
+                    <dl class="detail-info-list">
+                        <div class="detail-info-item">
+                            <dt>배송</dt>
+                            <dd>무료배송 / 1~3일 이내 출고</dd>
+                        </div>
+                        <div class="detail-info-item">
+                            <dt>사이즈</dt>
+                            <dd>S / M / L</dd>
+                        </div>
+                        <div class="detail-info-item">
+                            <dt>소재</dt>
+                            <dd>프리미엄 블렌드 패브릭</dd>
+                        </div>
+                        <div class="detail-info-item">
+                            <dt>혜택</dt>
+                            <dd>신규회원 5% 추가 쿠폰</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="detail-info-card">
+                    <h3 class="detail-info-title">상세 이미지</h3>
+                    <div class="detail-gallery" id="detail-gallery"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="detail-fixed-bar">
+            <button class="detail-buy-button" id="detail-buy-button" type="button">구매하기</button>
+        </div>
+    </div>
+
+    <script src="./script/script.js"></script>
+</body>
+</html>

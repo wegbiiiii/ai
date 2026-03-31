@@ -1,0 +1,16 @@
+
+
+div 방식
+
+ul li 방식
+
+
+
+아래로 배치되는 요소를 옆으로 배치해주는 css 명령
+
+부모요소에 코딩
+
+display:flex
+
+justfy-content
+

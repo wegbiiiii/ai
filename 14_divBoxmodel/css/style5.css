@@ -1,0 +1,62 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.box {
+    margin: 0 auto;
+    width: 350px;
+
+}
+
+.box .imgdiv {
+    width: 350px;
+    height: 260px;
+
+}
+
+.box .imgdiv img {
+    width: 350px;
+    height: 260px;
+}
+
+.box .infodiv {
+    width: 350px;
+
+    margin-top: -18px;
+    padding: 40px 0;
+}
+
+.box .infodiv p {
+    font-size: 14px;
+    color: #877abb;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.box .infodiv h3 {
+    font-size: 20px;
+    color: #111;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+}
+
+.box .infodiv h2 {
+    font-size: 22px;
+    color: #111;
+    font-weight: 900;
+}
+
+.box .infodiv h2 span {
+    font-size: 18px;
+    color: #111;
+    font-weight: 500;
+}

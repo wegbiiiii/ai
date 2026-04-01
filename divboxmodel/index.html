@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card UI Box</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f6f8;
+      font-family: Arial, sans-serif;
+    }
+
+    .card-wrap {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px;
+      list-style: none;
+    }
+
+    .card {
+      width: 480px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: none;
+      overflow: hidden;
+      list-style: none;
+    }
+
+    .card-image {
+      width: 480px;
+      height: 260px;
+      background: linear-gradient(135deg, #6ea8fe, #c2e9fb);
+    }
+
+    img {
+        width: 480px;
+        height: 260px;
+    }
+
+    .card-content {
+      padding: 0 0 42px 0;
+      list-style: none;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2dad8d;
+      margin: 42px 28px 16px 28px;
+      list-style: none;
+    }
+
+    .card-text {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #111;
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      margin: 0 28px 20px 28px;
+      list-style: none;
+    }
+
+    .card-hash {
+      font-size: 17px;
+      color: #9f9f9f;
+      margin: 0 28px 52px 28px;
+      list-style: none;
+    }
+
+    .card-price {
+      font-size: 26px;
+      font-weight: 900;
+      color: #111;
+      margin: 0 28px;
+      list-style: none;
+      text-align: right;
+    }
+
+    .card-price-unit {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <ul class="card-wrap">
+    <li class="card">
+      <ul class="card-content">
+        <li class="card-image"><img src="./images/635713457277990389.jpg" alt="여행1"></li>
+        <li class="card-title">패키지</li>
+        <li class="card-text">[선착순 특가]홋카이도 4일 #사계절의 매력 북해도 #후라보&비에이 #도야 ...</li>
+        <li class="card-hash">#6월연휴기간출발 #가족여행추천 #베스트상품</li>
+        <li class="card-price">1,159,000<span class="card-price-unit">원~</span></li>
+      </ul>
+    </li>
+
+    <li class="card">
+      <ul class="card-content">
+        <li class="card-image"><img src="./images/636844607357281152.jpg" alt="여행2"></li>
+        <li class="card-title">패키지</li>
+        <li class="card-text">[선착순 특가]홋카이도 4일 #사계절의 매력 북해도 #후라보&비에이 #도야 ...</li>
+        <li class="card-hash">#6월연휴기간출발 #가족여행추천 #베스트상품</li>
+        <li class="card-price">1,159,000<span class="card-price-unit">원~</span></li>
+      </ul>
+    </li>
+
+    <li class="card">
+      <ul class="card-content">
+        <li class="card-image"><img src="./images/638914519858575215.jpg" alt="여행3"></li>
+        <li class="card-title">패키지</li>
+        <li class="card-text">[선착순 특가]홋카이도 4일 #사계절의 매력 북해도 #후라보&비에이 #도야 ...</li>
+        <li class="card-hash">#6월연휴기간출발 #가족여행추천 #베스트상품</li>
+        <li class="card-price">1,159,000<span class="card-price-unit">원~</span></li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>

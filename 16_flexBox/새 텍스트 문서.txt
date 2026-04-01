@@ -1,0 +1,22 @@
+
+
+
+section
+
+
+h2
+
+
+div
+
+
+
+웹폰트 연결방법
+-> 구글 웹폰트 검색 -> get pont -> get embeded code -> web import code 복사
+
+
+
+box-sizing: border-box      <-초기화 프롬프트
+
+cursor: pointer
+

@@ -83,7 +83,7 @@
             display: grid;
             grid-template-columns: 313px 474px 313px; 
             grid-template-rows: 170px 170px 170px;
-            gap: 19px; /* 요청하신 19px로 수정 */
+            gap: 19px;
             width: 1140px;
             margin: 0 auto;
             text-align: left;
@@ -94,7 +94,7 @@
         }
 
         /* 개별 카드 스타일 */
-        .card {
+        .card, .card-empty {
             border: 1px solid #333;
             padding: 30px;
             display: flex;
@@ -106,8 +106,8 @@
             position: relative;
         }
 
-        /* 호버 효과: 오렌지 배경으로 변경 */
-        .card:hover {
+        /* 호버 효과: 오렌지 배경으로 변경 (왼쪽 빈 카드 포함) */
+        .card:hover, .card-empty:hover {
             background-color: #ff6600;
             border-color: #ff6600;
             color: #fff;
@@ -158,7 +158,10 @@
         }
 
         /* 영역별 위치 지정 */
-        .card-empty { grid-area: left-space; border: 1px solid #333; pointer-events: none; }
+        .card-empty { 
+            grid-area: left-space; 
+            /* pointer-events: none; 제거하여 호버 가능하게 수정 */
+        }
         .card-video { grid-area: main-video; }
         .card-share { grid-area: right-top; }
         .card-notice { grid-area: right-middle; }
@@ -245,8 +248,10 @@
         </header>
 
         <main class="grid-container">
+            <!-- 왼쪽 빈 영역 (호버 기능 추가됨) -->
             <div class="card-empty"></div>
 
+            <!-- 홍보영상 -->
             <a href="#" class="card card-video">
                 <div class="content">
                     <h2>홍보영상</h2>
@@ -255,6 +260,7 @@
                 <div class="btn-more">자세히 보기</div>
             </a>
 
+            <!-- 맛있는 나눔 -->
             <a href="#" class="card card-share">
                 <div class="content">
                     <h2>맛있는 나눔</h2>
@@ -263,6 +269,7 @@
                 <div class="btn-more">자세히 보기</div>
             </a>
 
+            <!-- 공지사항 -->
             <a href="#" class="card card-notice">
                 <div class="content">
                     <h2>공지사항</h2>
@@ -271,6 +278,7 @@
                 <div class="btn-more">자세히 보기</div>
             </a>
 
+            <!-- 고객 문의 -->
             <a href="#" class="card card-contact">
                 <div class="content">
                     <h2>고객 문의</h2>
@@ -279,6 +287,7 @@
                 <div class="btn-more">자세히 보기</div>
             </a>
 
+            <!-- 삼양식품 공식몰 -->
             <a href="#" class="card card-mall">
                 <div class="content">
                     <h2>삼양식품 공식몰</h2>

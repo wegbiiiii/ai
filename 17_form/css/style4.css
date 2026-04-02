@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+
+form {
+    width: 528px;
+}
+
+form li {
+    list-style: none;
+
+}
+
+form .grammer p {
+    padding-left: 0;
+}
+

@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+form {
+    width: 428px;
+}
+
+form li {
+    list-style: none;
+}
+
+form input[type="name"] {
+    width: 177px;
+}
+
+form input[type="date"] {
+    width: 141px;
+}

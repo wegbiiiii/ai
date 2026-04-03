@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form*데이터베이스연결</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="formbox">
+        <form method="post" name="submit-to-google-sheet">
+            <input type="text" placeholder="Your Name" name="Name">
+            <input type="email" placeholder="Your Email" name="Email">
+            <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+            <input type="submit" class="btn" value="Submit">
+        </form>
+        <!--전송 상황을 메시지로 알려주는 요소-->
+        <span class="msg"></span>
+    </div>
+
+    <script src="script/script.js"></script>
+</body>
+</html>

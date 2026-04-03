@@ -85,3 +85,7 @@ form .subnumber {
     height: 24px
     
 }
+
+form input[type="number"] {
+    text-align: right;
+}

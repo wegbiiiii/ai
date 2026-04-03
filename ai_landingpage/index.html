@@ -351,20 +351,24 @@
         <h2 class="text-2xl font-bold mb-2 text-center text-[#6310FF]">이벤트 응모</h2>
         <p id="selectedProductDisplay" class="text-center text-sm text-gray-500 mb-6 font-medium"></p>
         
-        <form id="eventForm" class="space-y-5">
+        <form id="eventForm" class="space-y-4">
             <!-- Hidden field for Product name -->
             <input type="hidden" name="Product" id="hiddenProduct">
             
             <div>
-                <label class="block text-sm font-bold mb-2 text-gray-700">이름</label>
-                <input type="text" name="Name" required placeholder="실명을 입력해주세요" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-[#6310FF] outline-none">
+                <label class="block text-sm font-bold mb-1 text-gray-700">이름</label>
+                <input type="text" name="Name" required placeholder="실명을 입력해주세요" class="w-full px-4 py-2.5 border border-gray-300 rounded focus:border-[#6310FF] outline-none">
             </div>
             <div>
-                <label class="block text-sm font-bold mb-2 text-gray-700">전화번호</label>
-                <input type="tel" name="Callnumber" required placeholder="010-0000-0000" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-[#6310FF] outline-none">
+                <label class="block text-sm font-bold mb-1 text-gray-700">전화번호</label>
+                <input type="tel" name="Callnumber" required placeholder="010-0000-0000" class="w-full px-4 py-2.5 border border-gray-300 rounded focus:border-[#6310FF] outline-none">
+            </div>
+            <div>
+                <label class="block text-sm font-bold mb-1 text-gray-700">이메일</label>
+                <input type="email" name="Email" required placeholder="example@email.com" class="w-full px-4 py-2.5 border border-gray-300 rounded focus:border-[#6310FF] outline-none">
             </div>
             
-            <button type="submit" id="submitBtn" class="w-full bg-[#6310FF] hover:bg-[#5209D6] text-white font-bold py-4 rounded transition-colors text-lg mt-4">
+            <button type="submit" id="submitBtn" class="w-full bg-[#6310FF] hover:bg-[#5209D6] text-white font-bold py-3.5 rounded transition-colors text-lg mt-2">
                 신청하기
             </button>
         </form>

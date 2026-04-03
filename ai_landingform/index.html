@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="AI 협업 가이드 — 더 가치 있는 일에 집중하세요">
+<meta property="og:description" content="반복 업무는 AI에게, 창의적인 일의 즐거움을 되찾는 실무 AI 협업 가이드">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://placehold.co/1200x630/3182F6/FFFFFF?text=AI+협업+가이드">
+<title>AI 협업 가이드 — 더 가치 있는 일에 집중하세요</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 기존 style.css 내용 통합 */
+@charset "utf-8";
+:root {
+  --blue:#3182F6; --blue-dark:#1B64DA; --blue-deeper:#1253B5;
+  --blue-5:#F0F6FF; --blue-10:#E1EDFF; --blue-20:#C2DAFF;
+  --gray-0:#FFFFFF; --gray-2:#F9FAFB; --gray-5:#F2F4F6;
+  --gray-10:#E8EAED; --gray-20:#D1D6DB; --gray-40:#9EA7AD;
+  --gray-60:#6B7684; --gray-80:#333D4B; --gray-100:#191F28;
+  --font:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
+  --max-w:1080px; --r-xs:8px; --r-sm:12px; --r:20px; --r-lg:28px;
+  --sh-sm:0 2px 8px rgba(0,0,0,.06); --sh:0 8px 24px rgba(0,0,0,.08);
+  --sh-lg:0 20px 48px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--gray-0);color:var(--gray-100);line-height:1.5;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+li{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--blue);z-index:2000;width:0%;transition:width .1s ease-out}
+#navbar{position:fixed;top:0;left:0;width:100%;height:64px;z-index:1000;transition:all .3s ease;display:flex;align-items:center;padding:0 clamp(20px,5vw,48px)}
+#navbar.scrolled{background:rgba(255,255,255,.8);backdrop-filter:blur(20px);box-shadow:var(--sh-sm);height:56px}
+.nav-in{width:100%;max-width:var(--max-w);margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:900;letter-spacing:-.8px;color:var(--gray-100)}
+.logo span{color:var(--blue)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-lnk{font-size:15px;font-weight:500;color:var(--gray-60);transition:color .2s}
+.nav-lnk:hover{color:var(--blue)}
+.btn-s{background:var(--blue);color:#fff;padding:8px 16px;border-radius:var(--r-xs);font-weight:700;font-size:14px;transition:all .2s}
+.btn-s:hover{background:var(--blue-dark);transform:translateY(-1px)}
+
+section{padding:100px clamp(20px,5vw,48px);overflow:hidden}
+.inner{max-width:var(--max-w);margin:0 auto}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(0.2,0.8,0.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+#hero{padding-top:160px;padding-bottom:120px;text-align:center;background:linear-gradient(180deg, var(--blue-5) 0%, #fff 100%)}
+#hero .tag{display:inline-block;padding:6px 14px;background:var(--blue-10);color:var(--blue);border-radius:100px;font-size:14px;font-weight:700;margin-bottom:24px}
+#hero h1{font-size:clamp(32px, 8vw, 64px);font-weight:900;line-height:1.15;letter-spacing:-2px;margin-bottom:24px}
+#hero p{font-size:clamp(17px, 2.5vw, 22px);color:var(--gray-60);margin-bottom:48px;max-width:700px;margin-inline:auto;word-break:keep-all}
+.hero-btns{display:flex;gap:12px;justify-content:center;margin-bottom:80px}
+.btn-p{background:var(--blue);color:#fff;padding:20px 40px;border-radius:var(--r);font-size:18px;font-weight:700;box-shadow:var(--sh);transition:all .3s}
+.btn-p:hover{background:var(--blue-dark);transform:translateY(-4px);box-shadow:var(--sh-lg)}
+
+.hero-stats{display:flex;gap:40px;justify-content:center;background:#fff;padding:32px 64px;border-radius:var(--r-lg);box-shadow:var(--sh);max-width:max-content;margin:0 auto}
+.stat-item{text-align:center}
+.stat-num{display:block;font-size:32px;font-weight:900;color:var(--blue);margin-bottom:4px}
+.stat-lab{font-size:14px;color:var(--gray-40);font-weight:500}
+
+#problems{background:var(--gray-2)}
+.sec-head{text-align:center;margin-bottom:64px}
+.sec-head h2{font-size:clamp(28px, 5vw, 40px);font-weight:900;letter-spacing:-1.2px;margin-bottom:16px}
+.sec-head p{color:var(--gray-60);font-size:18px}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.prob-card{background:#fff;padding:40px;border-radius:var(--r);box-shadow:var(--sh-sm);transition:transform .3s}
+.prob-card:hover{transform:translateY(-8px)}
+.prob-icon{font-size:32px;margin-bottom:20px;display:block}
+.prob-card h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.prob-card p{color:var(--gray-60);word-break:keep-all}
+
+#value{background:var(--gray-100);color:#fff}
+.val-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:40px}
+.val-item{padding:40px;background:rgba(255,255,255,0.05);border-radius:var(--r);border:1px solid rgba(255,255,255,0.1)}
+.val-item h3{font-size:24px;font-weight:700;margin-bottom:16px;color:var(--blue-20)}
+.val-item p{color:rgba(255,255,255,0.7);line-height:1.7}
+
+#cta{background:var(--blue);color:#fff;text-align:center;padding:120px 20px}
+.cta-box{max-width:800px;margin:0 auto}
+.cta-box h2{font-size:clamp(32px, 6vw, 48px);font-weight:900;margin-bottom:24px;letter-spacing:-1.5px}
+.cta-box p{font-size:20px;margin-bottom:48px;opacity:0.9}
+.cta-feats{display:flex;gap:16px;justify-content:center;margin-bottom:48px;flex-wrap:wrap}
+.cta-feat{background:rgba(255,255,255,0.15);padding:10px 20px;border-radius:100px;font-weight:600;font-size:15px}
+.btn-w{background:#fff;color:var(--blue);padding:22px 56px;border-radius:var(--r);font-size:20px;font-weight:800;transition:all .3s}
+.btn-w:hover{transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+.cta-note{margin-top:24px;font-size:14px;opacity:0.7}
+
+/* 모달 및 폼 스타일 */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-backdrop{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);backdrop-filter:blur(4px)}
+.modal-panel{position:relative;background:#fff;width:100%;max-width:480px;border-radius:var(--r-lg);padding:40px;box-shadow:var(--sh-lg);animation:mPop .4s cubic-bezier(0.18,0.89,0.32,1.28)}
+@keyframes mPop{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:20px;right:20px;font-size:28px;color:var(--gray-40);line-height:1}
+.modal-title{font-size:24px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.modal-desc{color:var(--gray-60);font-size:15px;margin-bottom:32px}
+
+/* 신청 폼 스타일 */
+.apply-form{display:flex;flex-direction:column;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group label{font-size:14px;font-weight:700;color:var(--gray-80)}
+.form-group input, .form-group textarea{
+    width:100%; padding:14px 16px; border:1px solid var(--gray-20); border-radius:var(--r-sm);
+    font-size:16px; transition:all .2s; font-family:inherit;
+}
+.form-group input:focus, .form-group textarea:focus{
+    outline:none; border-color:var(--blue); box-shadow:0 0 0 4px var(--blue-10);
+}
+.form-group textarea{height:120px; resize:none}
+.btn-submit{
+    background:var(--blue); color:#fff; padding:16px; border-radius:var(--r-sm);
+    font-size:16px; font-weight:700; margin-top:10px; transition:all .2s;
+}
+.btn-submit:hover{background:var(--blue-dark)}
+.btn-submit:disabled{background:var(--gray-20); cursor:not-allowed}
+
+/* 완료 메시지 */
+#form-result{display:none; text-align:center; padding:20px 0}
+#form-result h4{font-size:20px; margin-bottom:12px; color:var(--blue)}
+
+footer{background:#0D1117;color:rgba(255,255,255,.3);padding:56px clamp(20px,5vw,48px)}.foot-in{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}.foot-logo{font-size:17px;font-weight:900;letter-spacing:-.5px;color:rgba(255,255,255,.55)}.foot-logo span{color:var(--blue)}.foot-links{display:flex;gap:24px;flex-wrap:wrap}.foot-lnk{font-size:13px;color:rgba(255,255,255,.25);transition:color .2s}.foot-lnk:hover{color:rgba(255,255,255,.5)}.foot-copy{font-size:12px;color:rgba(255,255,255,.2)}
+@media(max-width:1023px){.prob-grid,.val-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:767px){#hero h1{letter-spacing:-1.5px}.hero-stats{flex-direction:column;border-radius:var(--r-sm)}.stat-item+.stat-item{padding-top:20px;border-top:1px solid var(--gray-5)}}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header id="navbar">
+  <div class="nav-in">
+    <a href="#" class="logo">AI<span>협업</span>가이드</a>
+    <nav class="nav-links">
+      <a href="#problems" class="nav-lnk">Pain Points</a>
+      <a href="#value" class="nav-lnk">핵심 가치</a>
+      <button class="btn-s" type="button" data-open-modal>신청하기</button>
+    </nav>
+  </div>
+</header>
+
+<section id="hero">
+  <div class="inner">
+    <span class="tag reveal">AI 시대, 살아남는 법</span>
+    <h1 class="reveal">더 가치 있는 일에<br>집중하세요</h1>
+    <p class="reveal">단순 반복 업무는 AI에게 맡기세요. 실무에서 바로 써먹는 초격차 AI 협업 워크플로우를 공개합니다.</p>
+    <div class="hero-btns reveal">
+      <button class="btn-p" type="button" data-open-modal>가이드북 무료 신청하기</button>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="stat-item">
+        <span class="stat-num"><em>1500</em>+</span>
+        <span class="stat-lab">누적 신청자</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num"><em>98</em>%</span>
+        <span class="stat-lab">업무 만족도</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num"><em>4</em>h</span>
+        <span class="stat-lab">일 평균 단축 시간</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="problems">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <h2>혹시 이런 고민 중이신가요?</h2>
+      <p>AI가 중요하다는 건 알지만, 정작 내 업무에는 어떻게 쓰는지 모르겠다면</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob-card reveal">
+        <span class="prob-icon">😰</span>
+        <h3>막막한 프롬프트</h3>
+        <p>챗GPT를 켜도 무슨 질문부터 해야 할지 몰라 결국 직접 하게 됩니다.</p>
+      </div>
+      <div class="prob-card reveal">
+        <span class="prob-icon">⏳</span>
+        <h3>끝없는 반복 업무</h3>
+        <p>복사, 붙여넣기, 요약하기... 매일 똑같은 루틴에 에너지를 뺏기고 있습니다.</p>
+      </div>
+      <div class="prob-card reveal">
+        <span class="prob-icon">🚀</span>
+        <h3>뒤처지는 속도</h3>
+        <p>옆자리 동료는 AI로 1시간 만에 끝내는데, 나는 야근을 고민합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="value">
+  <div class="inner">
+    <div class="val-grid">
+      <div class="val-item reveal">
+        <h3>현업 밀착형 가이드</h3>
+        <p>이론 중심이 아닌, 당장 내일 출근해서 써먹을 수 있는 실무 예제와 템플릿을 드립니다.</p>
+      </div>
+      <div class="val-item reveal">
+        <h3>지속 가능한 자동화</h3>
+        <p>단순 답변을 넘어, 업무 전체 흐름을 AI와 함께 구축하는 방법을 제안합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="inner">
+    <div class="cta-box reveal">
+      <h2>변화의 시작은 신청 한 번으로</h2>
+      <p>지금 바로 가이드북을 받고 AI와 함께하는 업무의 즐거움을 경험해 보세요.</p>
+      <div class="cta-feats">
+        <div class="cta-feat">✅ 실무 프롬프트 템플릿</div>
+        <div class="cta-feat">✅ AI 대화법 가이드</div>
+        <div class="cta-feat">✅ 업무 자동화 워크플로우</div>
+      </div>
+      <button class="btn-w" type="button" data-open-modal>신청하기 →</button>
+      <p class="cta-note">* 신청 즉시 입력하신 이메일로 가이드가 발송됩니다</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo">AI<span>협업</span>가이드</div>
+    <nav class="foot-links">
+      <a href="#problems" class="foot-lnk">Pain Points</a>
+      <a href="#value" class="foot-lnk">핵심 가치</a>
+      <a href="#cta" class="foot-lnk">신청하기</a>
+    </nav>
+    <p class="foot-copy">© 2026 AI협업가이드. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- 신청 모달 팝업 -->
+<div class="modal" id="apply-modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" type="button" aria-label="팝업 닫기" data-close-modal>×</button>
+    <h3 class="modal-title" id="modal-title">가이드북 신청하기</h3>
+    <p class="modal-desc">정보를 입력해주시면 확인 후 가이드를 보내드립니다.</p>
+    
+    <form id="apply-form" class="apply-form">
+      <div class="form-group">
+        <label for="user-name">이름</label>
+        <input type="text" id="user-name" name="Name" placeholder="성함을 입력해주세요" required>
+      </div>
+      <div class="form-group">
+        <label for="user-email">이메일</label>
+        <input type="email" id="user-email" name="Email" placeholder="example@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="user-message">메시지 (선택)</label>
+        <textarea id="user-message" name="Message" placeholder="궁금하신 점이나 남기실 말씀을 적어주세요"></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="submit-btn">지금 신청하기</button>
+    </form>
+
+    <div id="form-result">
+      <h4>🎉 신청이 완료되었습니다!</h4>
+      <p>입력하신 이메일로 가이드를 곧 보내드릴게요.</p>
+      <button class="btn-p" style="margin-top:20px; padding:12px 24px;" data-close-modal>확인</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 스크롤 프로그레스 바 및 네비게이션 효과
+  var bar=document.getElementById('progress-bar');
+  function upBar(){var s=window.scrollY,t=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(t>0?s/t*100:0)+'%';}
+  var nav=document.getElementById('navbar');
+  function upNav(){nav.classList.toggle('scrolled',window.scrollY>12);}
+  window.addEventListener('scroll',function(){upBar();upNav();},{passive:true});
+  upBar();upNav();
+
+  // Reveal 애니메이션
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // 숫자 카운팅 애니메이션
+  var statsEl=document.querySelector('.hero-stats');
+  var counted=false;
+  var sio=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting&&!counted){
+      counted=true;
+      document.querySelectorAll('.stat-num em').forEach(function(em){
+        var raw=em.textContent,num=parseInt(raw);
+        var s=0,step=num/(900/16);
+        var t=setInterval(function(){s+=step;if(s>=num){s=num;clearInterval(t);}em.textContent=Math.floor(s);},16);
+      });
+    }
+  });
+  if(statsEl)sio.observe(statsEl);
+
+  // 모달 제어
+  var modal=document.getElementById('apply-modal');
+  var applyForm = document.getElementById('apply-form');
+  var formResult = document.getElementById('form-result');
+  var lastFocus=null;
+
+  function openModal(){
+      lastFocus=document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // 초기화
+      applyForm.style.display = 'flex';
+      formResult.style.display = 'none';
+      applyForm.reset();
+  }
+  function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if(lastFocus&&typeof lastFocus.focus==='function')lastFocus.focus();
+  }
+
+  document.querySelectorAll('[data-open-modal]').forEach(function(btn){btn.addEventListener('click',openModal);});
+  document.querySelectorAll('[data-close-modal]').forEach(function(btn){btn.addEventListener('click',closeModal);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+
+  // 폼 전송 로직
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPQs-hM9kvi2g9hVoovp-5VGxMnw-9njoYWIH9xqUFxIWwZUuDIdKP_YpLzzk8n5nnkg/exec';
+
+  applyForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = '전송 중...';
+
+      // FormData 객체 생성
+      const formData = new FormData();
+      formData.append('Name', document.getElementById('user-name').value);
+      formData.append('Email', document.getElementById('user-email').value);
+      formData.append('Message', document.getElementById('user-message').value);
+
+      // fetch를 이용한 전송 (Google Apps Script POST 호출)
+      fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => {
+          // 성공 시 화면 전환
+          applyForm.style.display = 'none';
+          formResult.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '지금 신청하기';
+      })
+      .catch(error => {
+          console.error('Error!', error.message);
+          alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = '지금 신청하기';
+      });
+  });
+
+})();
+</script>
+
+</body>
+</html>

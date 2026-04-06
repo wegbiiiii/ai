@@ -1,0 +1,187 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
+
+
+body {
+    font-family: 'Pretendard';
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*헤더 영역*/
+header {
+    width: 1200px;
+    height: 150px;
+    background: #ccc;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /*부모 요소 기준 위아래 정렬*/
+    align-items: center;
+}
+
+/*헤더 검색영역*/
+header .search {
+    width: 350px;
+    height: 60px;
+    background: brown;
+}
+
+/*헤더 로고 영역*/
+header .logo {
+    width: 350px;
+    height: 70px;
+    background: greenyellow;
+}
+
+/*헤더 오른쪽 박스 영역*/
+header .right {
+    width: 350px;
+    height: 90px;
+    background: blueviolet;
+}
+
+
+/*id는 #, class는 .*/
+#slide {
+    width: 100%;
+    height: 450px;
+    background: red;
+
+}
+
+/*메인 영역*/
+main {
+    width: 1200px;
+    
+    background: blue;
+    margin: 0 auto;
+    min-height: 600px;
+    
+}
+
+main .banchan {
+    width: 100%;
+    height: 1000px;
+    background: purple;
+    border: 5px solid #000;
+}
+
+main .day-banchan {
+    width: 100%;
+    height: 600px;
+    background: purple;
+    border: 5px solid red;
+}
+
+main .new-banchan {
+    width: 100%;
+    height: 1000px;
+    background: purple;
+    border: 5px solid blue;
+}
+
+main .banner {
+    width: 100%;
+    height: 200px;
+    background: purple;
+    border: 5px solid green;
+}
+
+main .MD-banchan {
+    width: 100%;
+    height: 1000px;
+    background: purple;
+    border: 5px solid yellow;
+}
+
+
+/*footer*/
+footer {
+    width: 1200px;
+    height: 200px;
+    background: green;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .footer-left {
+    width: 385px;
+    height: 125px;
+    background: #83a166;
+}
+
+footer .footer-right {
+    width: 775px;
+    height: 125px;
+    background: #723737;
+}

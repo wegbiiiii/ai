@@ -12,8 +12,9 @@
     }
 
     body {
-      background: #ececec;
+      
       font-family: Arial, sans-serif;
+      color: #111;
     }
 
     .wrap {
@@ -70,8 +71,145 @@
     }
 
     .side-dish-box {
-      height: 1000px;
-      background: #f000ff;
+      min-height: 1000px;
+      height: auto;
+      
+      padding: 50px 11px 32px;
+    }
+
+    .side-dish-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .side-dish-title {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .side-dish-subtitle {
+      font-size: 12px;
+      color: #7d7d7d;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .side-dish-grid {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .side-dish-card {
+      width: calc((100% - 48px) / 4);
+      max-width: 282px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .side-dish-thumb {
+      width: 100%;
+      height: 370px;
+      position: relative;
+      overflow: hidden;
+      background: #f3f1ed;
+    }
+
+    .side-dish-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .side-dish-content {
+      padding: 0;
+      margin: 16px;
+    }
+
+    .side-dish-badges {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 3px;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: inline-block;
+    }
+
+    .badge-red {
+      background: #ff6c6c;
+      color: #fff;
+    }
+
+    .badge-orange {
+      background: #ffb13b;
+      color: #fff;
+    }
+
+    .badge-green {
+      background: #58a95c;
+      color: #fff;
+    }
+
+    .side-dish-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .side-dish-desc {
+      font-size: 16px;
+      color: #8a8a8a;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .side-dish-price-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .side-dish-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .side-dish-discount {
+      color: #ff6c00;
+      margin-right: 3px;
+      font-size: 16px;
+    }
+
+    .side-dish-original {
+      width: 100%;
+      font-size: 10px;
+      color: #9d9d9d;
+      text-decoration: line-through;
+      line-height: 1;
+      margin-top: 0;
     }
 
     .regular-side-dish-box {
@@ -127,7 +265,111 @@
     <section class="red-band"></section>
 
     <main class="blue-box">
-      <div class="blue-box__section side-dish-box"></div>
+      <section class="blue-box__section side-dish-box">
+        <div class="side-dish-header">
+          <h2 class="side-dish-title">부담없는 알뜰 반찬</h2>
+          <p class="side-dish-subtitle">넉넉한 가격으로 만나는 든든한 한 끼</p>
+        </div>
+
+        <div class="side-dish-grid">
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_252_ZIP_P_8073_A.jpg" alt="쭈꾸미 미니 바질 파스타" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">특가상품</span></div>
+              <h3 class="side-dish-name">쭈꾸미 미니 바질 파스타</h3>
+              <p class="side-dish-desc">쫄깃한 식감과 풍미를 가볍게 즐기는 인기 메뉴</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price"><span class="side-dish-discount">7%</span>12,800원</p><span class="side-dish-original">13,800원</span></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_253_ZIP_P_8075_A.jpg" alt="쭈꾸미 미니 파스타" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">특가상품</span></div>
+              <h3 class="side-dish-name">쭈꾸미 미니 파스타</h3>
+              <p class="side-dish-desc">가볍고 산뜻한 맛으로 즐기는 데일리 파스타</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price"><span class="side-dish-discount">7%</span>12,800원</p><span class="side-dish-original">13,800원</span></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_254_ZIP_P_8067_A.jpg" alt="잡채" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-green">정기</span><span class="badge badge-orange">무료증정</span></div>
+              <h3 class="side-dish-name">잡채</h3>
+              <p class="side-dish-desc">탱글한 당면과 감칠맛으로 완성한 인기 반찬</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">12,800원</p></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_255_ZIP_P_8066_A.jpg" alt="판끼 한돈제육, 양조리" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-green">정기</span><span class="badge badge-orange">무료증정</span></div>
+              <h3 class="side-dish-name">판끼 한돈제육, 양조리</h3>
+              <p class="side-dish-desc">든든하게 즐기는 매콤한 제육 볶음</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">6,800원</p></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_260_fry_4.jpg" alt="[밑더스쿱] 된장국" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기상품</span></div>
+              <h3 class="side-dish-name">[밑더스쿱] 된장국</h3>
+              <p class="side-dish-desc">구수하고 편안하게 즐기는 집밥 국물 반찬</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">3,200원</p></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_261_fry_1.jpg" alt="[밑더스쿱] 맑은 순두부찌개" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기상품</span></div>
+              <h3 class="side-dish-name">[밑더스쿱] 맑은 순두부찌개</h3>
+              <p class="side-dish-desc">부드럽고 담백해서 부담 없이 즐기기 좋은 메뉴</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">4,300원</p></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_262_fry_3.jpg" alt="[밑더스쿱] 맛살 계란 덮밥" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기상품</span></div>
+              <h3 class="side-dish-name">[밑더스쿱] 맛살 계란 덮밥</h3>
+              <p class="side-dish-desc">한 그릇으로 간편하게 즐기는 따뜻한 덮밥</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">4,300원</p></div>
+            </div>
+          </article>
+
+          <article class="side-dish-card">
+            <div class="side-dish-thumb">
+              <img src="./images/04_md_banchan/imgi_263_fry_5.jpg" alt="[밑더스쿱] 한우 스테이크소스 덮밥" />
+            </div>
+            <div class="side-dish-content">
+              <div class="side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기상품</span></div>
+              <h3 class="side-dish-name">[밑더스쿱] 한우 스테이크소스 덮밥</h3>
+              <p class="side-dish-desc">진한 풍미의 소스로 완성한 든든한 한 끼</p>
+              <div class="side-dish-price-wrap"><p class="side-dish-price">4,600원</p></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <div class="blue-box__section regular-side-dish-box"></div>
       <div class="blue-box__section new-side-dish-box"></div>
       <div class="blue-box__section banner-box"></div>

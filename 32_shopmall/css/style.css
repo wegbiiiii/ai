@@ -138,7 +138,7 @@ main .banchan {
 }
 
 
-main .banchan .title {
+.title {
     text-align: center;
     
 }
@@ -250,13 +250,132 @@ main .banchan .product .card .info .price {
 
 
 
-
+/*정기적 반찬 영역*/
 main .day-banchan {
     width: 100%;
-    height: 600px;
-    background: purple;
-    border: 5px solid red;
+    
+    /*background: purple;
+    border: 5px solid red;*/
+    padding: 50px 16px 16px;
 }
+
+
+main .day-banchan .tit {
+    text-align: center;
+}
+
+main .day-banchan .tit h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+main .day-banchan .tit p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #827C77;
+    margin-bottom: 16px;
+}
+
+
+main .day-banchan .product {
+    width: 1168px;
+    display: flex;
+    gap: 16px;
+}
+
+main .day-banchan .product .dbcard {
+    width: 280px;
+    
+    
+    
+}
+
+main .day-banchan .product .dbcard .dbimgbox {
+    width: 100%;
+    height: 380px;
+    position: relative;
+
+}
+
+main .day-banchan .product .dbcard .dbimgbox .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+main .day-banchan .product .dbcard .dbimgbox .sale {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+}
+
+main .day-banchan .product .dbcard .dbimgbox .lock {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+main .day-banchan .product .dbcard .dbinfobox {
+    width: 100%;
+    padding: 16px;
+    background: #fff;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .newproduct {
+    font-size: 12px;
+    font-weight: 600;
+    color: #bd2420;
+    padding: 4px;
+    background: #eec6c6;
+    border-radius: 4px;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .nospicy {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ba7e20;
+    padding: 4px;
+    background: #f5af40;
+    border-radius: 4px;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .db_h3 {
+    margin-top: 6px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .db_p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #838383;
+    font-weight: 600;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .db_h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 6px;
+}
+
+main .day-banchan .product .dbcard .dbinfobox .db_h4 .discount {
+    color: #bd2420;
+}
+
+
+main .day-banchan .product .dbcard .dbinfobox .price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #b0b0b0;
+    text-decoration: line-through;
+    margin-top: 6px;
+}
+
+
 
 main .new-banchan {
     width: 100%;

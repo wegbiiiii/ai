@@ -132,27 +132,28 @@ main .banchan {
     /*height: 1300px;*/
     /*background: purple;*/
     /*border: 5px solid #000;*/
-    padding: 50px 16px;
+    padding: 50px 16px 16px;
 
 
 }
 
 
-.title {
+main .banchan .title {
     text-align: center;
     
 }
 
-.title h2 {
+main .banchan .title h2 {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 16px;
 }
 
-.title p {
+main .banchan .title p {
     font-size: 16px;
     font-weight: 500;
     color: #868686;
+    margin-bottom: 16px;
 }
 
 main .banchan .product {
@@ -160,7 +161,7 @@ main .banchan .product {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
-    margin-top: 39px;
+    
 }
 
 main .banchan .product .card {
@@ -266,7 +267,7 @@ main .day-banchan .tit {
 
 main .day-banchan .tit h2 {
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 500;
     color: #333;
     margin-bottom: 16px;
 }

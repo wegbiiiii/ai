@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+    height: 3000px;
+}
+
+div {
+    width: 200px;
+    height: 200px;
+    border: 2px solid #000;
+}
+
+.box1 {
+    background: red;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*레이어 순서 변경*/
+
+    z-index: 3;
+
+    position: static;
+}
+
+.box2 {
+    background: green;
+    /*브라우저 기준으로 정렬안할 때*/
+    position: relative;
+}
+
+.box2 div {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #000;
+}
+
+.box2 .ch1 {
+    background: orange;
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    z-index: 3;
+}
+
+.box2 .ch2 {
+    background: purple;
+    position: absolute;
+    left: 90px;
+    top: 90px;
+    z-index: 4;
+}
+
+
+
+.box3 {
+    background: blue;
+}
+
+.box4 {
+    background: yellow;
+    /*position: absolute;
+    left: 50px;
+    top: 50px;
+    position: static;*/
+    position: absolute;
+    /*top: 300px;*/
+    /*bottom: 0;
+    right: 0;*/
+
+    /*브라우저 기준으로 가운데 정렬*/
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -100px;
+    z-index: 4;
+}
+

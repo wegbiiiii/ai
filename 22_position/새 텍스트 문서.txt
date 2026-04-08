@@ -1,0 +1,22 @@
+****position
+
+
+
+
+요소를 공중에 띄워서 배치하는 명령
+
+<방법>
+1. position:absolute -> 공중에 띄워서 배치    (웹브라우저 기준으로 배치)
+			left, right, top, bottom
+			<사용법>
+			left, top
+			right, top
+			left, bottom
+			right, bottom
+			<사용불가>
+			left:right
+			top:bottom
+2. position:relative -> 부모 요소 기준으로 공중에 띄워서 배치
+3. position:fixed -> 해당 요소를 고정시킬 때 사용
+4. position:static -> 공중에 띄워서 배치한 것을 (해제)
+5.공중에 띄운 요소까지 레이어 순서 바꾸기 -> z-index:레이어 순서

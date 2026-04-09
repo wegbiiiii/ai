@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+
+
+.box {
+    width: 1000px;
+    height: 600px;
+    border: 10px solid red;
+    margin: 0 auto;
+
+
+    background-image: url("../images/icon.png");
+    background-repeat: repeat-x;
+    background-repeat: repeat-y;
+    background-repeat: no-repeat;
+
+    background-position: 50px 100px;
+
+    background-position: 50% 50%;
+    background-position: right bottom;
+    background-size: 64px 64px;
+    background-color: green;
+}
+
+/*배경 이미지 삽입은 css*/
+
+.box1 {
+    width: 1000px;
+    height: 600px;
+    border: 10px solid red;
+    margin: 0 auto;
+
+    /*약식 코딩*/
+    background: green url("../images/icon.png") no-repeat bottom right;
+    background-size: 64px 64px;
+}   

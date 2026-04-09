@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+.textbox {
+    width: 700px;
+    height: 130px;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px gray;
+    border-radius: 6px;
+    margin-bottom: 100px;
+}
+
+.blackbox {
+    width: 700px;
+    height: 130px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blackbox .t {
+    font-size: 48px;
+    font-weight: 900;
+    text-shadow: 2px 2px 0 #fff;
+    margin-right: 12px;
+}
+
+.blackbox .s {
+    font-size: 48px;
+    font-weight: 900;
+    text-shadow: 0 0 10px #d2d2d2;
+}

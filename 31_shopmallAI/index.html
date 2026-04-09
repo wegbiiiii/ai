@@ -12,7 +12,6 @@
     }
 
     body {
-      
       font-family: Arial, sans-serif;
       color: #111;
     }
@@ -73,16 +72,17 @@
     .side-dish-box {
       min-height: 1000px;
       height: auto;
-      
       padding: 50px 11px 32px;
     }
 
-    .side-dish-header {
+    .side-dish-header,
+    .regular-side-dish-header {
       text-align: center;
       margin-bottom: 28px;
     }
 
-    .side-dish-title {
+    .side-dish-title,
+    .regular-side-dish-title {
       font-size: 26px;
       font-weight: 700;
       line-height: 1.2;
@@ -90,29 +90,36 @@
       letter-spacing: -0.03em;
     }
 
-    .side-dish-subtitle {
+    .side-dish-subtitle,
+    .regular-side-dish-subtitle {
       font-size: 12px;
       color: #7d7d7d;
       line-height: 1.4;
       letter-spacing: -0.02em;
     }
 
-    .side-dish-grid {
+    .side-dish-grid,
+    .regular-side-dish-grid {
       width: 100%;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       gap: 16px;
     }
 
-    .side-dish-card {
+    .side-dish-grid {
+      flex-wrap: wrap;
+    }
+
+    .side-dish-card,
+    .regular-side-dish-card {
       width: calc((100% - 48px) / 4);
       max-width: 282px;
       background: #fff;
       overflow: hidden;
     }
 
-    .side-dish-thumb {
+    .side-dish-thumb,
+    .regular-side-dish-thumb {
       width: 100%;
       height: 370px;
       position: relative;
@@ -120,7 +127,8 @@
       background: #f3f1ed;
     }
 
-    .side-dish-thumb img {
+    .side-dish-thumb img,
+    .regular-side-dish-thumb > img {
       width: 100%;
       height: 100%;
       display: block;
@@ -128,12 +136,42 @@
       object-position: center;
     }
 
-    .side-dish-content {
+    .regular-side-dish-sale-badge {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 48px;
+      height: 48px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .regular-side-dish-sale-badge img,
+    .regular-side-dish-cart-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .regular-side-dish-cart-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 40px;
+      height: 40px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .side-dish-content,
+    .regular-side-dish-content {
       padding: 0;
       margin: 16px;
     }
 
-    .side-dish-badges {
+    .side-dish-badges,
+    .regular-side-dish-badges {
       display: flex;
       gap: 4px;
       margin-bottom: 10px;
@@ -150,21 +188,25 @@
     }
 
     .badge-red {
-      background: #ff6c6c;
-      color: #fff;
+      background: #F5DEDE;
+      color: #C43B37;
+      border-radius: 8px;
     }
 
     .badge-orange {
-      background: #ffb13b;
-      color: #fff;
+      background: #FDF0DC;
+      color: #F4A221;
+      border-radius: 8px;
     }
 
     .badge-green {
-      background: #58a95c;
-      color: #fff;
+      background: #DBE6DC;
+      color: #296A2D;
+      border-radius: 8px;
     }
 
-    .side-dish-name {
+    .side-dish-name,
+    .regular-side-dish-name {
       font-size: 16px;
       font-weight: 700;
       color: #111;
@@ -173,15 +215,17 @@
       margin-bottom: 10px;
     }
 
-    .side-dish-desc {
-      font-size: 16px;
+    .side-dish-desc,
+    .regular-side-dish-desc {
+      font-size: 14px;
       color: #8a8a8a;
       line-height: 1.45;
       letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
 
-    .side-dish-price-wrap {
+    .side-dish-price-wrap,
+    .regular-side-dish-price-wrap {
       display: flex;
       align-items: flex-end;
       gap: 6px;
@@ -189,7 +233,8 @@
       margin-bottom: 10px;
     }
 
-    .side-dish-price {
+    .side-dish-price,
+    .regular-side-dish-price {
       font-size: 16px;
       font-weight: 700;
       color: #111;
@@ -197,13 +242,15 @@
       letter-spacing: -0.03em;
     }
 
-    .side-dish-discount {
-      color: #ff6c00;
-      margin-right: 3px;
+    .side-dish-discount,
+    .regular-side-dish-discount {
+      color: #BD2420;
+      margin-right: 16px;
       font-size: 16px;
     }
 
-    .side-dish-original {
+    .side-dish-original,
+    .regular-side-dish-original {
       width: 100%;
       font-size: 10px;
       color: #9d9d9d;
@@ -213,8 +260,10 @@
     }
 
     .regular-side-dish-box {
-      height: 600px;
-      background: #ffad00;
+      min-height: 560px;
+      height: auto;
+      /*background: #ffad00;*/
+      padding: 40px 11px 32px;
     }
 
     .new-side-dish-box {
@@ -254,6 +303,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header class="top-box">
@@ -313,7 +363,6 @@
               <img src="./images/04_md_banchan/imgi_255_ZIP_P_8066_A.jpg" alt="판끼 한돈제육, 양조리" />
             </div>
             <div class="side-dish-content">
-              
               <h3 class="side-dish-name">판끼 한돈제육, 양조리</h3>
               <p class="side-dish-desc">든든하게 즐기는 매콤한 제육 볶음</p>
               <div class="side-dish-price-wrap"><p class="side-dish-price">6,800원</p></div>
@@ -370,7 +419,87 @@
         </div>
       </section>
 
-      <div class="blue-box__section regular-side-dish-box"></div>
+      <section class="blue-box__section regular-side-dish-box">
+        <div class="regular-side-dish-header">
+          <h2 class="regular-side-dish-title">집밥 한 끼</h2>
+          <p class="regular-side-dish-subtitle">치솟는 물가엔 현명한 소비</p>
+        </div>
+
+        <div class="regular-side-dish-grid">
+          <article class="regular-side-dish-card">
+            <div class="regular-side-dish-thumb">
+              <img src="./images/01_banchan/메추리알.jpg" alt="메추리알 간장조림" />
+              <div class="regular-side-dish-sale-badge">
+                <img src="./images/icons/percent.png" alt="11% 할인" />
+              </div>
+              <div class="regular-side-dish-cart-icon">
+                <img src="./images/icons/lock.png" alt="장바구니 아이콘" />
+              </div>
+            </div>
+            <div class="regular-side-dish-content">
+              <!--<div class="regular-side-dish-badges"><span class="badge badge-red">11%</span></div>-->
+              <h3 class="regular-side-dish-name">메추리알 간장조림</h3>
+              <!--<p class="regular-side-dish-desc">든든한 한 끼로 즐기기 좋은 인기 식사 메뉴</p>-->
+              <div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>3,400원</p><span class="regular-side-dish-original">3,800원</span></div>
+            </div>
+          </article>
+
+          <article class="regular-side-dish-card">
+            <div class="regular-side-dish-thumb">
+              <img src="./images/01_banchan/한우야채카레.jpg" alt="한우야채카레" />
+              <div class="regular-side-dish-sale-badge">
+                <img src="./images/icons/percent.png" alt="11% 할인" />
+              </div>
+              <div class="regular-side-dish-cart-icon">
+                <img src="./images/icons/lock.png" alt="장바구니 아이콘" />
+              </div>
+            </div>
+            <div class="regular-side-dish-content">
+              <div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span></div>
+              <h3 class="regular-side-dish-name">한우야채카레</h3>
+              <p class="regular-side-dish-desc">담백하고 부드러운 야채들로 풍성하게</p>
+              <div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>3,800원</p><span class="regular-side-dish-original">4,300원</span></div>
+            </div>
+          </article>
+
+          <article class="regular-side-dish-card">
+            <div class="regular-side-dish-thumb">
+              <img src="./images/01_banchan/한우소고기미역국.jpg" alt="한우 소고기 미역국" />
+              <div class="regular-side-dish-sale-badge">
+                <img src="./images/icons/percent.png" alt="11% 할인" />
+              </div>
+              <div class="regular-side-dish-cart-icon">
+                <img src="./images/icons/lock.png" alt="장바구니 아이콘" />
+              </div>
+            </div>
+            <div class="regular-side-dish-content">
+              <div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">맵지않음</span></div>
+              <h3 class="regular-side-dish-name">[원더스푼] 한우 소고기 미역국</h3>
+              <p class="regular-side-dish-desc">영양 가득 든든한 한우 어린이 미역국</p>
+              <div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>4,700원</p><span class="regular-side-dish-original">5,300원</span></div>
+            </div>
+          </article>
+
+          <article class="regular-side-dish-card">
+            <div class="regular-side-dish-thumb">
+              <img src="./images/01_banchan/한끼 한돈 김치두루치기 완조리.jpg" alt="한끼 한돈 김치두루치기 완조리" />
+              <div class="regular-side-dish-sale-badge">
+                <img src="./images/icons/percent.png" alt="11% 할인" />
+              </div>
+              <div class="regular-side-dish-cart-icon">
+                <img src="./images/icons/lock.png" alt="장바구니 아이콘" />
+              </div>
+            </div>
+            <div class="regular-side-dish-content">
+              <!--<div class="regular-side-dish-badges"><span class="badge badge-red">12%</span></div>-->
+              <h3 class="regular-side-dish-name">한끼 한돈 김치두루치기_완조리</h3>
+              <p class="regular-side-dish-desc">국내산 한돈으로 만든 든든한 하니 두루치기</p>
+              <div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>5,400원</p><span class="regular-side-dish-original">7,300원</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <div class="blue-box__section new-side-dish-box"></div>
       <div class="blue-box__section banner-box"></div>
       <div class="blue-box__section md-recommend-side-dish-box"></div>

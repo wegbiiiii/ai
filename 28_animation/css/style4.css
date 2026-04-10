@@ -1,0 +1,138 @@
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "맑은 고딕";
+}
+
+.box {
+    width: 1000px;
+    height: 1003px;
+    
+    margin: 0 auto;
+    position: relative;
+    margin-top: 100px;
+}
+
+
+
+
+
+
+.box .title {
+    position: absolute;
+
+    /*가로가운데 세로가운데 */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+
+
+    
+}
+
+
+
+
+
+.box .title h2 {
+    font-size: 36px;
+    color: #333;
+    font-weight: 900;
+    opacity: 0;
+
+    animation: titleshow 1s 2s ease-in-out forwards;
+}
+
+.box .title p {
+    font-size: 18px;
+    color: #ccc;
+    font-weight: 600;
+    margin: 24px 0;
+    opacity: 0;
+
+    animation: titleshow 1s 2.5s ease-in-out forwards;
+}
+
+.box .title button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+
+    animation: titleshow 1s 3s ease-in-out forwards;
+}
+
+@keyframes titleshow {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+
+
+.box .left {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -496.5px;
+    margin-left: -73px;
+
+
+animation: leftphone 1.5s ease-in-out forwards;
+
+}
+
+
+
+@keyframes leftphone {
+    0%{
+        left: 50%;
+        
+    }
+
+    100%{
+        left: 20%;
+        
+    }
+}
+
+
+
+
+
+
+.box .right {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    margin-top: -496.5px;
+    margin-right: -73px;
+
+animation: rightphone 1.5s ease-in-out forwards;
+
+
+}
+
+
+@keyframes rightphone {
+    0%{
+        right: 50%;
+    }
+
+    100%{
+        right: 20%;
+    }
+}

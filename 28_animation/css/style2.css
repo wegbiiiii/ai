@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+body {
+    font-family: "맑은 고딕";
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div {
+    width: 100px;
+    height: 100px;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+
+    animation: box-ani 1s ease-in-out forwards infinite;
+}
+
+@keyframes box-ani {
+    0%{
+        left:0;
+        top: 0;
+    }
+    25%{
+        left: 600px;
+        top: 0;
+        background-color: red;
+    }
+    50%{
+        left: 600px;
+        top: 500px;
+        background-color: blue;
+    }
+    75%{
+        left: 0;
+        top: 500px;
+        background-color: yellow;
+    }
+    100%{
+        left: 0;
+        top: 0;
+        background-color: #000;
+    }
+}

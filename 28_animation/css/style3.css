@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.purplebigbox {
+    width: 1000px;
+    height: 300px;
+    border: 2px solid blue;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.purplebigbox .purplebox {
+    width: 100px;
+    height: 100px;
+    background-color: purple;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    animation: purpleboxani 2s ease-in-out forwards infinite;
+}
+
+@keyframes purpleboxani {
+    0%{
+        left: 0;
+        top: 0;
+    }
+
+    25%{
+        left: 898px;
+        top: 0;
+    }
+
+    50%{
+        left: 898px;
+        top: 198px;
+    }
+
+    75%{
+        left: 0;
+        top: 198px;
+    }
+
+    100%{
+        left: 0;
+        top: 0;
+    }
+}
+
+.yellowbigbox {
+    width: 1000px;
+    height: 300px;
+    border: 2px solid red;
+    margin: 0 auto;
+    position: relative;
+    
+}
+
+.yellowbigbox .yellowbox {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    animation: yellowboxani 2s ease-in-out forwards;
+
+    
+}
+
+@keyframes yellowboxani {
+    0%{
+        left: 0;
+        top: 0;
+    }
+
+    25%{
+        left: 898px;
+        top: 0;
+    }
+
+    50%{
+        left: 898px;
+        top: 198px;
+    }
+
+    75%{
+        left: 0;
+        top: 198px;
+    }
+
+    99% {
+        left: 0;
+        top: 0;
+    }
+
+    100%{
+        left: -102px;
+        top: 0;
+    }
+}

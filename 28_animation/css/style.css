@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+/*애니메이션 지정*/
+    /* animation-name: box; */
+    /*실행시간*/
+    /* animation-duration: 3s; */
+    /*가속도*/
+    /* animation-timing-function: ease-in-out; */
+
+    /*애니메이션이 초기화되는걸 방지*/
+    /* animation-fill-mode: forwards; */
+
+    /*애니메이션 반복*/
+    /*animation-iteration-count: 5;*/
+    /* animation-iteration-count: infinite; */
+    /*애니메이션 좌우반복*/
+    /* animation-direction: alternate; */
+
+    /*애니메이션 딜레이*/
+    /* animation-delay: 10s; */
+
+    animation: box 2s 5s ease-in-out forwards infinite alternate; 
+
+}
+
+
+
+@keyframes box {
+    from{left:0;}
+    to{left:1000px;}
+
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //if문 제 3형식
+        let kor = Number(prompt('국어 점수를 입력하세요'));
+        let eng = Number(prompt('영어 점수를 입력하세요'));
+        let math = Number(prompt('수학 점수를 입력하세요'));
+        let com = Number(prompt('컴퓨터 점수를 입력하세요'));
+
+        let tot = kor + eng + math + com;
+        //평균구함   사칙연산 -> (+, -, *, /, **, %)
+        let avg = tot/4;
+
+        let remark = '';
+        let grade = '';
+        
+        if (avg >= 95) {
+            grade = 'A+';
+        }
+        else if (avg >= 90) {
+            remark = '수';
+            grade = 'A';
+        }
+        else if (avg >= 85) {
+            grade = 'B+';
+        }
+        else if (avg >= 80) {
+            remark = '우';
+            grade = 'B';
+        }
+        else if (avg >= 75) {
+            grade = 'C+';
+        }
+        else if (avg >= 70) {
+            remark = '미';
+            grade = 'C';
+        }
+        else if (avg >= 65) {
+            grade = 'D+';
+        }
+        else if (avg >= 60){
+            remark = '양';
+            grade = 'D';
+        }
+        else {
+            remark = '가';
+            grade = 'F';
+        }
+
+        document.write(`국어점수 = ${kor}<br>`);
+        document.write(`영어점수 = ${eng}<br>`);
+        document.write(`수학점수 = ${math}<br>`);
+        document.write(`컴퓨터점수 = ${com}<br>`);
+        document.write(`총점 = ${tot}<br>`);
+        document.write(`평균 = ${remark}<br>`);
+        document.write(`학점 = ${grade}<br>`);
+
+        
+    </script>
+</body>
+</html>

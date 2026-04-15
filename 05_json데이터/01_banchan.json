@@ -1,0 +1,58 @@
+[
+    {
+        "id":1,
+        "name":"쭈꾸미 미니 바질 파스타",
+        "descr":"쫄깃한 식감과 풍미를 가볍게 즐기는 인기 메뉴",
+        "price":12800,
+        "img":"images/01_banchan/sample_1.png"
+    },
+    {
+        "id":2,
+        "name":"쭈꾸미 미니 파스타",
+        "descr":"가볍고 산뜻한 맛으로 즐기는 데일리 파스타",
+        "price":12800,
+        "img":"images/01_banchan/sample_2.png"
+    },
+    {
+        "id":3,
+        "name":"잡채",
+        "descr":"탱글한 당면과 감칠맛으로 완성한 인기 반찬",
+        "price":12800,
+        "img":"images/01_banchan/sample_3.png"
+    },
+    {
+        "id":4,
+        "name":"판끼 한돈제육, 양조리",
+        "descr":"든든하게 즐기는 매콤한 제육 볶음",
+        "price":6800,
+        "img":"images/01_banchan/sample_4.png"
+    },
+    {
+        "id":5,
+        "name":"[밑더스쿱] 된장국",
+        "descr":"구수하고 편안하게 즐기는 집밥 국물 반찬",
+        "price":3200,
+        "img":"images/01_banchan/sample_5.png"
+    },
+    {
+        "id":6,
+        "name":"[밑더스쿱] 맑은 순두부찌개",
+        "descr":"부드럽고 담백해서 부담 없이 즐기기 좋은 메뉴",
+        "price":4300,
+        "img":"images/01_banchan/sample_6.png"
+    },
+    {
+        "id":7,
+        "name":"[밑더스쿱] 맛살 계란 덮밥",
+        "descr":"한 그릇으로 간편하게 즐기는 따뜻한 덮밥",
+        "price":4300,
+        "img":"images/01_banchan/sample_7.png"
+    },
+    {
+        "id":8,
+        "name":"[밑더스쿱] 한우 스테이크소스 덮밥",
+        "descr":"진한 풍미의 소스로 완성한 든든한 한 끼",
+        "price":4600,
+        "img":"images/01_banchan/sample_8.png"
+    }
+]

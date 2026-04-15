@@ -40,6 +40,10 @@
 
 @media ( min-width:992px ) and ( max-width: 1199px ) {
     .wrapbox {
+        width: 100%;
+    }
+
+    body {
         padding: 0 30px;
     }
 }

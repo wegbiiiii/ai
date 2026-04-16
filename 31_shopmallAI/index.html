@@ -218,6 +218,220 @@
 
 
 
+    .blue-box__section.regular-side-dish-box {
+      width: 100%;
+      padding: 50px 0 16px;
+    }
+
+    .regular-side-dish-header {
+      width: 1168px;
+      text-align: center;
+      margin: 0 auto 28px;
+    }
+
+    .regular-side-dish-title {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .regular-side-dish-subtitle {
+      font-size: 12px;
+      color: #7d7d7d;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .regular-side-dish-slider {
+      width: 1168px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .regular-side-dish-slider-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+    }
+
+    .regular-side-dish-slider-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .regular-side-dish-prev {
+      left: -24px;
+    }
+
+    .regular-side-dish-next {
+      right: -24px;
+    }
+
+    .regular-side-dish-viewport {
+      width: 1168px;
+      overflow: hidden;
+    }
+
+    .regular-side-dish-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.35s ease;
+      will-change: transform;
+    }
+
+    .regular-side-dish-card {
+      width: 280px;
+      min-width: 280px;
+      max-width: 280px;
+      background: #fff;
+      overflow: hidden;
+      flex: 0 0 280px;
+    }
+
+    .regular-side-dish-thumb {
+      width: 100%;
+      height: 370px;
+      position: relative;
+      overflow: hidden;
+      background: #f3f1ed;
+    }
+
+    .regular-side-dish-thumb > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .regular-side-dish-sale-badge {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 48px;
+      height: 48px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .regular-side-dish-cart-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 40px;
+      height: 40px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .regular-side-dish-sale-badge img,
+    .regular-side-dish-cart-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .regular-side-dish-content {
+      padding: 0;
+      margin: 16px;
+    }
+
+    .regular-side-dish-badges {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 3px;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: inline-block;
+    }
+
+    .badge-red {
+      background: #F5DEDE;
+      color: #C43B37;
+      border-radius: 8px;
+    }
+
+    .badge-orange {
+      background: #FDF0DC;
+      color: #F4A221;
+      border-radius: 8px;
+    }
+
+    .regular-side-dish-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .regular-side-dish-desc {
+      font-size: 14px;
+      color: #8a8a8a;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .regular-side-dish-price-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .regular-side-dish-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .regular-side-dish-discount {
+      color: #BD2420;
+      margin-right: 16px;
+      font-size: 16px;
+    }
+
+    .regular-side-dish-original {
+      width: 100%;
+      font-size: 10px;
+      color: #9d9d9d;
+      text-decoration: line-through;
+      line-height: 1;
+      margin-top: 0;
+    }
+
+
+
+
+
 
   </style>
 </head>
@@ -272,12 +486,43 @@
         <article class="side-dish-card"><div class="side-dish-thumb"><img src="./images/04_md_banchan/imgi_262_fry_3.jpg" alt="[밑더스쿱] 맛살 계란 덮밥" /></div><div class="side-dish-content"><div class="side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">맵지않음</span></div><h3 class="side-dish-name">[밑더스쿱] 맛살 계란 덮밥</h3><p class="side-dish-desc">한 그릇으로 간편하게 즐기는 따뜻한 덮밥</p><div class="side-dish-price-wrap"><p class="side-dish-price">4,300원</p></div></div></article>
         <article class="side-dish-card"><div class="side-dish-thumb"><img src="./images/04_md_banchan/imgi_263_fry_5.jpg" alt="[밑더스쿱] 한우 스테이크소스 덮밥" /></div><div class="side-dish-content"><div class="side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">맵지않음</span></div><h3 class="side-dish-name">[밑더스쿱] 한우 스테이크소스 덮밥</h3><p class="side-dish-desc">진한 풍미의 소스로 완성한 든든한 한 끼</p><div class="side-dish-price-wrap"><p class="side-dish-price">4,600원</p></div></div></article>
       </div></section>
-      <section class="blue-box__section regular-side-dish-box"><div class="regular-side-dish-header"><h2 class="regular-side-dish-title">집밥 한 끼</h2><p class="regular-side-dish-subtitle">치솟는 물가엔 현명한 소비</p></div><div class="regular-side-dish-grid">
+      <!--<section class="blue-box__section regular-side-dish-box"><div class="regular-side-dish-header"><h2 class="regular-side-dish-title">집밥 한 끼</h2><p class="regular-side-dish-subtitle">치솟는 물가엔 현명한 소비</p></div><div class="regular-side-dish-grid">
         <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/메추리알.jpg" alt="메추리알 간장조림" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><h3 class="regular-side-dish-name">메추리알 간장조림</h3><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>3,400원</p><span class="regular-side-dish-original">3,800원</span></div></div></article>
         <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한우야채카레.jpg" alt="한우야채카레" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span></div><h3 class="regular-side-dish-name">한우야채카레</h3><p class="regular-side-dish-desc">담백하고 부드러운 야채들로 풍성하게</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>3,800원</p><span class="regular-side-dish-original">4,300원</span></div></div></article>
         <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한우소고기미역국.jpg" alt="한우 소고기 미역국" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">맵지않음</span></div><h3 class="regular-side-dish-name">[원더스푼] 한우 소고기 미역국</h3><p class="regular-side-dish-desc">영양 가득 든든한 한우 어린이 미역국</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>4,700원</p><span class="regular-side-dish-original">5,300원</span></div></div></article>
         <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한끼 한돈 김치두루치기 완조리.jpg" alt="한끼 한돈 김치두루치기 완조리" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><h3 class="regular-side-dish-name">한끼 한돈 김치두루치기_완조리</h3><p class="regular-side-dish-desc">국내산 한돈으로 만든 든든한 하니 두루치기</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>5,400원</p><span class="regular-side-dish-original">7,300원</span></div></div></article>
-      </div></section>
+      </div></section>-->
+
+      <section class="blue-box__section regular-side-dish-box">
+    <div class="regular-side-dish-header">
+      <h2 class="regular-side-dish-title">집밥 한 끼</h2>
+      <p class="regular-side-dish-subtitle">치솟는 물가엔 현명한 소비</p>
+    </div>
+
+    <div class="regular-side-dish-slider">
+      <button class="regular-side-dish-slider-btn regular-side-dish-prev" aria-label="이전 슬라이드">&#10094;</button>
+
+      <div class="regular-side-dish-viewport">
+        <div class="regular-side-dish-track" id="regularSideDishTrack">
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/메추리알.jpg" alt="메추리알 간장조림" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><h3 class="regular-side-dish-name">메추리알 간장조림</h3><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>3,400원</p><span class="regular-side-dish-original">3,800원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한우야채카레.jpg" alt="한우야채카레" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span></div><h3 class="regular-side-dish-name">한우야채카레</h3><p class="regular-side-dish-desc">담백하고 부드러운 야채들로 풍성하게</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>3,800원</p><span class="regular-side-dish-original">4,300원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한우소고기미역국.jpg" alt="한우 소고기 미역국" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">맵지않음</span></div><h3 class="regular-side-dish-name">[원더스푼] 한우 소고기 미역국</h3><p class="regular-side-dish-desc">영양 가득 든든한 한우 어린이 미역국</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">11%</span>4,700원</p><span class="regular-side-dish-original">5,300원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/한끼 한돈 김치두루치기 완조리.jpg" alt="한끼 한돈 김치두루치기 완조리" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="11% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><h3 class="regular-side-dish-name">한끼 한돈 김치두루치기_완조리</h3><p class="regular-side-dish-desc">국내산 한돈으로 만든 든든한 하니 두루치기</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">12%</span>5,400원</p><span class="regular-side-dish-original">7,300원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/sample_1.png" alt="진미채볶음" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="10% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><h3 class="regular-side-dish-name">진미채볶음</h3><p class="regular-side-dish-desc">달콤짭짤 밥도둑 반찬</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">10%</span>4,200원</p><span class="regular-side-dish-original">4,700원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/sample_2.jpg" alt="소불고기" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="15% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">BEST</span></div><h3 class="regular-side-dish-name">소불고기</h3><p class="regular-side-dish-desc">부드러운 소고기와 달큰한 양념</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">15%</span>6,800원</p><span class="regular-side-dish-original">8,000원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/sample_3.jpg" alt="들깨시래기국" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="9% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-orange">맵지않음</span></div><h3 class="regular-side-dish-name">들깨시래기국</h3><p class="regular-side-dish-desc">구수하고 진한 국물 맛</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">9%</span>4,900원</p><span class="regular-side-dish-original">5,400원</span></div></div></article>
+          <article class="regular-side-dish-card"><div class="regular-side-dish-thumb"><img src="./images/01_banchan/sample_4.jpg" alt="닭갈비" /><div class="regular-side-dish-sale-badge"><img src="./images/icons/percent.png" alt="13% 할인" /></div><div class="regular-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="regular-side-dish-content"><div class="regular-side-dish-badges"><span class="badge badge-red">신메뉴</span><span class="badge badge-orange">인기</span></div><h3 class="regular-side-dish-name">닭갈비</h3><p class="regular-side-dish-desc">매콤달콤 든든한 한 끼 메뉴</p><div class="regular-side-dish-price-wrap"><p class="regular-side-dish-price"><span class="regular-side-dish-discount">13%</span>5,900원</p><span class="regular-side-dish-original">6,800원</span></div></div></article>
+        </div>
+      </div>
+
+      <button class="regular-side-dish-slider-btn regular-side-dish-next" aria-label="다음 슬라이드">&#10095;</button>
+    </div>
+  </section>
+
+
+
+
+
       <section class="blue-box__section new-side-dish-box"><div class="new-side-dish-header"><h2 class="new-side-dish-title">반찬 순위</h2><p class="new-side-dish-subtitle">지금 가장 많이 찾는 인기 반찬</p></div><div class="new-side-dish-grid">
         <article class="new-side-dish-card"><div class="new-side-dish-thumb"><div class="new-side-dish-rank-icon"><img src="./images/icons/ranknum1.png" alt="1위 아이콘" /></div><div class="new-side-dish-rank-text">1</div><img src="./images/04_md_banchan/imgi_265_jolim_13.jpg" alt="순위 반찬 1" /><div class="new-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="new-side-dish-info"><div class="new-side-dish-content"><div class="new-side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기</span></div><h3 class="new-side-dish-name">메추리알 간장조림</h3><p class="new-side-dish-desc">언제 먹어도 질리지 않는 집반찬 인기 메뉴</p><div class="new-side-dish-price-wrap"><p class="new-side-dish-price"><span class="new-side-dish-discount">11%</span>3,400원</p><span class="new-side-dish-original">3,800원</span></div></div></div></article>
         <article class="new-side-dish-card"><div class="new-side-dish-thumb"><div class="new-side-dish-rank-icon"><img src="./images/icons/ranknum2.png" alt="2위 아이콘" /></div><div class="new-side-dish-rank-text">2</div><img src="./images/04_md_banchan/imgi_266_208_ZIP_P_4020_A.jpg" alt="순위 반찬 2" /><div class="new-side-dish-cart-icon"><img src="./images/icons/lock.png" alt="장바구니 아이콘" /></div></div><div class="new-side-dish-info"><div class="new-side-dish-content"><div class="new-side-dish-badges"><span class="badge badge-red">베스트</span><span class="badge badge-orange">인기</span></div><h3 class="new-side-dish-name">무생채</h3><p class="new-side-dish-desc">새콤달콤한 맛으로 입맛을 돋우는 반찬</p><div class="new-side-dish-price-wrap"><p class="new-side-dish-price"><span class="new-side-dish-discount">11%</span>2,900원</p><span class="new-side-dish-original">3,300원</span></div></div></div></article>
@@ -304,6 +549,10 @@
     </main>
     <footer class="green-box"><div class="footer-left-box"><h3 class="footer-title">고객센터</h3><p class="footer-phone">1588-3754</p><p class="footer-email">zipbanchan@sannamchon.co.kr</p><p class="footer-time">평일 08:30~17:30 / 토요일 08:30~12:00</p><p class="footer-break">점심시간 12:00~13:00</p><p class="footer-holiday">일요일, 공휴일은 휴무입니다.</p></div><div class="footer-right-box"><p class="footer-company">집반찬연구소</p><p class="footer-info">인천광역시 서구 가석로 26(가좌동) 집반찬연구소 대표자 : 박종철 사업자등록번호 : 121-86-17743 통신판매업 신고번호 : 제 2023-인천서구-3834 호 개인정보보호책임자 : 정문채</p><p class="footer-contact">제휴 문의 : zipbanchan@sannamchon.co.kr</p><p class="footer-links">집반찬연구소 소개 이용약관 개인정보처리방침</p><p class="footer-copy">Copyright ⓒ SANNAMCHON CORP. All Rights Reserved.</p></div></footer>
   </div>
+
+
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
@@ -333,6 +582,81 @@
         },
       },
     });
+  </script>
+
+
+
+
+  <script>
+    const track = document.getElementById('regularSideDishTrack');
+    const prevBtn = document.querySelector('.regular-side-dish-prev');
+    const nextBtn = document.querySelector('.regular-side-dish-next');
+
+    const visibleCount = 4;
+    const originalCards = Array.from(track.children);
+    const totalCount = originalCards.length;
+    const cardWidth = 280;
+    const gap = 16;
+    const moveWidth = cardWidth + gap;
+
+    originalCards.slice(0, visibleCount).forEach((card) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+
+    let currentIndex = 0;
+    let autoSlide = null;
+    let isTransitioning = false;
+
+    function updateSlider(useTransition = true) {
+      track.style.transition = useTransition ? 'transform 0.35s ease' : 'none';
+      track.style.transform = `translateX(-${currentIndex * moveWidth}px)`;
+    }
+
+    function moveNext() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex += 1;
+      updateSlider(true);
+    }
+
+    function movePrev() {
+      if (isTransitioning) return;
+
+      if (currentIndex > 0) {
+        isTransitioning = true;
+        currentIndex -= 1;
+        updateSlider(true);
+      }
+    }
+
+    function startAutoSlide() {
+      if (autoSlide) return;
+
+      autoSlide = setInterval(() => {
+        moveNext();
+      }, 3000);
+    }
+
+    track.addEventListener('transitionend', () => {
+      if (currentIndex >= totalCount) {
+        currentIndex = 0;
+        updateSlider(false);
+      }
+      isTransitioning = false;
+    });
+
+    prevBtn.addEventListener('click', () => {
+      movePrev();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      moveNext();
+    });
+
+    updateSlider(false);
+    startAutoSlide();
   </script>
 </body>
 </html>

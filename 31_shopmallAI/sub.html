@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품 상세 메인</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .wrap { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .top-box { width: 1200px; height: 150px; /*background: #cfcfcf;*/ display: flex; align-items: center; justify-content: space-between; }
+    .search-box { width: 350px; height: 60px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .search-box-inner { width: 350px; height: 50px; border: 1px solid #E5E5E5; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 10px 0 14px; overflow: hidden; }
+    .search-box-text { font-size: 12px; color: #b5b5b5; line-height: 1; letter-spacing: -0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1 1 auto; min-width: 0; margin-right: 8px; }
+    .search-box-icon { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .search-box-icon img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; object-fit: contain; }
+    .logo-box { width: 350px; height: 70px; /*background: #b6f46b;*/ display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px 12px; }
+    .logo-a-tag { display: block; width: 131px; height: 55px;}
+    .logo-box img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; object-fit: contain; }
+    .right-box { width: 350px; height: 90px; /*background: #7b3ff2;*/ display: flex; flex-direction: column; justify-content: space-between; padding: 8px 10px 10px; overflow: hidden; }
+    .right-box-top { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+    .right-box-top p { font-size: 14px; line-height: 1; color: #111; letter-spacing: -0.02em; white-space: nowrap; }
+    .right-box-bottom { display: flex; justify-content: flex-end; align-items: center; gap: 6px; flex-wrap: nowrap; }
+    .right-box-item { display: inline-flex; align-items: center; justify-content: center; gap: 3px; min-width: 0; flex: 0 1 auto; }
+    .right-box-item img { width: 18px; height: 18px; display: block; object-fit: contain; flex-shrink: 0; }
+    .right-box-item p { font-size: 17px; line-height: 1; color: #111; letter-spacing: -0.04em; white-space: nowrap; }
+
+    body {
+      
+      font-family: "Noto Sans KR", Arial, sans-serif;
+      color: #111;
+    }
+
+    .main-detail {
+      width: 1200px;
+      margin: 0 auto;
+      padding: 40px;
+      background: #fff;
+    }
+
+    .product-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 56px;
+      margin-bottom: 44px;
+    }
+
+    .product-thumb {
+      width: 500px;
+      height: 500px;
+      background: #f3f0ea;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .product-thumb img {
+      width: 500px;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      flex: 1;
+      padding-top: 8px;
+    }
+
+    .product-title {
+      font-size: 44px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+
+    .product-desc {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 34px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .discount {
+      font-size: 36px;
+      font-weight: 700;
+    }
+
+    .final-price {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .origin-price {
+      font-size: 18px;
+      color: #9a9a9a;
+      text-decoration: line-through;
+      margin-bottom: 42px;
+    }
+
+    .purchase-box {
+      width: 100%;
+      border-top: 1px solid #dcdcdc;
+      border-bottom: 1px solid #dcdcdc;
+      padding: 22px 0;
+      margin-top: 86px;
+    }
+
+    .purchase-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      width: 92px;
+      height: 26px;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+    }
+
+    .qty-control button,
+    .qty-control span {
+      width: 30px;
+      height: 24px;
+      border: 0;
+      background: #fff;
+      font-size: 13px;
+      color: #8a8a8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .qty-control span {
+      width: 32px;
+      color: #666;
+      font-size: 12px;
+    }
+
+    .qty-control button {
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .qty-control button:first-child,
+    .qty-control span {
+      border-right: 1px solid #d8d8d8;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .action-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .wish-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid #d8d8d8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #bdbdbd;
+      line-height: 1;
+    }
+
+    .cart-button {
+      flex: 1;
+      height: 42px;
+      border: 0;
+      background: #0a5a16;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .review-summary {
+      width: 100%;
+      height: 64px;
+      background: #e4e4e4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+      font-size: 14px;
+      color: #1c1c1c;
+      letter-spacing: -0.02em;
+    }
+
+    .review-summary .star {
+      color: #0f5a1d;
+      font-size: 18px;
+      margin-right: 8px;
+    }
+
+    .tab-bar {
+      width: 100%;
+      height: 78px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #d9d9d9;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 88px;
+      background: #fff;
+    }
+
+    .tab-button {
+      height: 78px;
+      border: 0;
+      background: transparent;
+      color: #b8b8b8;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+
+    .tab-button.is-active {
+      color: #1d1d1d;
+      font-weight: 700;
+    }
+
+    .tab-button.is-active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%;
+      height: 2px;
+      background: #40663d;
+    }
+
+    .detail-section {
+      width: 100%;
+      /*background: #efefef;*/
+      padding: 40px;
+      margin-bottom: 32px;
+    }
+
+    .detail-block {
+      margin-bottom: 54px;
+    }
+
+    .detail-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-image {
+      width: 1040px;
+      height: 1040px;
+      background: #d9d9d9;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .detail-image.detail-image--medium {
+      height: 1040px;
+    }
+
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .detail-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #111;
+      margin-bottom: 14px;
+    }
+
+    .detail-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .detail-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #444;
+      word-break: keep-all;
+    }
+
+    .recommend-section {
+      width: 100%;
+      /*background: #f8b300;*/
+      padding: 40px 0;
+      margin-bottom: 32px;
+      border-top: 4px solid #0D5611;
+      border-bottom: 4px solid #0D5611;
+    }
+
+    .recommend-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .recommend-title {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .recommend-subtitle {
+      font-size: 11px;
+      line-height: 1.4;
+      color: #a2a2a2;
+    }
+
+    .recommend-list {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 2px;
+    }
+
+    .recommend-card {
+      width: 260px;
+      height: 500px;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .recommend-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #c93b2b;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .recommend-thumb {
+      width: 260px;
+      height: 380px;
+      background: #d9d9d9;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .recommend-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .recommend-like {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(80, 80, 80, 0.8);
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .recommend-info {
+      width: 260px;
+      height: 120px;
+      background: #fff;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .recommend-name {
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #111;
+      margin-bottom: 5px;
+      letter-spacing: -0.02em;
+    }
+
+    .recommend-desc {
+      font-size: 9px;
+      line-height: 1.35;
+      color: #666;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .recommend-price-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+
+    .recommend-discount {
+      font-size: 10px;
+      font-weight: 700;
+      color: #c93b2b;
+      line-height: 1;
+    }
+
+    .recommend-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .recommend-origin {
+      font-size: 9px;
+      color: #9d9d9d;
+      text-decoration: line-through;
+      line-height: 1;
+    }
+
+    .review-section {
+      width: 100%;
+      /*background: #13c33f;*/
+      padding: 36px 0 28px;
+    }
+
+    .review-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .review-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #111;
+    }
+
+    .review-photo-wrap {
+      margin-bottom: 22px;
+    }
+
+    .review-photo-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .review-photo-list {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .review-photo {
+      width: 164px;
+      height: 164px;
+      background: #d9d9d9;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .review-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .review-list {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .review-item {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      column-gap: 18px;
+      align-items: start;
+      padding: 20px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .review-item:last-child {
+      border-bottom: 0;
+    }
+
+    .review-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11px;
+      color: #666;
+    }
+
+    .review-user-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .review-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 2px 4px;      border-radius: 4px;
+      font-size: 10px;
+      color: #0D5611;
+      background: #E9EEE5;
+    }
+
+    .review-stars {
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #113f18;
+      font-weight: 700;
+      padding-top: 0;
+      margin-left: 4px;
+    }
+
+    .review-content {
+      font-size: 12px;
+      line-height: 1.8;
+      color: #666;
+      word-break: keep-all;
+      padding-right: 8px;
+    }
+
+    .review-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    .review-more-button {
+      min-width: 100px;
+      height: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 999px;
+      background: transparent;
+      color: #f5fff6;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .green-box { width: 1200px; height: 200px; /*background: #2dff00;*/ border-top: 1px solid gray; display: flex; align-items: center; justify-content: space-between; }
+    .footer-left-box { width: 385px; height: 125px; /*background: #89a868;*/ padding: 8px 10px 6px; overflow: hidden; color: #111; }
+    .footer-title { font-size: 11px; font-weight: 700; line-height: 1.2; margin-bottom: 1px; }
+    .footer-phone { font-size: 15px; font-weight: 700; line-height: 1.05; margin-bottom: 1px; }
+    .footer-email { font-size: 9px; line-height: 1.1; margin-bottom: 4px; letter-spacing: -0.02em; word-break: break-all; }
+    .footer-time, .footer-break, .footer-holiday { font-size: 10px; line-height: 1.2; letter-spacing: -0.02em; }
+    .footer-right-box { width: 775px; height: 125px; /*background: #7b3f3f;*/ padding: 8px 12px 6px; overflow: hidden; color: #111; }
+    .footer-company { font-size: 12px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .footer-info, .footer-links, .footer-copy, .footer-contact { font-size: 10px; line-height: 1.25; letter-spacing: -0.03em; word-break: keep-all; }
+    .footer-info { margin-bottom: 2px; }
+    .footer-contact { margin-bottom: 6px; }
+    .footer-links { margin-bottom: 4px; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+    <div class="wrap">
+    <header class="top-box">
+      <div class="search-box"><div class="search-box-inner"><p class="search-box-text">반찬을 입력해주세요</p><div class="search-box-icon"><img src="./images/icons/searchgreen.png" alt="검색 아이콘" /></div></div></div>
+      <div class="logo-box"><a class="logo-a-tag" href="./index.html"><img src="./images/icons/imgi_13_logo_pc.svg" alt="집반찬연구소 로고" /></a></div>
+      <div class="right-box"><div class="right-box-top"><p>로그인</p><p>회원가입</p><p>내정보</p></div><div class="right-box-bottom"><div class="right-box-item"><img src="./images/icons/imgi_28_icon-tel2.svg" alt="전화걸기" /><p>전화걸기</p></div><div class="right-box-item"><img src="./images/icons/imgi_29_icon-document-d4d4d4-28.svg" alt="브랜드" /><p>브랜드</p></div><div class="right-box-item"><img src="./images/icons/imgi_30_icon-list-d4d4d4-28.svg" alt="반찬보기" /><p>반찬보기</p></div><div class="right-box-item"><img src="./images/icons/imgi_31_icon-cart-d4d4d4-28.svg" alt="장바구니" /><p>장바구니</p></div></div></div>
+    </header>
+
+  <main class="main-detail">
+    <section class="product-top">
+      <div class="product-thumb">
+        <img src="./images/04_md_banchan/imgi_56_ZIP_P_0214_A.png" alt="쭈꾸미 종마늘 파스타" />
+      </div>
+
+      <div class="product-info">
+        <h1 class="product-title">쭈꾸미 종마늘 파스타</h1>
+        <p class="product-desc">살기 좋은 바른 반찬의 프리미엄 간편식</p>
+
+        <div class="price-row">
+          <span class="discount">7%</span>
+          <strong class="final-price">12,800원</strong>
+        </div>
+        <p class="origin-price">13,800원</p>
+
+        <div class="purchase-box">
+          <div class="purchase-row">
+            <span>상품 수량</span>
+            <div class="qty-control">
+              <button type="button">−</button>
+              <span>1</span>
+              <button type="button">+</button>
+            </div>
+          </div>
+
+          <div class="total-row">
+            <span>총 상품 금액</span>
+            <strong>12,800원</strong>
+          </div>
+        </div>
+
+        <div class="action-box">
+          <div class="wish-button">♡</div>
+          <div class="cart-button">장바구니 담기</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-summary">
+      <span class="star">★</span>
+      <span>4.9 639명의 고객님이 인정한 반찬</span>
+    </section>
+
+    <section class="tab-bar">
+      <div class="tab-button is-active">반찬설명</div>
+      <div class="tab-button">상품정보</div>
+      <div class="tab-button">상품후기</div>
+    </section>
+
+    <section class="detail-section">
+      <div class="detail-block">
+        <div class="detail-image">
+          <img src="./images/04_md_banchan/imgi_56_ZIP_P_0214_A.png" alt="쭈꾸미 종마늘 파스타 상세 이미지" />
+        </div>
+        <h3 class="detail-title">쭈꾸미 종마늘 파스타</h3>
+        <p class="detail-subtitle">입맛 돋는 봄바람 한 그릇</p>
+        <p class="detail-text">
+          신선한 재료와 감칠맛 나는 소스를 담아 풍성하게 즐길 수 있는 파스타입니다.<br />
+          부드러운 면과 쫄깃한 식감이 조화롭게 어우러지며, 한 끼 식사로도 만족감을 느낄 수 있도록 구성했습니다.<br />
+          원하는 이미지와 문구를 자유롭게 교체할 수 있도록 기본 구조만 깔끔하게 잡아둔 상세 설명 영역입니다.
+        </p>
+      </div>
+
+      <div class="detail-block">
+        <h3 class="detail-title">다음새</h3>
+        <div class="detail-image detail-image--medium">
+          <img src="./images/detail/10104.jpg" alt="추가 상세 이미지" />
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <h3 class="detail-title">상세정보</h3>
+        <div class="detail-image detail-image--medium">
+          <img src="./images/detail/ZIP_P_8086_new (1).jpg" alt="상세 정보 이미지" />
+        </div>
+      </div>
+    </section>
+
+    <section class="recommend-section">
+      <div class="recommend-header">
+        <h3 class="recommend-title">같이 먹으면 더 맛있는 반찬</h3>
+        <p class="recommend-subtitle">더 완벽한 한끼식사를 준비할 때 함께 담은 반찬들을 만나보세요</p>
+      </div>
+
+      <div class="recommend-list">
+        <div class="recommend-card">
+          <div class="recommend-badge">11%</div>
+          <div class="recommend-thumb">
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" alt="매콤까르보 닭조림" />
+            <div class="recommend-like">🛒</div>
+          </div>
+          <div class="recommend-info">
+            <h4 class="recommend-name">매콤까르보 닭조림</h4>
+            <p class="recommend-desc">부드러운 닭살에 매콤한 풍미를 더해 든든하게 즐기는 반찬</p>
+            <div class="recommend-price-row">
+              <span class="recommend-discount">11%</span>
+              <strong class="recommend-price">4,500원</strong>
+            </div>
+            <p class="recommend-origin">5,100원</p>
+          </div>
+        </div>
+
+        <div class="recommend-card">
+          <div class="recommend-badge">11%</div>
+          <div class="recommend-thumb">
+            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80" alt="매콤달걀 간장 조림" />
+            <div class="recommend-like">🛒</div>
+          </div>
+          <div class="recommend-info">
+            <h4 class="recommend-name">매콤달걀 간장 조림</h4>
+            <p class="recommend-desc">감칠맛 나는 조림소스로 밥반찬으로 잘 어울리는 인기 메뉴</p>
+            <div class="recommend-price-row">
+              <span class="recommend-discount">11%</span>
+              <strong class="recommend-price">5,400원</strong>
+            </div>
+            <p class="recommend-origin">6,100원</p>
+          </div>
+        </div>
+
+        <div class="recommend-card">
+          <div class="recommend-badge">11%</div>
+          <div class="recommend-thumb">
+            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=800&q=80" alt="메쉬가린 연근 조림" />
+            <div class="recommend-like">🛒</div>
+          </div>
+          <div class="recommend-info">
+            <h4 class="recommend-name">메쉬가린 연근 조림</h4>
+            <p class="recommend-desc">달짝지근한 풍미와 아삭한 식감이 살아있는 정갈한 조림</p>
+            <div class="recommend-price-row">
+              <span class="recommend-discount">11%</span>
+              <strong class="recommend-price">3,600원</strong>
+            </div>
+            <p class="recommend-origin">4,000원</p>
+          </div>
+        </div>
+
+        <div class="recommend-card">
+          <div class="recommend-badge">11%</div>
+          <div class="recommend-thumb">
+            <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80" alt="매실가득 장조림 브로콜리" />
+            <div class="recommend-like">🛒</div>
+          </div>
+          <div class="recommend-info">
+            <h4 class="recommend-name">매실가득 장조림 브로콜리</h4>
+            <p class="recommend-desc">입안 가득 퍼지는 짭조름한 맛으로 어디에나 잘 어울려요</p>
+            <div class="recommend-price-row">
+              <span class="recommend-discount">11%</span>
+              <strong class="recommend-price">5,400원</strong>
+            </div>
+            <p class="recommend-origin">6,100원</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-section">
+      <div class="review-header">
+        <h3 class="review-title">상품후기</h3>
+      </div>
+
+      <div class="review-photo-wrap">
+        <p class="review-photo-title">사진후기</p>
+        <div class="review-photo-list">
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1516100882582-96c3a05fe590?auto=format&fit=crop&w=600&q=80" alt="후기 사진 1" /></div>
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&q=80" alt="후기 사진 2" /></div>
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80" alt="후기 사진 3" /></div>
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=600&q=80" alt="후기 사진 4" /></div>
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=600&q=80" alt="후기 사진 5" /></div>
+          <div class="review-photo"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80" alt="후기 사진 6" /></div>
+        </div>
+      </div>
+
+      <div class="review-list">
+        <div class="review-item">
+          <div class="review-meta">
+            <div class="review-user-row">
+              <span>user01</span>
+              <span class="review-label">1회 구매</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <span>2026.04.14</span>
+          </div>
+          <p class="review-content">면 식감이 정말 좋고 쭈꾸미도 질기지 않아서 만족스러웠어요. 소스가 자극적이지 않으면서 감칠맛이 좋아서 가족과 함께 먹기에도 부담 없었습니다. 재구매 의사가 생길 만큼 완성도가 좋았어요.</p>
+        </div>
+
+        <div class="review-item">
+          <div class="review-meta">
+            <div class="review-user-row">
+              <span>user02</span>
+              <span class="review-label">1회 구매</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <span>2026.04.14</span>
+          </div>
+          <p class="review-content">조리도 간편하고 비주얼도 괜찮아서 손님상에 올리기 좋았습니다. 마늘 향이 은은하게 살아 있고 전체적인 밸런스가 좋아서 한 끼 식사 메뉴로 꽤 만족스러웠습니다.</p>
+        </div>
+
+        <div class="review-item">
+          <div class="review-meta">
+            <div class="review-user-row">
+              <span>user03</span>
+              <span class="review-label">1회 구매</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <span>2026.04.14</span>
+          </div>
+          <p class="review-content">양이 생각보다 괜찮고 풍미가 좋아서 맛있게 먹었어요. 너무 맵지 않아서 부담이 없고, 파스타 소스가 면에 잘 배어 있어서 끝까지 맛있게 즐길 수 있었습니다.</p>
+        </div>
+
+        <div class="review-item">
+          <div class="review-meta">
+            <div class="review-user-row">
+              <span>user04</span>
+              <span class="review-label">1회 구매</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <span>2026.04.14</span>
+          </div>
+          <p class="review-content">배송 상태도 좋았고 포장도 깔끔했습니다. 평소 해산물 파스타를 좋아하는 편인데 기대 이상으로 맛의 조화가 잘 맞아서 다음번에는 다른 반찬과 함께 추가 주문해보려고 합니다.</p>
+        </div>
+      </div>
+
+      <div class="review-more">
+        <div class="review-more-button">더보기 ▼</div>
+      </div>
+    
+    </section>
+  </main>
+  <footer class="green-box"><div class="footer-left-box"><h3 class="footer-title">고객센터</h3><p class="footer-phone">1588-3754</p><p class="footer-email">zipbanchan@sannamchon.co.kr</p><p class="footer-time">평일 08:30~17:30 / 토요일 08:30~12:00</p><p class="footer-break">점심시간 12:00~13:00</p><p class="footer-holiday">일요일, 공휴일은 휴무입니다.</p></div><div class="footer-right-box"><p class="footer-company">집반찬연구소</p><p class="footer-info">인천광역시 서구 가석로 26(가좌동) 집반찬연구소 대표자 : 박종철 사업자등록번호 : 121-86-17743 통신판매업 신고번호 : 제 2023-인천서구-3834 호 개인정보보호책임자 : 정문채</p><p class="footer-contact">제휴 문의 : zipbanchan@sannamchon.co.kr</p><p class="footer-links">집반찬연구소 소개 이용약관 개인정보처리방침</p><p class="footer-copy">Copyright ⓒ SANNAMCHON CORP. All Rights Reserved.</p></div></footer>
+    </div>
+</body>
+</html>

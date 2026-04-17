@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전세계 날씨 앱</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="topbar">
+      <div class="title-wrap">
+        <h1>전세계 날씨</h1>
+        <p>현재 위치 + 도시 검색으로 전세계 날씨 조회</p>
+      </div>
+      <button class="ghost-btn" id="locationBtn" type="button">내 위치</button>
+    </section>
+
+    <section class="search-panel">
+      <form class="search-form" id="searchForm">
+        <div class="input-wrap">
+          <span class="search-icon">⌕</span>
+          <input
+            type="text"
+            id="cityInput"
+            class="city-input"
+            placeholder="도시명을 입력하세요(예:seoul, tokyo)"
+            autocomplete="off"
+          />
+        </div>
+        <button class="search-btn" type="submit">검색</button>
+      </form>
+    </section>
+
+    <section class="weather-card" aria-live="polite">
+      <div class="weather-head">
+        <div>
+          <h2 class="city-name" id="cityName">도시명</h2>
+          <p class="weather-desc" id="weatherDesc">날씨 설명</p>
+        </div>
+        <div class="temp-value" id="tempValue">15°</div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-box">
+          <p class="stat-label">풍속</p>
+          <p class="stat-value" id="windValue">6.69 m/s</p>
+        </article>
+
+        <article class="stat-box">
+          <p class="stat-label">습도</p>
+          <p class="stat-value" id="humidityValue">100 %</p>
+        </article>
+
+        <article class="stat-box">
+          <p class="stat-label">체감/기온</p>
+          <p class="stat-value" id="feelsLikeValue">15°C</p>
+        </article>
+
+        <article class="stat-box">
+          <p class="stat-label">오존(O₃)</p>
+          <p class="stat-value" id="ozoneValue">111 ug/m³</p>
+        </article>
+      </div>
+
+      <div class="status-box" id="statusBox"></div>
+    </section>
+  </main>
+
+  <script src="./script/script.js"></script>
+</body>
+</html>

@@ -237,9 +237,9 @@ body {
 }
 
 .guide-slide-card {
-  flex: 0 0 128px;
-  width: 128px;
-  height: 258px;
+  flex: 0 0 150px;
+  width: 150px;
+  height: 260px;
   overflow: hidden;
   border-radius: 0;
   scroll-snap-align: start;

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제주도 자전거 여행 앱</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./css/styleai.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <!--<div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>-->
+
+      <div class="hero-image-box">
+        <!-- 사용자가 임의 이미지 교체 -->
+        <img src="./images/ben-guernsey-eyBvbjbqkEw-unsplash.jpg" alt="제주도 메인 이미지" class="hero-image" />
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="weather-section">
+        <div class="weather-main-card">
+          <div class="weather-main-top">
+            <p class="weather-label" id="weatherLocation">Jeju Sunny</p>
+            <div class="weather-icon-box">
+              <img id="weatherIcon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="날씨 아이콘" />
+            </div>
+          </div>
+          <div class="weather-temp-wrap">
+            <strong class="weather-temp" id="weatherTemp">20°</strong>
+          </div>
+        </div>
+
+        <div class="weather-side-cards">
+          <div class="info-card">
+            <span class="info-title">완주코스</span>
+            <strong class="info-value">1/10</strong>
+          </div>
+          <div class="info-card">
+            <span class="info-title">이동거리</span>
+            <strong class="info-value">15km</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section">
+        <div class="section-head">
+          <h2>제주도 자전거 여행정보 가이드</h2>
+        </div>
+
+        <div class="guide-slider-wrap">
+  <div class="guide-slider" id="guideSlider">
+    <article class="guide-slide-card">
+      <img src="./images/coen-van-de-broek-OFyh9TpMyM8-unsplash.jpg" alt="가이드 이미지 1" />
+    </article>
+    <article class="guide-slide-card">
+      <img src="./images/dmitrii-vaccinium-9qsK2QHidmg-unsplash.jpg" alt="가이드 이미지 2" />
+    </article>
+    <article class="guide-slide-card">
+      <img src="./images/dmitrii-vaccinium-wbzssPqz9P0-unsplash.jpg" alt="가이드 이미지 3" />
+    </article>
+    <article class="guide-slide-card">
+      <img src="./images/dmitriy-suponnikov-ZqP6khj-_yk-unsplash.jpg" alt="가이드 이미지 4" />
+    </article>
+    <article class="guide-slide-card">
+      <img src="./images/emil-karlsen-7XAUOxfTqBY-unsplash.jpg" alt="가이드 이미지 5" />
+    </article>
+  </div>
+
+  <!--<button class="slide-btn slide-btn-prev" id="guidePrev" aria-label="이전 슬라이드">
+    ‹
+  </button>
+
+  <button class="slide-btn slide-btn-next" id="guideNext" aria-label="다음 슬라이드">
+    ›
+  </button>-->
+
+  
+</div>
+      </section>
+
+      <section class="recommend-section">
+        <div class="section-head">
+          <h2>제주도 자전거 여행정보 가이드</h2>
+        </div>
+
+        <div class="recommend-list">
+          <article class="recommend-card">
+            <img src="./images/patrick-untersee-IQqPGoLmm2A-unsplash.jpg" alt="추천 이미지 1" />
+          </article>
+
+          <article class="recommend-card">
+            <img src="./images/paul-green-gOHfFgwyDNM-unsplash.jpg" alt="추천 이미지 2" />
+          </article>
+
+          <article class="recommend-card">
+            <img src="./images/rayyu-maldives-i-rETD5k1Qk-unsplash.jpg" alt="추천 이미지 3" />
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active">
+        <span class="nav-icon">⌂</span>
+        <span class="nav-text">홈</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">👥</span>
+        <span class="nav-text">커뮤니티</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🗺</span>
+        <span class="nav-text">코스</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">♛</span>
+        <span class="nav-text">랭킹</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">●</span>
+        <span class="nav-text">마이</span>
+      </a>
+    </nav>
+  </div>
+
+  <script src="./script/scriptai.js"></script>
+</body>
+</html>

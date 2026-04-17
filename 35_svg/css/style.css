@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+body {
+
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+section {
+    width: 100vw;
+    /*모니터 디스플레이 크기 상관없이 한 화면에 보이게 하는 단위*/
+    height: 100vh;
+    
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section .svg {
+    /*벡터 도형에 면을 채울때 사용*/
+    fill:blue;
+
+    stroke: yellow;
+    stroke-width: 10px;
+
+    width: 1500px;
+}

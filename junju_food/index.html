@@ -1,266 +1,1195 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>전주 맛집 서비스</title>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec&libraries=services"></script>
-    <style>
-        :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f8f9fa;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --border-color: #eeeeee;
-            --accent-dark: #333333;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전주 맛집 서비스</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background-color: var(--secondary-bg); color: var(--text-main); overflow-x: hidden; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #f3f3f3;
+      color: #1f1f1f;
+    }
 
-        #app { max-width: 480px; margin: 0 auto; background: var(--primary-bg); min-height: 100vh; display: flex; flex-direction: column; position: relative; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
-        
-        .header { padding: 20px 20px 10px 20px; background: #fff; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .header-title h1 { margin: 0; font-size: 20px; font-weight: 800; }
-        .header-title p { margin: 4px 0 0 0; font-size: 14px; color: #999; }
-        
-        .search-container { position: relative; margin-bottom: 15px; }
-        .search-input { width: 100%; padding: 12px 15px 12px 45px; border: 1.5px solid var(--border-color); border-radius: 25px; font-size: 15px; outline: none; }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+    button,
+    input {
+      font-family: inherit;
+    }
 
-        .tab-bar { display: flex; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 5px 0 15px 0; scrollbar-width: none; }
-        .tab-bar::-webkit-scrollbar { display: none; }
-        .tab-item { padding: 8px 18px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; background: #fff; }
-        .tab-item.active { background: var(--accent-dark); color: #fff; border-color: var(--accent-dark); }
+    button {
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
 
-        .content-scroll { flex: 1; padding: 10px 20px 100px 20px; }
-        .food-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; margin-bottom: 16px; position: relative; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-        .card-title { font-size: 17px; font-weight: 700; margin: 0; color: #111; }
-        .parking-tag { font-size: 10px; padding: 3px 8px; border-radius: 8px; background: #555; color: #fff; }
-        .card-info p { margin: 6px 0; font-size: 14px; line-height: 1.5; color: var(--text-sub); }
-        .info-label { font-weight: 800; color: #444; margin-right: 6px; }
+    .app {
+      width: 100%;
+      max-width: 402px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 76px;
+    }
 
-        #detail-page { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: 100%; background: #fff; z-index: 200; display: none; overflow-y: auto; }
-        .detail-img { width: 100%; height: 260px; object-fit: cover; background: #f0f0f0; }
-        .detail-content { padding: 24px; }
-        .back-btn { position: absolute; top: 20px; left: 20px; background: #fff; border: none; width: 40px; height: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        #map { width: 100%; height: 220px; border-radius: 12px; margin-top: 15px; border: 1px solid #eee; }
+    .page {
+      display: none;
+      min-height: 100vh;
+      background: #fff;
+    }
 
-        .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 75px; background: #fff; border-top: 1px solid var(--border-color); display: flex; padding: 12px 20px; gap: 12px; z-index: 60; }
-        .nav-btn { flex: 1; border-radius: 14px; border: 1px solid var(--border-color); font-weight: 700; background: #fff; cursor: pointer; }
-        .nav-btn.active { background: #333; color: #fff; }
+    .page.active {
+      display: block;
+    }
 
-        #loader { display: none; text-align: center; padding: 50px 20px; }
-        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #333; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 0 auto 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .error-msg { text-align: center; padding: 40px 20px; color: #ff4757; font-size: 14px; }
-        .debug-info { margin-top: 10px; font-size: 11px; color: #999; word-break: break-all; background: #f8f8f8; padding: 10px; border-radius: 8px; }
-    </style>
+    .main-header {
+      padding: 28px 16px 10px;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .main-title {
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .total-count {
+      margin-top: 3px;
+      display: block;
+      color: #9a9a9a;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 2px;
+    }
+
+    .icon-btn {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #050505;
+    }
+
+    .icon-btn svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: 2.2;
+    }
+
+    .search-box {
+      margin-top: 15px;
+      width: 100%;
+      height: 56px;
+      border: 1.5px solid #343434;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      padding: 0 17px;
+      gap: 12px;
+      background: #fff;
+    }
+
+    .search-box svg {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+    }
+
+    .search-box input {
+      border: 0;
+      outline: none;
+      width: 100%;
+      height: 100%;
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .search-box input::placeholder {
+      color: #d1d1d1;
+    }
+
+    .category-wrap {
+      margin-top: 16px;
+      width: calc(100% + 16px);
+      overflow-x: auto;
+      padding-bottom: 2px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      display: flex;
+      gap: 8px;
+    }
+
+    .category-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-btn {
+      flex: 0 0 auto;
+      height: 30px;
+      padding: 0 13px;
+      border: 1.5px solid #2c2c2c;
+      border-radius: 16px;
+      background: #fff;
+      color: #242424;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .category-btn.active {
+      background: #333;
+      color: #fff;
+    }
+
+    .food-list {
+      padding: 0 16px 18px;
+    }
+
+    .food-card {
+      width: 100%;
+      min-height: 134px;
+      border: 1.5px solid #5a5a5a;
+      border-radius: 5px;
+      padding: 21px 14px 14px;
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 1fr 86px;
+      gap: 10px;
+      background: #fff;
+    }
+
+    .food-info {
+      min-width: 0;
+    }
+
+    .food-name {
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .food-text {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #444;
+      letter-spacing: -0.45px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .food-text strong {
+      color: #252525;
+      font-weight: 900;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 16px;
+    }
+
+    .parking-badge {
+      height: 31px;
+      padding: 0 14px;
+      border-radius: 16px;
+      background: #333;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    .small-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-right: 2px;
+    }
+
+    .small-btn {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: #050505;
+    }
+
+    .small-btn svg {
+      width: 31px;
+      height: 31px;
+      stroke-width: 2.1;
+    }
+
+    .pagination {
+      padding: 6px 16px 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+      border: 1px solid #ddd;
+      border-radius: 17px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #333;
+      background: #fff;
+    }
+
+    .page-btn.active {
+      background: #333;
+      color: #fff;
+      border-color: #333;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .empty-state {
+      padding: 80px 20px;
+      text-align: center;
+      color: #777;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .error-state {
+      margin: 18px 16px;
+      padding: 30px 18px;
+      border: 1.5px solid #333;
+      border-radius: 8px;
+      background: #fff;
+      text-align: center;
+      color: #222;
+    }
+
+    .error-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+
+    .error-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #666;
+      word-break: keep-all;
+      margin-bottom: 18px;
+    }
+
+    .error-retry-btn {
+      height: 38px;
+      padding: 0 22px;
+      border-radius: 19px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 402px;
+      height: 61px;
+      background: #fff;
+      border-top: 1px solid #242424;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 31px;
+      padding: 0 16px;
+    }
+
+    .nav-btn {
+      flex: 1;
+      height: 40px;
+      border: 1.5px solid #1e1e1e;
+      border-radius: 19px;
+      background: #fff;
+      color: #303030;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: -0.35px;
+    }
+
+    .nav-btn.active {
+      background: #333;
+      color: #fff;
+    }
+
+    .detail-page {
+      padding-bottom: 88px;
+    }
+
+    .detail-hero {
+      width: calc(100% - 32px);
+      height: 226px;
+      margin: 16px auto 26px;
+      border-radius: 0 0 15px 15px;
+      overflow: hidden;
+      background: #eee;
+      position: relative;
+    }
+
+    .detail-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 13px;
+      left: 13px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.13);
+    }
+
+    .back-btn svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .detail-content {
+      padding: 0 16px;
+    }
+
+    .detail-section {
+      margin-bottom: 18px;
+    }
+
+    .pill-title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding: 0 14px;
+      border-radius: 15px;
+      background: #333;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.35px;
+      margin-bottom: 9px;
+    }
+
+    .detail-text {
+      color: #4d4d4d;
+      font-size: 16px;
+      line-height: 1.45;
+      letter-spacing: -0.4px;
+      word-break: keep-all;
+    }
+
+    .detail-text.description {
+      text-align: justify;
+    }
+
+    .map-box {
+      width: 100%;
+      height: 218px;
+      margin-top: 8px;
+      background: #e9f0ec;
+      overflow: hidden;
+    }
+
+    .map-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .route-btn {
+      flex: 1;
+      height: 38px;
+      border-radius: 19px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .route-btn.sub {
+      background: #fff;
+      color: #222;
+      border: 1.4px solid #333;
+    }
+
+    .favorite-only {
+      padding: 18px 16px;
+    }
+
+    @media (max-width: 360px) {
+      .food-card {
+        grid-template-columns: 1fr 76px;
+      }
+
+      .food-name {
+        font-size: 20px;
+      }
+
+      .food-text {
+        font-size: 15px;
+      }
+
+      .small-actions {
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <section id="mainPage" class="page active">
+      <header class="main-header">
+        <div class="title-row">
+          <div>
+            <h1 class="main-title">전주 맛집 서비스</h1>
+            <span class="total-count">전체 <b id="totalCount">0</b>건</span>
+          </div>
 
-<div id="app">
-    <div id="main-page">
-        <header class="header">
-            <div class="header-top">
-                <div class="header-title">
-                    <h1>전주 맛집 가이드</h1>
-                    <p id="total-count">연결 대기 중...</p>
-                </div>
-                <i data-lucide="rotate-ccw" onclick="fetchData()" style="cursor:pointer"></i>
-            </div>
-            <div class="search-container">
-                <i data-lucide="search" class="search-icon" size="18"></i>
-                <input type="text" class="search-input" placeholder="상호명 또는 메뉴 검색" onkeyup="handleSearch(event)">
-            </div>
-            <div class="tab-bar">
-                <div class="tab-item active" onclick="filterCategory(this, '전체')">전체</div>
-                <div class="tab-item" onclick="filterCategory(this, '비빔밥')">비빔밥</div>
-                <div class="tab-item" onclick="filterCategory(this, '콩나물국밥')">콩나물국밥</div>
-                <div class="tab-item" onclick="filterCategory(this, '한정식')">한정식</div>
-                <div class="tab-item" onclick="filterCategory(this, '막걸리')">막걸리</div>
-            </div>
-        </header>
-
-        <div id="loader">
-            <div class="spinner"></div>
-            <div>데이터를 가져오고 있습니다...</div>
+          <div class="header-actions">
+            <button class="icon-btn" type="button" id="refreshBtn" aria-label="새로고침">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+                <path d="M21 3v7h-7" />
+              </svg>
+            </button>
+            <button class="icon-btn" type="button" id="topFavoriteBtn" aria-label="즐겨찾기">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div id="error-container"></div>
 
-        <main class="content-scroll" id="list-container"></main>
+        <form class="search-box" id="searchForm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="7" stroke-width="2.4" />
+            <path d="m16.5 16.5 4 4" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+          <input id="searchInput" type="search" placeholder="가게명/주소/메뉴로 검색" autocomplete="off" />
+        </form>
 
-        <nav class="bottom-nav">
-            <button class="nav-btn active">탐색</button>
-            <button class="nav-btn">찜한곳</button>
-        </nav>
-    </div>
+        <div class="category-wrap" id="categoryWrap"></div>
+      </header>
 
-    <div id="detail-page">
-        <button class="back-btn" onclick="closeDetail()"><i data-lucide="chevron-left"></i></button>
-        <div id="detail-img-container">
-             <img src="https://images.unsplash.com/photo-1553163147-622ab578d844?auto=format&fit=crop&q=80&w=800" class="detail-img">
+      <main>
+        <div class="food-list" id="foodList"></div>
+        <div class="pagination" id="pagination"></div>
+      </main>
+    </section>
+
+    <section id="detailPage" class="page detail-page">
+      <div class="detail-hero">
+        <button class="back-btn" type="button" id="backBtn" aria-label="뒤로가기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m15 18-6-6 6-6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <img id="detailImage" alt="맛집 대표 이미지" />
+      </div>
+
+      <div class="detail-content">
+        <section class="detail-section">
+          <h2 class="pill-title">상호명</h2>
+          <p class="detail-text" id="detailName"></p>
+        </section>
+
+        <section class="detail-section">
+          <h2 class="pill-title">주소</h2>
+          <p class="detail-text" id="detailAddress"></p>
+        </section>
+
+        <section class="detail-section">
+          <h2 class="pill-title">소개</h2>
+          <p class="detail-text description" id="detailDescription"></p>
+        </section>
+
+        <section class="detail-section">
+          <h2 class="pill-title">메뉴명</h2>
+          <p class="detail-text" id="detailMenu"></p>
+        </section>
+
+        <section class="detail-section">
+          <h2 class="pill-title">대표전화</h2>
+          <p class="detail-text" id="detailTel"></p>
+        </section>
+
+        <section class="detail-section">
+          <h2 class="pill-title">운영시간</h2>
+          <p class="detail-text" id="detailTime"></p>
+        </section>
+
+        <section class="detail-section">
+          <div id="map" class="map-box"></div>
+          <div class="map-actions">
+            <button class="route-btn" type="button" id="routeBtn">카카오맵 길찾기</button>
+            <button class="route-btn sub" type="button" id="favoriteDetailBtn">즐겨찾기</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="favoritePage" class="page">
+      <header class="main-header">
+        <div class="title-row">
+          <div>
+            <h1 class="main-title">즐겨찾기</h1>
+            <span class="total-count">저장 <b id="favoriteCount">0</b>건</span>
+          </div>
         </div>
-        <div class="detail-content">
-            <h2 id="det-name" style="margin: 0 0 10px 0;"></h2>
-            <p id="det-addr" style="color: #666; margin-bottom: 20px; font-size: 14px;"></p>
-            <div style="background: #f9f9f9; padding: 15px; border-radius: 12px;">
-                <p><strong>주요메뉴:</strong> <span id="det-menu"></span></p>
-                <p><strong>연락처:</strong> <span id="det-tel"></span></p>
-            </div>
-            <div id="map"></div>
-        </div>
-    </div>
-</div>
+      </header>
+      <main class="favorite-only">
+        <div class="food-list" id="favoriteList"></div>
+      </main>
+    </section>
 
-<script>
-    // 1. 여기에 일반 인증키를 입력하세요 (Encoding/Decoding 구분 없이 입력)
-    const SERVICE_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b"; 
-    const BASE_URL = "https://openapi.jeonju.go.kr/rest/jeonjufood/getJeonjuFoodList";
-    const PROXY = "https://api.allorigins.win/get?url=";
+    <nav class="bottom-nav">
+      <button class="nav-btn active" type="button" data-page="mainPage">맛집</button>
+      <button class="nav-btn" type="button" data-page="favoritePage">즐겨찾기</button>
+    </nav>
+  </div>
 
-    let allData = [];
+  <script>
+    const API_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b";
+    const KAKAO_API_KEY = "ba55f074c6737f19be5b6e2e4944c6ec";
+    const API_BASE_URL = "https://openapi.jeonju.go.kr/rest/jeonjufood";
+
+    const categories = ["백반", "비빔밥", "콩나물국밥", "한정식", "막걸리", "한옥마을"];
+    const pageSize = 10;
+    const pageButtonSize = 5;
+
+    let foods = [];
+    let filteredFoods = [];
+    let currentCategory = "백반";
+    let currentPage = 1;
+    let selectedFood = null;
     let map = null;
     let marker = null;
 
-    window.onload = function() {
-        lucide.createIcons();
-        initKakaoMap();
-        fetchData();
-    };
+    const fallbackImages = [
+      "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80"
+    ];
 
-    function initKakaoMap() {
-        const container = document.getElementById('map');
-        const options = { center: new kakao.maps.LatLng(35.8242, 127.1480), level: 3 };
-        map = new kakao.maps.Map(container, options);
+    const sampleFoods = [
+      {
+        id: "sample-1",
+        name: "80년 전통 할머니 국밥",
+        category: "콩나물국밥",
+        address: "전북특별자치도 전주시 완산구 풍남문2길 63",
+        menu: "콩나물국밥 ₩7,000 수육 ₩10,000",
+        tel: "063-000-0001",
+        time: "11:00 ~ 18:00",
+        parking: true,
+        description: "80년 전통 돼지 국밥 전문점으로 깊은 육수와 정갈한 반찬이 특징입니다. 전주 여행 중 든든한 한 끼를 찾는 사용자에게 추천할 수 있는 맛집입니다.",
+        image: fallbackImages[0],
+        lat: 35.814004,
+        lng: 127.148028
+      },
+      {
+        id: "sample-2",
+        name: "전주 한옥마을 비빔밥",
+        category: "비빔밥",
+        address: "전북특별자치도 전주시 완산구 기린대로 99",
+        menu: "전주비빔밥 ₩12,000 돌솥비빔밥 ₩13,000",
+        tel: "063-000-0002",
+        time: "10:30 ~ 20:30",
+        parking: false,
+        description: "전주 대표 메뉴인 비빔밥을 정갈하게 즐길 수 있는 매장입니다. 한옥마을 동선과 함께 방문하기 좋습니다.",
+        image: fallbackImages[1],
+        lat: 35.815555,
+        lng: 127.153612
+      },
+      {
+        id: "sample-3",
+        name: "전주 백반 정식",
+        category: "백반",
+        address: "전북특별자치도 전주시 완산구 팔달로 160",
+        menu: "백반 ₩9,000 제육정식 ₩11,000",
+        tel: "063-000-0003",
+        time: "09:30 ~ 21:00",
+        parking: true,
+        description: "다양한 반찬과 따뜻한 국을 함께 제공하는 백반 전문점입니다. 부담 없는 가격으로 현지식 식사를 원하는 방문객에게 적합합니다.",
+        image: fallbackImages[2],
+        lat: 35.821788,
+        lng: 127.147015
+      },
+      {
+        id: "sample-4",
+        name: "전주 한정식 소담",
+        category: "한정식",
+        address: "전북특별자치도 전주시 완산구 은행로 30",
+        menu: "한정식 ₩25,000 갈비찜 ₩18,000",
+        tel: "063-000-0004",
+        time: "11:30 ~ 21:00",
+        parking: true,
+        description: "전주식 반찬과 메인 요리를 코스로 즐길 수 있는 한정식 매장입니다. 가족 모임과 여행 식사에 잘 어울립니다.",
+        image: fallbackImages[1],
+        lat: 35.813957,
+        lng: 127.151259
+      },
+      {
+        id: "sample-5",
+        name: "전주 막걸리 골목집",
+        category: "막걸리",
+        address: "전북특별자치도 전주시 완산구 서신천변로 11",
+        menu: "막걸리상 ₩35,000 해물파전 ₩15,000",
+        tel: "063-000-0005",
+        time: "16:00 ~ 24:00",
+        parking: false,
+        description: "전주 막걸리 문화와 푸짐한 안주 구성을 경험할 수 있는 매장입니다. 저녁 시간대 방문에 적합합니다.",
+        image: fallbackImages[2],
+        lat: 35.827299,
+        lng: 127.122770
+      },
+      {
+        id: "sample-6",
+        name: "한옥마을 전통 밥상",
+        category: "한옥마을",
+        address: "전북특별자치도 전주시 완산구 태조로 15",
+        menu: "전통밥상 ₩15,000 떡갈비 ₩18,000",
+        tel: "063-000-0006",
+        time: "10:00 ~ 21:00",
+        parking: true,
+        description: "한옥마을 산책 코스와 함께 이용하기 좋은 전통 밥상 매장입니다. 관광객 접근성이 좋고 메뉴 구성이 간결합니다.",
+        image: fallbackImages[0],
+        lat: 35.815003,
+        lng: 127.153210
+      }
+    ];
+
+    const $ = (selector) => document.querySelector(selector);
+
+    const foodListEl = $("#foodList");
+    const favoriteListEl = $("#favoriteList");
+    const paginationEl = $("#pagination");
+    const totalCountEl = $("#totalCount");
+    const searchInputEl = $("#searchInput");
+
+    function init() {
+      loadKakaoMapScript();
+      renderCategories();
+      bindEvents();
+      loadFoods();
     }
 
-    async function fetchData() {
-        const loader = document.getElementById('loader');
-        const errBox = document.getElementById('error-container');
-        const listContainer = document.getElementById('list-container');
-        
-        loader.style.display = 'block';
-        errBox.innerHTML = '';
-        listContainer.innerHTML = '';
+    function loadKakaoMapScript() {
+      if (!KAKAO_API_KEY || KAKAO_API_KEY === "카카오_API_KEY를_여기에_입력하세요") {
+        return;
+      }
 
-        if (SERVICE_KEY.includes("YOUR_SERVICE_KEY")) {
-            loader.style.display = 'none';
-            errBox.innerHTML = `<div class="error-msg">인증키가 설정되지 않았습니다.</div>`;
-            return;
-        }
-
-        try {
-            // 핵심: 키 자체가 이미 인코딩되어 있을 수 있으므로 수동으로 쿼리 스트링 조합
-            // 브라우저가 키 안의 %를 다시 %25로 인코딩하는 것을 방지하기 위해 템플릿 리터럴 사용
-            const apiUri = `${BASE_URL}?authApiKey=${SERVICE_KEY}`;
-            const finalUrl = `${PROXY}${encodeURIComponent(apiUri)}`;
-
-            const response = await fetch(finalUrl);
-            const json = await response.json();
-            const rawXml = json.contents;
-
-            if (!rawXml || rawXml.includes("Service Key Is Not Registered")) {
-                throw new Error("인증키 승인 대기 중이거나 잘못된 키입니다.");
-            }
-
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(rawXml, "text/xml");
-            
-            // 전주시 API 응답 구조: <list> 태그 반복
-            const items = xml.getElementsByTagName("list");
-            const temp = [];
-
-            for (let i = 0; i < items.length; i++) {
-                temp.push({
-                    title: items[i].querySelector("title")?.textContent || "상호명 없음",
-                    address: items[i].querySelector("address")?.textContent || "주소 없음",
-                    tel: items[i].querySelector("tel")?.textContent || "번호 없음",
-                    menu: items[i].querySelector("mainMenu")?.textContent || "메뉴 정보 없음",
-                    parking: items[i].querySelector("parking")?.textContent || "N"
-                });
-            }
-
-            allData = temp;
-            if (allData.length === 0) throw new Error("데이터 형식이 다르거나 결과가 없습니다.");
-
-            renderList(allData);
-            document.getElementById('total-count').innerText = `전주 맛집 ${allData.length}곳`;
-            
-        } catch (e) {
-            errBox.innerHTML = `
-                <div class="error-msg">
-                    데이터를 불러오지 못했습니다.<br>
-                    ${e.message}
-                    <div class="debug-info">인증키 상태를 확인해 주세요. (보통 승인 후 1~2시간 소요)</div>
-                </div>`;
-        } finally {
-            loader.style.display = 'none';
-        }
+      const script = document.createElement("script");
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&libraries=services`;
+      script.async = true;
+      document.head.appendChild(script);
     }
 
-    function renderList(data) {
-        const container = document.getElementById('list-container');
-        container.innerHTML = '';
-        data.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'food-card';
-            card.onclick = () => openDetail(item);
-            card.innerHTML = `
-                <div class="card-header">
-                    <h3 class="card-title">${item.title}</h3>
-                    ${item.parking === 'Y' ? '<span class="parking-tag">주차가능</span>' : ''}
-                </div>
-                <div class="card-info">
-                    <p><span class="info-label">위치</span> ${item.address}</p>
-                    <p><span class="info-label">메뉴</span> ${item.menu}</p>
-                </div>
-            `;
-            container.appendChild(card);
+    function bindEvents() {
+      $("#searchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        currentPage = 1;
+        applyFilters();
+      });
+
+      searchInputEl.addEventListener("input", function () {
+        currentPage = 1;
+        applyFilters();
+      });
+
+      $("#refreshBtn").addEventListener("click", loadFoods);
+      $("#topFavoriteBtn").addEventListener("click", function () {
+        openPage("favoritePage");
+      });
+
+      $("#backBtn").addEventListener("click", function () {
+        openPage("mainPage");
+      });
+
+      $("#routeBtn").addEventListener("click", openKakaoRoute);
+      $("#favoriteDetailBtn").addEventListener("click", function () {
+        if (!selectedFood) return;
+        toggleFavorite(selectedFood.id);
+        updateFavoriteDetailButton();
+        renderFavorites();
+      });
+
+      document.querySelectorAll(".nav-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          openPage(btn.dataset.page);
         });
+      });
     }
 
-    function handleSearch(e) {
-        const val = e.target.value.toLowerCase();
-        const filtered = allData.filter(d => 
-            d.title.toLowerCase().includes(val) || d.menu.toLowerCase().includes(val)
-        );
-        renderList(filtered);
+    function renderCategories() {
+      const categoryWrap = $("#categoryWrap");
+      categoryWrap.innerHTML = categories.map(function (category) {
+        return `<button class="category-btn ${category === currentCategory ? "active" : ""}" type="button" data-category="${category}">${category}</button>`;
+      }).join("");
+
+      categoryWrap.querySelectorAll(".category-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          currentCategory = btn.dataset.category;
+          currentPage = 1;
+          renderCategories();
+          applyFilters();
+        });
+      });
     }
 
-    function filterCategory(el, cat) {
-        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-        const filtered = cat === '전체' ? allData : allData.filter(d => d.menu.includes(cat) || d.title.includes(cat));
-        renderList(filtered);
+    async function loadFoods() {
+      foodListEl.innerHTML = `<div class="empty-state">전주 맛집 데이터를 불러오는 중입니다.</div>`;
+      paginationEl.innerHTML = "";
+      totalCountEl.textContent = "0";
+
+      try {
+        const requestUrl = buildApiUrl();
+        const response = await fetch(requestUrl);
+
+        if (!response.ok) {
+          throw new Error(`API 요청 실패 - 상태 코드 ${response.status}`);
+        }
+
+        const data = await response.json();
+        const normalized = normalizeApiData(data);
+
+        if (normalized.length === 0) {
+          throw new Error("API 응답에 표시할 맛집 데이터가 없습니다.");
+        }
+
+        foods = normalized;
+        applyFilters();
+        renderFavorites();
+      } catch (error) {
+        console.error("전주 맛집 데이터를 불러오지 못했습니다.", error);
+        foods = [];
+        filteredFoods = [];
+        totalCountEl.textContent = "0";
+        paginationEl.innerHTML = "";
+        foodListEl.innerHTML = createErrorState(error.message);
+        renderFavorites();
+      }
     }
 
-    function openDetail(item) {
-        document.getElementById('det-name').innerText = item.title;
-        document.getElementById('det-addr').innerText = item.address;
-        document.getElementById('det-menu').innerText = item.menu;
-        document.getElementById('det-tel').innerText = item.tel;
-        document.getElementById('detail-page').style.display = 'block';
+    function createErrorState(message) {
+      return `
+        <div class="error-state">
+          <h2 class="error-title">데이터를 불러오지 못했습니다</h2>
+          <p class="error-text">
+            API 키, 요청 주소, CORS 허용 여부를 확인해 주세요.<br />
+            ${escapeHtml(message || "알 수 없는 오류가 발생했습니다.")}
+          </p>
+          <button class="error-retry-btn" type="button" onclick="loadFoods()">다시 불러오기</button>
+        </div>
+      `;
+    }
 
+    function buildApiUrl() {
+      const url = new URL(API_BASE_URL);
+      url.searchParams.set("serviceKey", API_KEY);
+      url.searchParams.set("pageNo", "1");
+      url.searchParams.set("numOfRows", "200");
+      url.searchParams.set("type", "json");
+      return url.toString();
+    }
+
+    function normalizeApiData(data) {
+      const items = findArray(data);
+
+      return items.map(function (item, index) {
+        const name = pick(item, ["name", "title", "storeName", "foodNm", "BSSH_NM", "MAIN_TITLE", "업소명", "상호명"]);
+        const address = pick(item, ["addr", "address", "roadAddr", "RDNMADR", "ADDR1", "소재지도로명주소", "주소"]);
+        const menu = pick(item, ["menu", "mainMenu", "rprsntvMenu", "MNU", "ITEMCNTNTS", "대표메뉴", "메뉴"]);
+        const tel = pick(item, ["tel", "phone", "telNo", "CNTCT_TEL", "전화번호"]);
+        const time = pick(item, ["time", "openTime", "useTime", "BSNS_TIME", "영업시간"]);
+        const description = pick(item, ["description", "content", "intro", "ITEMCNTNTS", "소개", "설명"]);
+        const image = pick(item, ["image", "imageUrl", "imgUrl", "MAIN_IMG_NORMAL", "MAIN_IMG_THUMB", "이미지"]);
+        const lat = Number(pick(item, ["lat", "latitude", "LAT", "위도"])) || null;
+        const lng = Number(pick(item, ["lng", "lon", "longitude", "LNG", "경도"])) || null;
+        const rawCategory = pick(item, ["category", "type", "menuCategory", "분류", "업태"]);
+        const category = matchCategory(`${rawCategory} ${name} ${menu} ${address}`);
+
+        return {
+          id: pick(item, ["id", "UC_SEQ", "NO", "번호"]) || `api-${index}`,
+          name: name || "상호명 정보 없음",
+          category: category,
+          address: address || "주소 정보 없음",
+          menu: menu || "메뉴 정보 없음",
+          tel: tel || "전화번호 정보 없음",
+          time: time || "운영시간 정보 없음",
+          parking: String(pick(item, ["parking", "parkingYn", "PKPLCE_AT", "주차"])).includes("Y") || String(description).includes("주차"),
+          description: description || "상세 소개 정보가 제공되지 않았습니다.",
+          image: image || fallbackImages[index % fallbackImages.length],
+          lat: lat,
+          lng: lng
+        };
+      });
+    }
+
+    function findArray(value) {
+      if (Array.isArray(value)) return value;
+      if (!value || typeof value !== "object") return [];
+
+      const possibleKeys = ["items", "item", "data", "list", "body", "response", "JeonjuFood"];
+      for (const key of possibleKeys) {
+        if (Array.isArray(value[key])) return value[key];
+        const nested = findArray(value[key]);
+        if (nested.length) return nested;
+      }
+
+      for (const key in value) {
+        const nested = findArray(value[key]);
+        if (nested.length) return nested;
+      }
+
+      return [];
+    }
+
+    function pick(obj, keys) {
+      for (const key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null && String(obj[key]).trim() !== "") {
+          return String(obj[key]).trim();
+        }
+      }
+      return "";
+    }
+
+    function matchCategory(text) {
+      const target = text || "";
+      const found = categories.find(function (category) {
+        return target.includes(category);
+      });
+      return found || currentCategory || "백반";
+    }
+
+    function buildSampleList() {
+      const list = [];
+      for (let i = 0; i < 36; i++) {
+        const base = sampleFoods[i % sampleFoods.length];
+        list.push({
+          ...base,
+          id: `${base.id}-${i}`,
+          name: i < sampleFoods.length ? base.name : `${base.name} ${i + 1}`
+        });
+      }
+      return list;
+    }
+
+    function applyFilters() {
+      const keyword = searchInputEl.value.trim().toLowerCase();
+
+      filteredFoods = foods.filter(function (food) {
+        const categoryMatched = food.category === currentCategory || `${food.name} ${food.menu} ${food.address}`.includes(currentCategory);
+        const text = `${food.name} ${food.address} ${food.menu}`.toLowerCase();
+        const keywordMatched = !keyword || text.includes(keyword);
+        return categoryMatched && keywordMatched;
+      });
+
+      totalCountEl.textContent = filteredFoods.length;
+      renderFoodList();
+      renderPagination();
+    }
+
+    function renderFoodList() {
+      const start = (currentPage - 1) * pageSize;
+      const pageItems = filteredFoods.slice(start, start + pageSize);
+
+      if (pageItems.length === 0) {
+        foodListEl.innerHTML = `<div class="empty-state">검색 결과가 없습니다.<br />다른 키워드나 분류를 선택해 주세요.</div>`;
+        return;
+      }
+
+      foodListEl.innerHTML = pageItems.map(createFoodCard).join("");
+      bindFoodCardEvents(foodListEl);
+    }
+
+    function createFoodCard(food) {
+      const favoriteActive = isFavorite(food.id);
+      return `
+        <article class="food-card" data-id="${food.id}">
+          <div class="food-info">
+            <h2 class="food-name">${escapeHtml(food.name)}</h2>
+            <p class="food-text"><strong>주소 :</strong> ${escapeHtml(food.address)}</p>
+            <p class="food-text"><strong>메뉴 :</strong> ${escapeHtml(food.menu)}</p>
+          </div>
+          <div class="card-actions">
+            <span class="parking-badge">${food.parking ? "주차가능" : "주차불가"}</span>
+            <div class="small-actions">
+              <button class="small-btn detail-open" type="button" aria-label="상세보기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m16.5 16.5 4 4" stroke-linecap="round" />
+                </svg>
+              </button>
+              <button class="small-btn favorite-toggle" type="button" aria-label="즐겨찾기">
+                <svg viewBox="0 0 24 24" fill="${favoriteActive ? "currentColor" : "none"}" stroke="currentColor">
+                  <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function bindFoodCardEvents(scope) {
+      scope.querySelectorAll(".food-card").forEach(function (card) {
+        const id = card.dataset.id;
+        const food = foods.find(function (item) { return item.id === id; });
+
+        card.querySelector(".detail-open").addEventListener("click", function (e) {
+          e.stopPropagation();
+          openDetail(food);
+        });
+
+        card.querySelector(".favorite-toggle").addEventListener("click", function (e) {
+          e.stopPropagation();
+          toggleFavorite(id);
+          renderFoodList();
+          renderFavorites();
+        });
+
+        card.addEventListener("click", function () {
+          openDetail(food);
+        });
+      });
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredFoods.length / pageSize);
+
+      if (totalPages <= 1) {
+        paginationEl.innerHTML = "";
+        return;
+      }
+
+      const currentGroup = Math.ceil(currentPage / pageButtonSize);
+      const startPage = (currentGroup - 1) * pageButtonSize + 1;
+      const endPage = Math.min(startPage + pageButtonSize - 1, totalPages);
+
+      let html = `<button class="page-btn" type="button" data-page="prev" ${currentPage === 1 ? "disabled" : ""}>‹</button>`;
+
+      for (let page = startPage; page <= endPage; page++) {
+        html += `<button class="page-btn ${page === currentPage ? "active" : ""}" type="button" data-page="${page}">${page}</button>`;
+      }
+
+      html += `<button class="page-btn" type="button" data-page="next" ${currentPage === totalPages ? "disabled" : ""}>›</button>`;
+
+      paginationEl.innerHTML = html;
+
+      paginationEl.querySelectorAll(".page-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const pageValue = btn.dataset.page;
+
+          if (pageValue === "prev") currentPage -= 1;
+          else if (pageValue === "next") currentPage += 1;
+          else currentPage = Number(pageValue);
+
+          renderFoodList();
+          renderPagination();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    }
+
+    function openDetail(food) {
+      selectedFood = food;
+      $("#detailImage").src = food.image || fallbackImages[0];
+      $("#detailName").textContent = food.name;
+      $("#detailAddress").textContent = food.address;
+      $("#detailDescription").textContent = food.description;
+      $("#detailMenu").textContent = food.menu;
+      $("#detailTel").textContent = food.tel;
+      $("#detailTime").textContent = food.time;
+      updateFavoriteDetailButton();
+      openPage("detailPage");
+      setTimeout(function () {
+        renderMap(food);
+      }, 120);
+    }
+
+    function openPage(pageId) {
+      document.querySelectorAll(".page").forEach(function (page) {
+        page.classList.remove("active");
+      });
+
+      $("#" + pageId).classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(function (btn) {
+        btn.classList.toggle("active", btn.dataset.page === pageId);
+      });
+
+      if (pageId === "favoritePage") {
+        renderFavorites();
+      }
+    }
+
+    function renderMap(food) {
+      const mapEl = $("#map");
+
+      if (!window.kakao || !window.kakao.maps) {
+        mapEl.innerHTML = `<div class="empty-state">카카오 API 키를 입력하면 지도가 표시됩니다.</div>`;
+        return;
+      }
+
+      const defaultLat = food.lat || 35.8242238;
+      const defaultLng = food.lng || 127.1480005;
+      const position = new kakao.maps.LatLng(defaultLat, defaultLng);
+
+      map = new kakao.maps.Map(mapEl, {
+        center: position,
+        level: 4
+      });
+
+      marker = new kakao.maps.Marker({
+        position: position,
+        map: map
+      });
+
+      if (!food.lat || !food.lng) {
         const geocoder = new kakao.maps.services.Geocoder();
-        geocoder.addressSearch(item.address, (result, status) => {
-            if (status === kakao.maps.services.Status.OK) {
-                const p = new kakao.maps.LatLng(result[0].y, result[0].x);
-                if (marker) marker.setMap(null);
-                marker = new kakao.maps.Marker({ map, position: p });
-                map.setCenter(p);
-                setTimeout(() => map.relayout(), 100);
-            }
+        geocoder.addressSearch(food.address, function (result, status) {
+          if (status === kakao.maps.services.Status.OK) {
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            food.lat = Number(result[0].y);
+            food.lng = Number(result[0].x);
+            map.setCenter(coords);
+            marker.setPosition(coords);
+          }
         });
+      }
     }
 
-    function closeDetail() {
-        document.getElementById('detail-page').style.display = 'none';
-    }
-</script>
+    function openKakaoRoute() {
+      if (!selectedFood) return;
 
+      const name = encodeURIComponent(selectedFood.name);
+      const lat = selectedFood.lat || 35.8242238;
+      const lng = selectedFood.lng || 127.1480005;
+      const url = `https://map.kakao.com/link/to/${name},${lat},${lng}`;
+      window.open(url, "_blank");
+    }
+
+    function getFavorites() {
+      try {
+        return JSON.parse(localStorage.getItem("jeonju-food-favorites")) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function setFavorites(ids) {
+      localStorage.setItem("jeonju-food-favorites", JSON.stringify(ids));
+    }
+
+    function isFavorite(id) {
+      return getFavorites().includes(id);
+    }
+
+    function toggleFavorite(id) {
+      const favorites = getFavorites();
+      const next = favorites.includes(id)
+        ? favorites.filter(function (item) { return item !== id; })
+        : favorites.concat(id);
+      setFavorites(next);
+    }
+
+    function renderFavorites() {
+      const ids = getFavorites();
+      const items = foods.filter(function (food) {
+        return ids.includes(food.id);
+      });
+
+      $("#favoriteCount").textContent = items.length;
+
+      if (items.length === 0) {
+        favoriteListEl.innerHTML = `<div class="empty-state">아직 저장한 맛집이 없습니다.</div>`;
+        return;
+      }
+
+      favoriteListEl.innerHTML = items.map(createFoodCard).join("");
+      bindFoodCardEvents(favoriteListEl);
+    }
+
+    function updateFavoriteDetailButton() {
+      if (!selectedFood) return;
+      $("#favoriteDetailBtn").textContent = isFavorite(selectedFood.id) ? "즐겨찾기 해제" : "즐겨찾기";
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    init();
+  </script>
 </body>
 </html>

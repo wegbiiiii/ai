@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>전주 맛집 서비스</title>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Kakao Map API -->
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec&libraries=services"></script>
     <style>
         :root {
@@ -21,45 +19,45 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background-color: var(--secondary-bg); color: var(--text-main); overflow-x: hidden; }
 
-        #app { max-width: 480px; margin: 0 auto; background: var(--primary-bg); min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+        #app { max-width: 480px; margin: 0 auto; background: var(--primary-bg); min-height: 100vh; display: flex; flex-direction: column; position: relative; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
         
-        .header { padding: 20px 20px 10px 20px; background: #fff; border-bottom: 1px solid var(--border-color); }
+        .header { padding: 20px 20px 10px 20px; background: #fff; position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .header-title h1 { margin: 0; font-size: 20px; font-weight: 800; }
         .header-title p { margin: 4px 0 0 0; font-size: 14px; color: #999; }
         
         .search-container { position: relative; margin-bottom: 15px; }
         .search-input { width: 100%; padding: 12px 15px 12px 45px; border: 1.5px solid var(--border-color); border-radius: 25px; font-size: 15px; outline: none; }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
 
         .tab-bar { display: flex; overflow-x: auto; white-space: nowrap; gap: 10px; padding: 5px 0 15px 0; scrollbar-width: none; }
         .tab-bar::-webkit-scrollbar { display: none; }
-        .tab-item { padding: 8px 16px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 14px; cursor: pointer; background: #fff; }
+        .tab-item { padding: 8px 18px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; background: #fff; }
         .tab-item.active { background: var(--accent-dark); color: #fff; border-color: var(--accent-dark); }
 
-        .content-scroll { flex: 1; padding: 10px 20px 80px 20px; }
-        .food-card { background: #fff; border: 1px solid var(--border-color); border-radius: 15px; padding: 18px; margin-bottom: 15px; position: relative; cursor: pointer; }
-        .card-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .card-title { font-size: 17px; font-weight: 700; margin: 0; }
-        .parking-tag { font-size: 11px; padding: 4px 10px; border-radius: 12px; background: #444; color: #fff; }
-        .card-info p { margin: 4px 0; font-size: 14px; line-height: 1.4; color: var(--text-sub); }
-        .info-label { font-weight: 800; color: var(--text-main); margin-right: 5px; }
-        .card-actions { position: absolute; right: 18px; bottom: 18px; display: flex; gap: 12px; color: #333; }
+        .content-scroll { flex: 1; padding: 10px 20px 100px 20px; }
+        .food-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 18px; margin-bottom: 16px; position: relative; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .card-title { font-size: 17px; font-weight: 700; margin: 0; color: #111; }
+        .parking-tag { font-size: 10px; padding: 3px 8px; border-radius: 8px; background: #555; color: #fff; }
+        .card-info p { margin: 6px 0; font-size: 14px; line-height: 1.5; color: var(--text-sub); }
+        .info-label { font-weight: 800; color: #444; margin-right: 6px; }
 
         #detail-page { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: 100%; background: #fff; z-index: 200; display: none; overflow-y: auto; }
-        .detail-img { width: 100%; height: 250px; object-fit: cover; background: #eee; }
-        .detail-content { padding: 20px; }
-        .detail-label { display: inline-block; background: #444; color: #fff; padding: 4px 12px; border-radius: 15px; font-size: 11px; margin-bottom: 6px; }
-        .detail-value { font-size: 15px; margin-bottom: 15px; line-height: 1.5; }
-        .back-btn { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.9); border: none; width: 36px; height: 36px; border-radius: 18px; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; border: 1px solid #ddd; }
-        #map { width: 100%; height: 200px; border-radius: 10px; margin-top: 10px; border: 1px solid #ddd; }
+        .detail-img { width: 100%; height: 260px; object-fit: cover; background: #f0f0f0; }
+        .detail-content { padding: 24px; }
+        .back-btn { position: absolute; top: 20px; left: 20px; background: #fff; border: none; width: 40px; height: 40px; border-radius: 20px; display: flex; align-items: center; justify-content: center; z-index: 10; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        #map { width: 100%; height: 220px; border-radius: 12px; margin-top: 15px; border: 1px solid #eee; }
 
-        .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: #fff; border-top: 1px solid var(--border-color); display: flex; padding: 10px 20px; gap: 10px; }
-        .nav-btn { flex: 1; border-radius: 12px; border: 1px solid var(--border-color); font-weight: 600; background: #fff; cursor: pointer; }
+        .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 75px; background: #fff; border-top: 1px solid var(--border-color); display: flex; padding: 12px 20px; gap: 12px; z-index: 60; }
+        .nav-btn { flex: 1; border-radius: 14px; border: 1px solid var(--border-color); font-weight: 700; background: #fff; cursor: pointer; }
         .nav-btn.active { background: #333; color: #fff; }
 
-        #loader { display: none; text-align: center; padding: 30px; font-weight: 600; color: #666; }
-        .error-msg { text-align: center; padding: 20px; color: #e74c3c; }
+        #loader { display: none; text-align: center; padding: 50px 20px; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #333; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 0 auto 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error-msg { text-align: center; padding: 40px 20px; color: #ff4757; font-size: 14px; }
+        .debug-info { margin-top: 10px; font-size: 11px; color: #999; word-break: break-all; background: #f8f8f8; padding: 10px; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -69,67 +67,62 @@
         <header class="header">
             <div class="header-top">
                 <div class="header-title">
-                    <h1>전주 맛집 서비스</h1>
-                    <p id="total-count">데이터 확인 중...</p>
+                    <h1>전주 맛집 가이드</h1>
+                    <p id="total-count">연결 대기 중...</p>
                 </div>
-                <div class="header-actions">
-                    <i data-lucide="rotate-ccw" onclick="fetchData()"></i>
-                    <i data-lucide="heart"></i>
-                </div>
+                <i data-lucide="rotate-ccw" onclick="fetchData()" style="cursor:pointer"></i>
             </div>
             <div class="search-container">
                 <i data-lucide="search" class="search-icon" size="18"></i>
-                <input type="text" class="search-input" placeholder="가게명/주소/메뉴로 검색" onkeyup="handleSearch(event)">
+                <input type="text" class="search-input" placeholder="상호명 또는 메뉴 검색" onkeyup="handleSearch(event)">
             </div>
-            <div class="tab-bar" id="tab-bar">
+            <div class="tab-bar">
                 <div class="tab-item active" onclick="filterCategory(this, '전체')">전체</div>
-                <!-- 카테고리는 데이터 기반으로 생성될 수도 있습니다 -->
                 <div class="tab-item" onclick="filterCategory(this, '비빔밥')">비빔밥</div>
                 <div class="tab-item" onclick="filterCategory(this, '콩나물국밥')">콩나물국밥</div>
                 <div class="tab-item" onclick="filterCategory(this, '한정식')">한정식</div>
-                <div class="tab-item" onclick="filterCategory(this, '기타')">기타</div>
+                <div class="tab-item" onclick="filterCategory(this, '막걸리')">막걸리</div>
             </div>
         </header>
 
-        <div id="loader">전주시 맛집 정보를 불러오고 있습니다...</div>
+        <div id="loader">
+            <div class="spinner"></div>
+            <div>데이터를 가져오고 있습니다...</div>
+        </div>
         <div id="error-container"></div>
 
         <main class="content-scroll" id="list-container"></main>
 
         <nav class="bottom-nav">
-            <button class="nav-btn active">맛집</button>
-            <button class="nav-btn">즐겨찾기</button>
+            <button class="nav-btn active">탐색</button>
+            <button class="nav-btn">찜한곳</button>
         </nav>
     </div>
 
     <div id="detail-page">
         <button class="back-btn" onclick="closeDetail()"><i data-lucide="chevron-left"></i></button>
-        <img src="https://images.unsplash.com/photo-1553163147-622ab578d844?auto=format&fit=crop&q=80&w=800" class="detail-img">
+        <div id="detail-img-container">
+             <img src="https://images.unsplash.com/photo-1553163147-622ab578d844?auto=format&fit=crop&q=80&w=800" class="detail-img">
+        </div>
         <div class="detail-content">
-            <span class="detail-label">상호명</span>
-            <div id="det-name" class="detail-value" style="font-weight: 700; font-size: 18px;"></div>
-            <span class="detail-label">주소</span>
-            <div id="det-addr" class="detail-value"></div>
-            <span class="detail-label">주요메뉴</span>
-            <div id="det-menu" class="detail-value"></div>
-            <span class="detail-label">전화번호</span>
-            <div id="det-tel" class="detail-value"></div>
+            <h2 id="det-name" style="margin: 0 0 10px 0;"></h2>
+            <p id="det-addr" style="color: #666; margin-bottom: 20px; font-size: 14px;"></p>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 12px;">
+                <p><strong>주요메뉴:</strong> <span id="det-menu"></span></p>
+                <p><strong>연락처:</strong> <span id="det-tel"></span></p>
+            </div>
             <div id="map"></div>
         </div>
     </div>
 </div>
 
 <script>
-    /**
-     * [필독] 공공데이터 활용 가이드
-     * 1. API_KEY: 공공데이터포털에서 발급받은 '인코딩 키' 또는 '디코딩 키'를 입력하세요.
-     * 2. CORS 문제: 브라우저에서 직접 공공데이터 API를 호출할 때 보안 정책(CORS)으로 차단될 수 있습니다. 
-     * 실제 서비스 시에는 프록시 서버를 경유하거나 서버사이드에서 호출해야 합니다.
-     */
-    const API_URL = "https://openapi.jeonju.go.kr/rest/jeonjufood/getJeonjuFoodList";
-    const API_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b"; // 여기에 공공데이터포털 API 키를 넣으세요.
-    
-    let allData = []; 
+    // 1. 여기에 일반 인증키를 입력하세요 (Encoding/Decoding 구분 없이 입력)
+    const SERVICE_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b"; 
+    const BASE_URL = "https://openapi.jeonju.go.kr/rest/jeonjufood/getJeonjuFoodList";
+    const PROXY = "https://api.allorigins.win/get?url=";
+
+    let allData = [];
     let map = null;
     let marker = null;
 
@@ -140,73 +133,70 @@
     };
 
     function initKakaoMap() {
-        if (typeof kakao === 'undefined') return;
         const container = document.getElementById('map');
-        const options = { center: new kakao.maps.LatLng(35.8242238, 127.1479532), level: 3 };
+        const options = { center: new kakao.maps.LatLng(35.8242, 127.1480), level: 3 };
         map = new kakao.maps.Map(container, options);
     }
 
     async function fetchData() {
         const loader = document.getElementById('loader');
-        const errorContainer = document.getElementById('error-container');
+        const errBox = document.getElementById('error-container');
         const listContainer = document.getElementById('list-container');
         
         loader.style.display = 'block';
-        errorContainer.innerHTML = '';
+        errBox.innerHTML = '';
         listContainer.innerHTML = '';
 
-        // API 키가 기본값일 경우 안내 메시지 출력
-        if (API_KEY === "YOUR_DATA_GO_KR_API_KEY") {
+        if (SERVICE_KEY.includes("YOUR_SERVICE_KEY")) {
             loader.style.display = 'none';
-            errorContainer.innerHTML = `<div class="error-msg">API 키를 입력해주세요.<br><small>index.html 파일 내 API_KEY 변수에 키를 입력해야 실제 데이터를 가져옵니다.</small></div>`;
+            errBox.innerHTML = `<div class="error-msg">인증키가 설정되지 않았습니다.</div>`;
             return;
         }
 
         try {
-            // 전주시 맛집 API 호출 (JSON 응답 가정)
-            // 지연 발생 시 재시도 로직(Exponential Backoff)은 필요에 따라 구현
-            const fullUrl = `${API_URL}?authApiKey=${API_KEY}`;
-            
-            const response = await fetch(fullUrl);
-            if (!response.ok) throw new Error("네트워크 응답에 문제가 있습니다.");
-            
-            const textData = await response.text();
-            
-            // 공공데이터 API는 때로 XML로 오기도 합니다. 
-            // JSON 응답인 경우 JSON.parse를 사용하고, XML인 경우 파서가 필요합니다.
-            // 여기서는 표준 JSON 응답 구조를 처리하는 방식을 따릅니다.
-            
-            let data;
-            try {
-                data = JSON.parse(textData);
-            } catch(e) {
-                // XML 응답일 경우 처리 (간이 방식)
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(textData, "text/xml");
-                const items = xmlDoc.getElementsByTagName("list");
-                data = { body: { data: [] } };
-                for (let i = 0; i < items.length; i++) {
-                    data.body.data.push({
-                        title: items[i].getElementsByTagName("title")[0]?.textContent || "",
-                        address: items[i].getElementsByTagName("address")[0]?.textContent || "",
-                        tel: items[i].getElementsByTagName("tel")[0]?.textContent || "",
-                        mainMenu: items[i].getElementsByTagName("mainMenu")[0]?.textContent || "",
-                        parking: items[i].getElementsByTagName("parking")[0]?.textContent || "정보없음"
-                    });
-                }
+            // 핵심: 키 자체가 이미 인코딩되어 있을 수 있으므로 수동으로 쿼리 스트링 조합
+            // 브라우저가 키 안의 %를 다시 %25로 인코딩하는 것을 방지하기 위해 템플릿 리터럴 사용
+            const apiUri = `${BASE_URL}?authApiKey=${SERVICE_KEY}`;
+            const finalUrl = `${PROXY}${encodeURIComponent(apiUri)}`;
+
+            const response = await fetch(finalUrl);
+            const json = await response.json();
+            const rawXml = json.contents;
+
+            if (!rawXml || rawXml.includes("Service Key Is Not Registered")) {
+                throw new Error("인증키 승인 대기 중이거나 잘못된 키입니다.");
             }
 
-            allData = data.body?.data || [];
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(rawXml, "text/xml");
             
-            if (allData.length === 0) {
-                errorContainer.innerHTML = `<div class="error-msg">조회된 데이터가 없습니다.</div>`;
-            } else {
-                renderList(allData);
-                document.getElementById('total-count').innerText = `전체 ${allData.length}건`;
+            // 전주시 API 응답 구조: <list> 태그 반복
+            const items = xml.getElementsByTagName("list");
+            const temp = [];
+
+            for (let i = 0; i < items.length; i++) {
+                temp.push({
+                    title: items[i].querySelector("title")?.textContent || "상호명 없음",
+                    address: items[i].querySelector("address")?.textContent || "주소 없음",
+                    tel: items[i].querySelector("tel")?.textContent || "번호 없음",
+                    menu: items[i].querySelector("mainMenu")?.textContent || "메뉴 정보 없음",
+                    parking: items[i].querySelector("parking")?.textContent || "N"
+                });
             }
-        } catch (error) {
-            console.error("Fetch Error:", error);
-            errorContainer.innerHTML = `<div class="error-msg">데이터를 가져오는데 실패했습니다.<br><small>${error.message}</small></div>`;
+
+            allData = temp;
+            if (allData.length === 0) throw new Error("데이터 형식이 다르거나 결과가 없습니다.");
+
+            renderList(allData);
+            document.getElementById('total-count').innerText = `전주 맛집 ${allData.length}곳`;
+            
+        } catch (e) {
+            errBox.innerHTML = `
+                <div class="error-msg">
+                    데이터를 불러오지 못했습니다.<br>
+                    ${e.message}
+                    <div class="debug-info">인증키 상태를 확인해 주세요. (보통 승인 후 1~2시간 소요)</div>
+                </div>`;
         } finally {
             loader.style.display = 'none';
         }
@@ -215,83 +205,56 @@
     function renderList(data) {
         const container = document.getElementById('list-container');
         container.innerHTML = '';
-
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'food-card';
             card.onclick = () => openDetail(item);
-            
-            // API 필드명에 맞춰 수정 (title, address, mainMenu 등)
-            const storeName = item.title || item.storeNm || "상호명 없음";
-            const address = item.address || "주소 정보 없음";
-            const mainMenu = item.mainMenu || item.menu || "메뉴 정보 없음";
-            const parking = item.parking === 'Y' ? "주차가능" : "주차불가";
-
             card.innerHTML = `
                 <div class="card-header">
-                    <h3 class="card-title">${storeName}</h3>
-                    <span class="parking-tag">${parking}</span>
+                    <h3 class="card-title">${item.title}</h3>
+                    ${item.parking === 'Y' ? '<span class="parking-tag">주차가능</span>' : ''}
                 </div>
                 <div class="card-info">
-                    <p><span class="info-label">주소:</span> ${address}</p>
-                    <p><span class="info-label">메뉴:</span> ${mainMenu}</p>
-                </div>
-                <div class="card-actions">
-                    <i data-lucide="search" size="18"></i>
-                    <i data-lucide="heart" size="18"></i>
+                    <p><span class="info-label">위치</span> ${item.address}</p>
+                    <p><span class="info-label">메뉴</span> ${item.menu}</p>
                 </div>
             `;
             container.appendChild(card);
         });
-        lucide.createIcons();
     }
 
     function handleSearch(e) {
-        const query = e.target.value.toLowerCase();
-        const filtered = allData.filter(item => 
-            (item.title || "").toLowerCase().includes(query) || 
-            (item.address || "").toLowerCase().includes(query) ||
-            (item.mainMenu || "").toLowerCase().includes(query)
+        const val = e.target.value.toLowerCase();
+        const filtered = allData.filter(d => 
+            d.title.toLowerCase().includes(val) || d.menu.toLowerCase().includes(val)
         );
         renderList(filtered);
     }
 
-    function filterCategory(el, category) {
-        document.querySelectorAll('.tab-item').forEach(tab => tab.classList.remove('active'));
+    function filterCategory(el, cat) {
+        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
         el.classList.add('active');
-
-        if (category === '전체') {
-            renderList(allData);
-        } else {
-            // 카테고리 필드는 API 응답에 따라 'category' 또는 'theme' 등으로 다를 수 있습니다.
-            const filtered = allData.filter(item => (item.mainMenu || "").includes(category));
-            renderList(filtered);
-        }
+        const filtered = cat === '전체' ? allData : allData.filter(d => d.menu.includes(cat) || d.title.includes(cat));
+        renderList(filtered);
     }
 
     function openDetail(item) {
-        const storeName = item.title || item.storeNm;
-        const address = item.address;
-
-        document.getElementById('det-name').innerText = storeName;
-        document.getElementById('det-addr').innerText = address;
-        document.getElementById('det-menu').innerText = item.mainMenu || item.menu;
-        document.getElementById('det-tel').innerText = item.tel || "정보없음";
-        
+        document.getElementById('det-name').innerText = item.title;
+        document.getElementById('det-addr').innerText = item.address;
+        document.getElementById('det-menu').innerText = item.menu;
+        document.getElementById('det-tel').innerText = item.tel;
         document.getElementById('detail-page').style.display = 'block';
 
-        if (typeof kakao !== 'undefined' && address) {
-            const geocoder = new kakao.maps.services.Geocoder();
-            geocoder.addressSearch(address, function(result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    if (marker) marker.setMap(null);
-                    marker = new kakao.maps.Marker({ map: map, position: coords });
-                    map.setCenter(coords);
-                    setTimeout(() => map.relayout(), 200);
-                }
-            });
-        }
+        const geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(item.address, (result, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+                const p = new kakao.maps.LatLng(result[0].y, result[0].x);
+                if (marker) marker.setMap(null);
+                marker = new kakao.maps.Marker({ map, position: p });
+                map.setCenter(p);
+                setTimeout(() => map.relayout(), 100);
+            }
+        });
     }
 
     function closeDetail() {

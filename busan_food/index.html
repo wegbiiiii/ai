@@ -280,6 +280,33 @@
       margin-top: 8px;
     }
 
+    .direction-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .direction-btn {
+      height: 44px;
+      border-radius: 14px;
+      background: #303030;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -0.4px;
+    }
+
+    .direction-btn.secondary {
+      background: #fff;
+      color: #111;
+      border: 1px solid #111;
+    }
+
     .bottom-nav {
       position: fixed;
       left: 50%;
@@ -745,6 +772,10 @@
 
         <section class="detail-section">
           <div id="map" class="map-box"></div>
+          <div class="direction-actions">
+            <a class="direction-btn" href="${getKakaoDirectionUrl(item)}" target="_blank" rel="noopener noreferrer">길찾기</a>
+            <a class="direction-btn secondary" href="${getKakaoMapUrl(item)}" target="_blank" rel="noopener noreferrer">지도 크게 보기</a>
+          </div>
         </section>
 
         <section class="detail-section">
@@ -846,6 +877,16 @@
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+
+    function getKakaoDirectionUrl(item) {
+      const name = encodeURIComponent(item.name);
+      return `https://map.kakao.com/link/to/${name},${item.lat},${item.lng}`;
+    }
+
+    function getKakaoMapUrl(item) {
+      const name = encodeURIComponent(item.name);
+      return `https://map.kakao.com/link/map/${name},${item.lat},${item.lng}`;
     }
 
     function renderMap(item) {

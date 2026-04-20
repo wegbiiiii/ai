@@ -434,7 +434,7 @@
     const SERVICE_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b";
 
     const API_BASE_URL = "https://apis.data.go.kr/6430000/cbRecreationalFoodInfoService";
-    const API_OPERATION_PATH = "/getCbRecreationalFoodInfo";
+    const API_OPERATION_PATH = "/getRecreationalFoodInfo";
 
     const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80";
 
@@ -566,18 +566,20 @@
     }
 
     function normalizeRestaurant(item, index) {
-      const name = getValue(item, ["BSSH_NM", "bsshNm", "MAIN_TITLE", "mainTitle", "업소명", "상호명", "name"], "충청북도 맛집");
-      const address = getValue(item, ["RDNMADR", "rdnmadr", "ADDR", "addr", "주소", "address"], "주소 정보 없음");
-      const menu = getValue(item, ["RPRSNTV_MENU", "rprsntvMenu", "MENU", "menu", "대표메뉴", "메뉴"], "메뉴 정보 없음");
-      const intro = getValue(item, ["INTRO", "intro", "ITEMCNTNTS", "itemcntnts", "CNTNTS", "contents", "소개"], "등록된 소개 정보가 없습니다.");
+      const name = getValue(item, ["CMPNM", "cmpnm", "BSSH_NM", "bsshNm", "MAIN_TITLE", "mainTitle", "업소명", "상호명", "name"], "충청북도 맛집");
+      const address = getValue(item, ["ADRES", "adres", "RDNMADR", "rdnmadr", "ADDR", "addr", "주소", "address"], "주소 정보 없음");
+      const mainMenu = getValue(item, ["MNMNU", "mnmnu", "RPRSNTV_MENU", "rprsntvMenu", "대표메뉴"], "");
+      const allMenu = getValue(item, ["MENU", "menu", "메뉴"], "");
+      const menu = mainMenu || allMenu || "메뉴 정보 없음";
+      const intro = getValue(item, ["DC", "dc", "INTRO", "intro", "ITEMCNTNTS", "itemcntnts", "CNTNTS", "contents", "소개"], "등록된 소개 정보가 없습니다.");
       const phone = getValue(item, ["TELNO", "telno", "TEL", "tel", "PHONE", "phone", "전화번호"], "전화번호 정보 없음");
-      const hours = getValue(item, ["BSN_TIME", "bsnTime", "OPRTIME", "oprtime", "운영시간"], "운영시간 정보 없음");
-      const image = getValue(item, ["IMAGE_URL", "imageUrl", "MAIN_IMG_NORMAL", "mainImgNormal", "IMG_URL", "imgUrl", "image"], DEFAULT_IMAGE);
-      const lat = Number(getValue(item, ["LAT", "lat", "Y", "y", "위도"], ""));
-      const lng = Number(getValue(item, ["LOT", "lot", "LNG", "lng", "X", "x", "경도"], ""));
+      const hours = getValue(item, ["TIME", "time", "BSN_TIME", "bsnTime", "OPRTIME", "oprtime", "운영시간"], "운영시간 정보 없음");
+      const image = getValue(item, ["_URL", "url", "URL", "IMAGE_URL", "imageUrl", "MAIN_IMG_NORMAL", "mainImgNormal", "IMG_URL", "imgUrl", "image"], DEFAULT_IMAGE);
+      const lat = Number(getValue(item, ["LA", "la", "LAT", "lat", "Y", "y", "위도"], ""));
+      const lng = Number(getValue(item, ["LO", "lo", "LOT", "lot", "LNG", "lng", "X", "x", "경도"], ""));
 
       return {
-        id: getValue(item, ["UC_SEQ", "ucSeq", "ID", "id"], `food-${index}-${name}`),
+        id: getValue(item, ["CMPNM", "cmpnm", "UC_SEQ", "ucSeq", "ID", "id"], `food-${index}-${name}`),
         name,
         address,
         menu,
@@ -595,8 +597,8 @@
 
       const url = new URL(API_BASE_URL + API_OPERATION_PATH);
       url.searchParams.set("serviceKey", SERVICE_KEY);
-      url.searchParams.set("pageNo", "1");
-      url.searchParams.set("numOfRows", "200");
+      url.searchParams.set("currentPage", "1");
+      url.searchParams.set("perPage", "200");
       url.searchParams.set("type", "json");
       url.searchParams.set("_type", "json");
 
@@ -608,7 +610,11 @@
         const response = await fetch(url.toString());
         if (!response.ok) throw new Error("API 요청에 실패했습니다.");
 
-        const data = await response.json();
+        const responseText = await response.text();
+        console.log("공공데이터 API 요청 URL:", url.toString());
+        console.log("공공데이터 API 원본 응답:", responseText);
+
+        const data = JSON.parse(responseText);
         const items = extractItems(data);
 
         if (!items.length) throw new Error("API 응답에서 음식업소 목록을 찾을 수 없습니다.");
@@ -635,6 +641,8 @@
       if (Array.isArray(data?.items?.item)) return data.items.item;
       if (Array.isArray(data?.items)) return data.items;
       if (Array.isArray(data?.data)) return data.data;
+      if (Array.isArray(data?.records)) return data.records;
+      if (Array.isArray(data?.result)) return data.result;
       return [];
     }
 

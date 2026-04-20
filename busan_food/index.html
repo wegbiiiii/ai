@@ -444,6 +444,7 @@
       favoriteMode: false,
       currentPage: 1,
       itemsPerPage: 10,
+      pageButtonCount: 5,
       map: null,
       marker: null
     };
@@ -590,8 +591,12 @@
         return;
       }
 
-      const pageButtons = Array.from({ length: totalPages }, (_, index) => {
-        const page = index + 1;
+      const currentGroup = Math.ceil(state.currentPage / state.pageButtonCount);
+      const startPage = (currentGroup - 1) * state.pageButtonCount + 1;
+      const endPage = Math.min(startPage + state.pageButtonCount - 1, totalPages);
+
+      const pageButtons = Array.from({ length: endPage - startPage + 1 }, (_, index) => {
+        const page = startPage + index;
         return `
           <button class="page-btn ${page === state.currentPage ? "active" : ""}" type="button" data-page="${page}">
             ${page}

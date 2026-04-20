@@ -1,0 +1,399 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  background: #f3f3f3;
+  color: #151515;
+}
+
+button,
+input,
+a {
+  font-family: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding-bottom: 84px;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Header */
+.app-header {
+  padding: 28px 16px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.app-header h1 {
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.app-header p {
+  margin-top: 6px;
+  color: #999;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header-actions button {
+  width: 24px;
+  height: 24px;
+  font-size: 25px;
+  line-height: 1;
+  color: #111;
+}
+
+/* Search */
+.search-box {
+  height: 56px;
+  margin: 4px 16px 16px;
+  border: 1.5px solid #333;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+}
+
+.search-box span {
+  font-size: 28px;
+  transform: rotate(-15deg);
+}
+
+.search-box input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+  font-size: 17px;
+  font-weight: 700;
+  color: #222;
+}
+
+.search-box input::placeholder {
+  color: #c9c9c9;
+}
+
+/* Category */
+.category-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 16px 16px;
+  scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.category-chip {
+  flex: 0 0 auto;
+  height: 30px;
+  padding: 0 13px;
+  border: 1px solid #222;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #222;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.category-chip.active {
+  background: #303030;
+  color: #fff;
+}
+
+/* List */
+.food-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px 16px;
+}
+
+.food-card {
+  position: relative;
+  min-height: 134px;
+  padding: 20px 96px 18px 16px;
+  border: 1px solid #222;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.food-card h3 {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: -0.7px;
+  margin-bottom: 14px;
+}
+
+.food-card p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #3b3b3b;
+  letter-spacing: -0.3px;
+}
+
+.food-card p strong {
+  color: #222;
+  font-weight: 900;
+}
+
+.parking-badge {
+  position: absolute;
+  right: 16px;
+  top: 24px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #333;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-actions {
+  position: absolute;
+  right: 16px;
+  top: 70px;
+  display: flex;
+  gap: 14px;
+}
+
+.card-actions button {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 28px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-actions .view-btn {
+  font-size: 29px;
+  transform: rotate(-15deg);
+}
+
+.card-actions .like-btn.active {
+  color: #e44;
+}
+
+.empty-box {
+  display: none;
+  margin: 40px 16px;
+  padding: 32px 20px;
+  border-radius: 14px;
+  background: #f7f7f7;
+  color: #888;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.empty-box.active {
+  display: block;
+}
+
+/* Detail */
+.detail-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 56px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-header button {
+  font-size: 32px;
+  color: #111;
+}
+
+.detail-header h2 {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.detail-visual {
+  width: 100%;
+  padding: 16px;
+}
+
+.detail-visual img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+  background: #eee;
+}
+
+.detail-content {
+  padding: 6px 16px 28px;
+}
+
+.detail-info-block {
+  margin-bottom: 18px;
+}
+
+.label-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 13px;
+  margin-bottom: 8px;
+  border-radius: 999px;
+  background: #333;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.detail-info-block p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #444;
+  letter-spacing: -0.4px;
+  word-break: keep-all;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 14px;
+}
+
+.detail-actions a {
+  flex: 1;
+  height: 46px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-actions a:first-child {
+  background: #333;
+  color: #fff;
+}
+
+.detail-actions a:last-child {
+  border: 1px solid #333;
+  background: #fff;
+  color: #222;
+}
+
+.map {
+  width: 100%;
+  height: 220px;
+  border-radius: 0;
+  background: #e7e7e7;
+  overflow: hidden;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 50;
+  width: 100%;
+  max-width: 430px;
+  height: 62px;
+  transform: translateX(-50%);
+  background: #fff;
+  border-top: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 10px 16px;
+}
+
+.bottom-nav button {
+  flex: 1;
+  height: 40px;
+  border: 1.5px solid #222;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.bottom-nav button.active {
+  background: #333;
+  color: #fff;
+}
+
+@media (max-width: 360px) {
+  .food-card {
+    padding-right: 86px;
+  }
+
+  .food-card h3 {
+    font-size: 20px;
+  }
+
+  .food-card p {
+    font-size: 14px;
+  }
+
+  .bottom-nav {
+    gap: 16px;
+  }
+}

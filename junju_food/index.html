@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>전주 맛집 서비스</title>
+
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- 
+    카카오맵 JavaScript Key를 아래 appkey 위치에 넣어주세요.
+    예: appkey=1234567890abcdef
+  -->
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec&libraries=services"></script>
+</head>
+<body>
+  <div class="app">
+
+    <!-- 목록 화면 -->
+    <main id="listPage" class="page active">
+      <header class="app-header">
+        <div>
+          <h1>전주 맛집 서비스</h1>
+          <p id="totalText">전체 0건</p>
+        </div>
+
+        <div class="header-actions">
+          <button id="refreshBtn" type="button" aria-label="새로고침">⟳</button>
+          <button id="favoriteTopBtn" type="button" aria-label="즐겨찾기">♡</button>
+        </div>
+      </header>
+
+      <section class="search-box">
+        <span>⌕</span>
+        <input 
+          id="searchInput" 
+          type="text" 
+          placeholder="가게명/주소/메뉴로 검색" 
+        />
+      </section>
+
+      <section class="category-scroll" id="categoryList">
+        <button class="category-chip active" data-category="all">전체</button>
+        <button class="category-chip" data-category="비빔밥">전주 비빔밥</button>
+        <button class="category-chip" data-category="콩나물국밥">콩나물국밥</button>
+        <button class="category-chip" data-category="한정식">한정식</button>
+        <button class="category-chip" data-category="막걸리">막걸리</button>
+        <button class="category-chip" data-category="한옥마을">한옥마을</button>
+      </section>
+
+      <section id="foodList" class="food-list"></section>
+
+      <div id="emptyBox" class="empty-box">
+        검색 결과가 없습니다.
+      </div>
+    </main>
+
+    <!-- 상세 화면 -->
+    <main id="detailPage" class="page">
+      <header class="detail-header">
+        <button id="backBtn" type="button">‹</button>
+        <h2>맛집 상세</h2>
+        <button id="detailFavoriteBtn" type="button">♡</button>
+      </header>
+
+      <section class="detail-visual">
+        <img id="detailImage" src="" alt="전주 맛집 이미지" />
+      </section>
+
+      <section class="detail-content">
+        <div class="detail-info-block">
+          <strong class="label-pill">상호명</strong>
+          <p id="detailName"></p>
+        </div>
+
+        <div class="detail-info-block">
+          <strong class="label-pill">주소</strong>
+          <p id="detailAddress"></p>
+        </div>
+
+        <div class="detail-info-block">
+          <strong class="label-pill">소개</strong>
+          <p id="detailIntro"></p>
+        </div>
+
+        <div class="detail-info-block">
+          <strong class="label-pill">메뉴명</strong>
+          <p id="detailMenu"></p>
+        </div>
+
+        <div class="detail-info-block">
+          <strong class="label-pill">대표전화</strong>
+          <p id="detailTel"></p>
+        </div>
+
+        <div class="detail-info-block">
+          <strong class="label-pill">운영시간</strong>
+          <p id="detailTime"></p>
+        </div>
+
+        <div class="detail-actions">
+          <a id="callLink" href="#">전화걸기</a>
+          <a id="routeLink" href="#" target="_blank" rel="noopener noreferrer">길찾기</a>
+        </div>
+
+        <div id="map" class="map"></div>
+      </section>
+    </main>
+
+    <!-- 하단 탭 -->
+    <nav class="bottom-nav">
+      <button id="homeTab" class="active" type="button">맛집</button>
+      <button id="favoriteTab" type="button">즐겨찾기</button>
+    </nav>
+  </div>
+
+  <script src="./script/script.js"></script>
+</body>
+</html>

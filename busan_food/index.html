@@ -322,6 +322,39 @@
       font-size: 15px;
     }
 
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid #e7e7e7;
+      border-radius: 10px;
+      background: #fff;
+      color: #333;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .page-btn.active {
+      background: #303030;
+      color: #fff;
+      border-color: #303030;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
     @media (max-width: 360px) {
       .restaurant-item {
         padding-right: 82px;
@@ -371,6 +404,7 @@
 
       <p class="status-text" id="statusText"></p>
       <div class="restaurant-list" id="restaurantList"></div>
+      <div class="pagination" id="pagination"></div>
     </section>
 
     <section id="detailPage" class="page detail-page">
@@ -408,6 +442,8 @@
       favorites: JSON.parse(localStorage.getItem("busanFoodFavorites") || "[]"),
       selected: null,
       favoriteMode: false,
+      currentPage: 1,
+      itemsPerPage: 10,
       map: null,
       marker: null
     };
@@ -417,6 +453,7 @@
       detailPage: document.getElementById("detailPage"),
       totalCount: document.getElementById("totalCount"),
       restaurantList: document.getElementById("restaurantList"),
+      pagination: document.getElementById("pagination"),
       statusText: document.getElementById("statusText"),
       searchForm: document.getElementById("searchForm"),
       searchInput: document.getElementById("searchInput"),
@@ -456,12 +493,14 @@
 
         setStatus("");
         updateNav();
+        state.currentPage = 1;
         renderList(items);
       } catch (error) {
         console.error("부산 맛집 API 오류:", error);
         setStatus("API 키를 입력했는지 확인하세요. 현재는 샘플 데이터로 표시됩니다.");
         state.restaurants = getSampleRestaurants();
         state.filtered = state.restaurants;
+        state.currentPage = 1;
         renderList(state.filtered);
       }
     }
@@ -508,10 +547,20 @@
             다른 검색어를 입력해보세요.
           </div>
         `;
+        els.pagination.innerHTML = "";
         return;
       }
 
-      els.restaurantList.innerHTML = items.map(item => `
+      const totalPages = Math.ceil(items.length / state.itemsPerPage);
+      if (state.currentPage > totalPages) {
+        state.currentPage = totalPages;
+      }
+
+      const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+      const endIndex = startIndex + state.itemsPerPage;
+      const pagedItems = items.slice(startIndex, endIndex);
+
+      els.restaurantList.innerHTML = pagedItems.map(item => `
         <article class="restaurant-item" data-id="${item.id}">
           <h2 class="restaurant-name">${item.name}</h2>
           <p class="restaurant-info"><b>주소:</b> ${item.address}</p>
@@ -531,6 +580,30 @@
           </div>
         </article>
       `).join("");
+
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      if (totalPages <= 1) {
+        els.pagination.innerHTML = "";
+        return;
+      }
+
+      const pageButtons = Array.from({ length: totalPages }, (_, index) => {
+        const page = index + 1;
+        return `
+          <button class="page-btn ${page === state.currentPage ? "active" : ""}" type="button" data-page="${page}">
+            ${page}
+          </button>
+        `;
+      }).join("");
+
+      els.pagination.innerHTML = `
+        <button class="page-btn" type="button" data-page="prev" ${state.currentPage === 1 ? "disabled" : ""}>이전</button>
+        ${pageButtons}
+        <button class="page-btn" type="button" data-page="next" ${state.currentPage === totalPages ? "disabled" : ""}>다음</button>
+      `;
     }
 
     function openDetail(id) {
@@ -622,6 +695,7 @@
         });
       }
 
+      state.currentPage = 1;
       renderList(state.filtered);
     }
 
@@ -665,6 +739,7 @@
       state.favoriteMode = enabled;
       els.searchInput.value = "";
       state.filtered = enabled ? getFavoriteItems() : state.restaurants;
+      state.currentPage = 1;
       updateNav();
       renderList(state.filtered);
       showPage("list");
@@ -680,7 +755,7 @@
     }
 
     function getSampleRestaurants() {
-      return Array.from({ length: 8 }, (_, index) => ({
+      return Array.from({ length: 24 }, (_, index) => ({
         id: `sample-${index + 1}`,
         name: "80년 전통 할머니 국밥",
         address: "부산 부산진구 서면로 68번길 33",
@@ -693,6 +768,25 @@
         lng: 129.059236
       }));
     }
+
+    els.pagination.addEventListener("click", event => {
+      const button = event.target.closest(".page-btn");
+      if (!button || button.disabled) return;
+
+      const totalPages = Math.ceil(state.filtered.length / state.itemsPerPage);
+      const pageValue = button.dataset.page;
+
+      if (pageValue === "prev") {
+        state.currentPage = Math.max(1, state.currentPage - 1);
+      } else if (pageValue === "next") {
+        state.currentPage = Math.min(totalPages, state.currentPage + 1);
+      } else {
+        state.currentPage = Number(pageValue);
+      }
+
+      renderList(state.filtered);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
     els.restaurantList.addEventListener("click", event => {
       const detailButton = event.target.closest(".detail-open-btn");

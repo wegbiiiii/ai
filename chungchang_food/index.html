@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>충청북도 맛집 서비스</title>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec&libraries=services"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      background: #fff;
+      color: #171717;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 402px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 28px 16px 94px;
+    }
+
+    .page.is-active {
+      display: block;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .main-title {
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+
+    .total-count {
+      display: block;
+      margin-top: 5px;
+      font-size: 20px;
+      color: #9a9a9a;
+      font-weight: 800;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 4px;
+    }
+
+    .icon-btn {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+    }
+
+    .search-box {
+      width: 100%;
+      height: 57px;
+      border: 1px solid #2a2a2a;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 0 20px;
+      margin-bottom: 9px;
+    }
+
+    .search-box svg {
+      flex: 0 0 auto;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: none;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .search-input::placeholder {
+      color: #cfcfcf;
+      font-weight: 800;
+    }
+
+    .status-message {
+      display: none;
+      padding: 18px 0 8px;
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+    }
+
+    .status-message.is-show {
+      display: block;
+    }
+
+    .restaurant-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .restaurant-card {
+      width: 100%;
+      min-height: 132px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      padding: 20px 15px 17px;
+      display: grid;
+      grid-template-columns: 1fr 86px;
+      gap: 10px;
+      background: #fff;
+    }
+
+    .card-title {
+      font-size: 21px;
+      line-height: 1.25;
+      font-weight: 900;
+      letter-spacing: -0.7px;
+      margin-bottom: 14px;
+      word-break: keep-all;
+    }
+
+    .card-info {
+      font-size: 15px;
+      line-height: 1.62;
+      color: #494949;
+      letter-spacing: -0.45px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-info strong {
+      color: #181818;
+      font-weight: 900;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 17px;
+      padding-bottom: 8px;
+    }
+
+    .card-action-btn {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0c0c0c;
+    }
+
+    .card-action-btn.is-liked svg {
+      fill: #111;
+    }
+
+    .bottom-tabbar {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 402px;
+      height: 66px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      padding: 10px 16px 18px;
+      z-index: 50;
+      border-top: 1px solid #efefef;
+    }
+
+    .tab-btn {
+      height: 39px;
+      border: 1px solid #111;
+      border-radius: 17px;
+      color: #333;
+      font-size: 15px;
+      font-weight: 900;
+      background: #fff;
+    }
+
+    .tab-btn.is-active {
+      background: #303030;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .detail-page {
+      padding: 17px 16px 96px;
+    }
+
+    .detail-image {
+      width: 100%;
+      height: 276px;
+      border-radius: 0 0 9px 9px;
+      object-fit: cover;
+      background: #ececec;
+      display: block;
+      margin-bottom: 26px;
+    }
+
+    .detail-section {
+      margin-bottom: 14px;
+    }
+
+    .badge-title {
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 4px 12px 5px;
+      background: #303030;
+      border-radius: 15px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+
+    .detail-text {
+      font-size: 16px;
+      line-height: 1.44;
+      color: #444;
+      letter-spacing: -0.4px;
+      word-break: keep-all;
+    }
+
+    .intro-text {
+      max-width: 356px;
+    }
+
+    .detail-map {
+      width: 100%;
+      height: 218px;
+      margin-top: 6px;
+      background: #e8f0ef;
+    }
+
+    .map-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .map-link-btn {
+      height: 42px;
+      border: 1px solid #222;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #222;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      background: #fff;
+    }
+
+    .back-btn {
+      position: fixed;
+      left: calc(50% - 185px);
+      top: 18px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-btn.is-show {
+      display: flex;
+    }
+
+    .favorite-empty {
+      padding: 70px 20px;
+      text-align: center;
+      color: #777;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 420px) {
+      .app {
+        max-width: none;
+      }
+
+      .bottom-tabbar {
+        max-width: none;
+      }
+
+      .back-btn {
+        left: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <button class="back-btn" id="backBtn" type="button" aria-label="뒤로가기">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <main class="page main-page is-active" id="mainPage">
+      <header class="main-header">
+        <h1 class="main-title">
+          충청북도 맛집 서비스
+          <span class="total-count" id="totalCount">전체 0건</span>
+        </h1>
+        <div class="header-actions">
+          <button class="icon-btn" id="refreshBtn" type="button" aria-label="새로고침">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20 5V11H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 19V13H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 8.5A7 7 0 0 1 18.6 6.2L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.5 15.5A7 7 0 0 1 5.4 17.8L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="icon-btn" id="favoriteHeaderBtn" type="button" aria-label="즐겨찾기 보기">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.84 4.61A5.5 5.5 0 0 0 13.06 4.61L12 5.67L10.94 4.61A5.5 5.5 0 0 0 3.16 12.39L12 21.23L20.84 12.39A5.5 5.5 0 0 0 20.84 4.61Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <form class="search-box" id="searchForm">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M11 19A8 8 0 1 0 11 3A8 8 0 0 0 11 19Z" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input class="search-input" id="searchInput" type="search" placeholder="가게명/주소/메뉴로 검색" autocomplete="off" />
+      </form>
+
+      <p class="status-message" id="statusMessage"></p>
+      <section class="restaurant-list" id="restaurantList" aria-label="맛집 목록"></section>
+    </main>
+
+    <main class="page detail-page" id="detailPage">
+      <img class="detail-image" id="detailImage" src="" alt="맛집 대표 이미지" />
+
+      <section class="detail-section">
+        <h2 class="badge-title">상호명</h2>
+        <p class="detail-text" id="detailName"></p>
+      </section>
+
+      <section class="detail-section">
+        <h2 class="badge-title">주소</h2>
+        <p class="detail-text" id="detailAddress"></p>
+      </section>
+
+      <section class="detail-section">
+        <h2 class="badge-title">소개</h2>
+        <p class="detail-text intro-text" id="detailIntro"></p>
+      </section>
+
+      <section class="detail-section">
+        <h2 class="badge-title">메인메뉴</h2>
+        <p class="detail-text" id="detailMenu"></p>
+      </section>
+
+      <section class="detail-section">
+        <h2 class="badge-title">전화번호</h2>
+        <p class="detail-text" id="detailPhone"></p>
+      </section>
+
+      <section class="detail-section">
+        <h2 class="badge-title">운영시간</h2>
+        <p class="detail-text" id="detailHours"></p>
+      </section>
+
+      <section class="detail-section">
+        <div class="detail-map" id="detailMap"></div>
+        <div class="map-actions">
+          <a class="map-link-btn" id="kakaoMapLink" href="#" target="_blank" rel="noopener">카카오맵 보기</a>
+          <a class="map-link-btn" id="kakaoRouteLink" href="#" target="_blank" rel="noopener">길찾기</a>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-tabbar" aria-label="하단 탭 메뉴">
+      <button class="tab-btn is-active" id="homeTab" type="button">맛집</button>
+      <button class="tab-btn" id="favoriteTab" type="button">즐겨찾기</button>
+    </nav>
+  </div>
+
+  <script>
+    const SERVICE_KEY = "de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b";
+
+    const API_BASE_URL = "https://apis.data.go.kr/6430000/cbRecreationalFoodInfoService";
+    const API_OPERATION_PATH = "/getCbRecreationalFoodInfo";
+
+    const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=900&q=80";
+
+    const fallbackRestaurants = [
+      {
+        id: "sample-1",
+        name: "80년 전통 할머니 국밥",
+        address: "충북 청주시 상당구 상당로 68번길 33",
+        menu: "따로 국밥 ₩7,000 수육 ₩10,000",
+        intro: "80년 전통 돼지 국밥 전문집으로 웨이팅 기본 1시간 이상을 기다려야 하는 유명한 식당. 진한 국물과 부드러운 수육이 인기 메뉴입니다.",
+        phone: "043-000-5555",
+        hours: "11:00 ~ 18:00",
+        lat: 36.6357,
+        lng: 127.4914,
+        image: DEFAULT_IMAGE
+      },
+      {
+        id: "sample-2",
+        name: "청주 명동 칼국수",
+        address: "충북 청주시 상당구 중앙로 12",
+        menu: "칼국수 ₩8,000 만두 ₩6,000",
+        intro: "직접 뽑은 면과 깊은 육수로 만든 칼국수 전문점입니다. 부담 없는 가격과 따뜻한 분위기가 장점입니다.",
+        phone: "043-111-2222",
+        hours: "10:30 ~ 20:30",
+        lat: 36.6372,
+        lng: 127.4898,
+        image: DEFAULT_IMAGE
+      },
+      {
+        id: "sample-3",
+        name: "충주 호반 막국수",
+        address: "충북 충주시 중앙탑면 탑평리 45",
+        menu: "막국수 ₩9,000 편육 ₩18,000",
+        intro: "시원한 막국수와 담백한 편육을 함께 즐길 수 있는 충주 대표 맛집 콘셉트의 샘플 데이터입니다.",
+        phone: "043-333-7777",
+        hours: "11:00 ~ 19:30",
+        lat: 36.9825,
+        lng: 127.9187,
+        image: DEFAULT_IMAGE
+      },
+      {
+        id: "sample-4",
+        name: "제천 약선 한정식",
+        address: "충북 제천시 의림대로 23",
+        menu: "약선정식 ₩15,000 더덕구이 ₩12,000",
+        intro: "건강한 지역 식재료를 활용한 한정식 매장입니다. 가족 모임과 여행객 식사 장소로 어울립니다.",
+        phone: "043-444-1212",
+        hours: "11:30 ~ 21:00",
+        lat: 37.1326,
+        lng: 128.1910,
+        image: DEFAULT_IMAGE
+      },
+      {
+        id: "sample-5",
+        name: "단양 마늘 떡갈비",
+        address: "충북 단양군 단양읍 별곡리 88",
+        menu: "마늘떡갈비 ₩13,000 된장찌개 ₩7,000",
+        intro: "단양 마늘을 활용한 떡갈비 메뉴가 특징인 식당입니다. 관광지 방문 후 식사하기 좋은 콘셉트입니다.",
+        phone: "043-555-9090",
+        hours: "10:00 ~ 20:00",
+        lat: 36.9846,
+        lng: 128.3654,
+        image: DEFAULT_IMAGE
+      },
+      {
+        id: "sample-6",
+        name: "괴산 올갱이 해장국",
+        address: "충북 괴산군 괴산읍 읍내로 31",
+        menu: "올갱이국 ₩9,000 청국장 ₩8,000",
+        intro: "구수한 국물과 지역 특산 메뉴를 중심으로 구성한 충북 향토 음식점 샘플입니다.",
+        phone: "043-666-3434",
+        hours: "07:00 ~ 15:00",
+        lat: 36.8153,
+        lng: 127.7866,
+        image: DEFAULT_IMAGE
+      }
+    ];
+
+    const state = {
+      restaurants: [],
+      filteredRestaurants: [],
+      favorites: JSON.parse(localStorage.getItem("chungbukFoodFavorites") || "[]"),
+      currentMode: "home",
+      selectedRestaurant: null,
+      map: null,
+      marker: null
+    };
+
+    const mainPage = document.getElementById("mainPage");
+    const detailPage = document.getElementById("detailPage");
+    const restaurantList = document.getElementById("restaurantList");
+    const totalCount = document.getElementById("totalCount");
+    const statusMessage = document.getElementById("statusMessage");
+    const searchInput = document.getElementById("searchInput");
+    const searchForm = document.getElementById("searchForm");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const favoriteHeaderBtn = document.getElementById("favoriteHeaderBtn");
+    const homeTab = document.getElementById("homeTab");
+    const favoriteTab = document.getElementById("favoriteTab");
+    const backBtn = document.getElementById("backBtn");
+
+    const detailImage = document.getElementById("detailImage");
+    const detailName = document.getElementById("detailName");
+    const detailAddress = document.getElementById("detailAddress");
+    const detailIntro = document.getElementById("detailIntro");
+    const detailMenu = document.getElementById("detailMenu");
+    const detailPhone = document.getElementById("detailPhone");
+    const detailHours = document.getElementById("detailHours");
+    const kakaoMapLink = document.getElementById("kakaoMapLink");
+    const kakaoRouteLink = document.getElementById("kakaoRouteLink");
+
+    function showStatus(message) {
+      statusMessage.textContent = message;
+      statusMessage.classList.add("is-show");
+    }
+
+    function hideStatus() {
+      statusMessage.textContent = "";
+      statusMessage.classList.remove("is-show");
+    }
+
+    function getValue(item, keys, fallback = "") {
+      for (const key of keys) {
+        if (item && item[key] !== undefined && item[key] !== null && String(item[key]).trim() !== "") {
+          return String(item[key]).trim();
+        }
+      }
+      return fallback;
+    }
+
+    function normalizeRestaurant(item, index) {
+      const name = getValue(item, ["BSSH_NM", "bsshNm", "MAIN_TITLE", "mainTitle", "업소명", "상호명", "name"], "충청북도 맛집");
+      const address = getValue(item, ["RDNMADR", "rdnmadr", "ADDR", "addr", "주소", "address"], "주소 정보 없음");
+      const menu = getValue(item, ["RPRSNTV_MENU", "rprsntvMenu", "MENU", "menu", "대표메뉴", "메뉴"], "메뉴 정보 없음");
+      const intro = getValue(item, ["INTRO", "intro", "ITEMCNTNTS", "itemcntnts", "CNTNTS", "contents", "소개"], "등록된 소개 정보가 없습니다.");
+      const phone = getValue(item, ["TELNO", "telno", "TEL", "tel", "PHONE", "phone", "전화번호"], "전화번호 정보 없음");
+      const hours = getValue(item, ["BSN_TIME", "bsnTime", "OPRTIME", "oprtime", "운영시간"], "운영시간 정보 없음");
+      const image = getValue(item, ["IMAGE_URL", "imageUrl", "MAIN_IMG_NORMAL", "mainImgNormal", "IMG_URL", "imgUrl", "image"], DEFAULT_IMAGE);
+      const lat = Number(getValue(item, ["LAT", "lat", "Y", "y", "위도"], ""));
+      const lng = Number(getValue(item, ["LOT", "lot", "LNG", "lng", "X", "x", "경도"], ""));
+
+      return {
+        id: getValue(item, ["UC_SEQ", "ucSeq", "ID", "id"], `food-${index}-${name}`),
+        name,
+        address,
+        menu,
+        intro,
+        phone,
+        hours,
+        image,
+        lat: Number.isFinite(lat) ? lat : null,
+        lng: Number.isFinite(lng) ? lng : null
+      };
+    }
+
+    async function fetchRestaurants() {
+      showStatus("충청북도 음식업소 정보를 불러오는 중입니다.");
+
+      const url = new URL(API_BASE_URL + API_OPERATION_PATH);
+      url.searchParams.set("serviceKey", SERVICE_KEY);
+      url.searchParams.set("pageNo", "1");
+      url.searchParams.set("numOfRows", "200");
+      url.searchParams.set("type", "json");
+      url.searchParams.set("_type", "json");
+
+      try {
+        if (SERVICE_KEY === "YOUR_DATA_GO_KR_SERVICE_KEY") {
+          throw new Error("공공데이터포털 서비스 키가 입력되지 않았습니다.");
+        }
+
+        const response = await fetch(url.toString());
+        if (!response.ok) throw new Error("API 요청에 실패했습니다.");
+
+        const data = await response.json();
+        const items = extractItems(data);
+
+        if (!items.length) throw new Error("API 응답에서 음식업소 목록을 찾을 수 없습니다.");
+
+        state.restaurants = items.map(normalizeRestaurant);
+        state.filteredRestaurants = [...state.restaurants];
+        hideStatus();
+      } catch (error) {
+        console.warn(error.message);
+        state.restaurants = fallbackRestaurants;
+        state.filteredRestaurants = [...fallbackRestaurants];
+        showStatus("API 키 또는 응답 형식 확인 전까지 샘플 데이터로 표시됩니다.");
+      }
+
+      renderList();
+    }
+
+    function extractItems(data) {
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data?.response?.body?.items?.item)) return data.response.body.items.item;
+      if (Array.isArray(data?.response?.body?.items)) return data.response.body.items;
+      if (Array.isArray(data?.body?.items?.item)) return data.body.items.item;
+      if (Array.isArray(data?.body?.items)) return data.body.items;
+      if (Array.isArray(data?.items?.item)) return data.items.item;
+      if (Array.isArray(data?.items)) return data.items;
+      if (Array.isArray(data?.data)) return data.data;
+      return [];
+    }
+
+    function renderList() {
+      const list = getCurrentList();
+      totalCount.textContent = `전체 ${list.length}건`;
+      restaurantList.innerHTML = "";
+
+      if (!list.length) {
+        restaurantList.innerHTML = `<div class="favorite-empty">표시할 맛집 정보가 없습니다.</div>`;
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      list.forEach((restaurant) => {
+        const card = document.createElement("article");
+        card.className = "restaurant-card";
+        card.innerHTML = `
+          <div class="card-content">
+            <h2 class="card-title">${escapeHtml(restaurant.name)}</h2>
+            <p class="card-info"><strong>주소:</strong> ${escapeHtml(restaurant.address)}</p>
+            <p class="card-info"><strong>메뉴:</strong> ${escapeHtml(restaurant.menu)}</p>
+          </div>
+          <div class="card-actions">
+            <button class="card-action-btn detail-open-btn" type="button" aria-label="상세보기">
+              <svg width="31" height="31" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M11 19A8 8 0 1 0 11 3A8 8 0 0 0 11 19Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="card-action-btn like-btn ${isFavorite(restaurant.id) ? "is-liked" : ""}" type="button" aria-label="즐겨찾기">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20.84 4.61A5.5 5.5 0 0 0 13.06 4.61L12 5.67L10.94 4.61A5.5 5.5 0 0 0 3.16 12.39L12 21.23L20.84 12.39A5.5 5.5 0 0 0 20.84 4.61Z" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        `;
+
+        card.querySelector(".detail-open-btn").addEventListener("click", () => openDetail(restaurant));
+        card.querySelector(".like-btn").addEventListener("click", (event) => {
+          event.stopPropagation();
+          toggleFavorite(restaurant.id);
+        });
+        card.addEventListener("click", () => openDetail(restaurant));
+        fragment.appendChild(card);
+      });
+
+      restaurantList.appendChild(fragment);
+    }
+
+    function getCurrentList() {
+      if (state.currentMode === "favorite") {
+        return state.restaurants.filter((restaurant) => state.favorites.includes(restaurant.id));
+      }
+      return state.filteredRestaurants;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function isFavorite(id) {
+      return state.favorites.includes(id);
+    }
+
+    function toggleFavorite(id) {
+      if (isFavorite(id)) {
+        state.favorites = state.favorites.filter((favoriteId) => favoriteId !== id);
+      } else {
+        state.favorites.push(id);
+      }
+
+      localStorage.setItem("chungbukFoodFavorites", JSON.stringify(state.favorites));
+      renderList();
+    }
+
+    function setMode(mode) {
+      state.currentMode = mode;
+      homeTab.classList.toggle("is-active", mode === "home");
+      favoriteTab.classList.toggle("is-active", mode === "favorite");
+      searchInput.disabled = mode === "favorite";
+      searchInput.placeholder = mode === "favorite" ? "즐겨찾기 목록" : "가게명/주소/메뉴로 검색";
+      renderList();
+    }
+
+    function filterRestaurants(keyword) {
+      const query = keyword.trim().toLowerCase();
+      if (!query) {
+        state.filteredRestaurants = [...state.restaurants];
+      } else {
+        state.filteredRestaurants = state.restaurants.filter((restaurant) => {
+          return [restaurant.name, restaurant.address, restaurant.menu].some((value) =>
+            String(value).toLowerCase().includes(query)
+          );
+        });
+      }
+      renderList();
+    }
+
+    function openDetail(restaurant) {
+      state.selectedRestaurant = restaurant;
+      mainPage.classList.remove("is-active");
+      detailPage.classList.add("is-active");
+      backBtn.classList.add("is-show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      detailImage.src = restaurant.image || DEFAULT_IMAGE;
+      detailName.textContent = restaurant.name;
+      detailAddress.textContent = restaurant.address;
+      detailIntro.textContent = restaurant.intro;
+      detailMenu.textContent = restaurant.menu;
+      detailPhone.textContent = restaurant.phone;
+      detailHours.textContent = restaurant.hours;
+
+      renderDetailMap(restaurant);
+    }
+
+    function closeDetail() {
+      detailPage.classList.remove("is-active");
+      mainPage.classList.add("is-active");
+      backBtn.classList.remove("is-show");
+    }
+
+    function renderDetailMap(restaurant) {
+      const mapContainer = document.getElementById("detailMap");
+
+      const fallbackLatLng = {
+        lat: restaurant.lat || 36.6357,
+        lng: restaurant.lng || 127.4914
+      };
+
+      kakaoMapLink.href = `https://map.kakao.com/link/search/${encodeURIComponent(restaurant.name + " " + restaurant.address)}`;
+      kakaoRouteLink.href = `https://map.kakao.com/link/to/${encodeURIComponent(restaurant.name)},${fallbackLatLng.lat},${fallbackLatLng.lng}`;
+
+      if (!window.kakao || !window.kakao.maps) {
+        mapContainer.innerHTML = "<div style='padding:20px;font-size:14px;color:#555;'>카카오맵 JavaScript 키를 입력하면 지도가 표시됩니다.</div>";
+        return;
+      }
+
+      const center = new kakao.maps.LatLng(fallbackLatLng.lat, fallbackLatLng.lng);
+      state.map = new kakao.maps.Map(mapContainer, {
+        center,
+        level: 4
+      });
+
+      state.marker = new kakao.maps.Marker({
+        map: state.map,
+        position: center
+      });
+
+      if ((!restaurant.lat || !restaurant.lng) && kakao.maps.services) {
+        const geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(restaurant.address, function(result, status) {
+          if (status === kakao.maps.services.Status.OK && result[0]) {
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            state.map.setCenter(coords);
+            state.marker.setPosition(coords);
+            kakaoRouteLink.href = `https://map.kakao.com/link/to/${encodeURIComponent(restaurant.name)},${result[0].y},${result[0].x}`;
+          }
+        });
+      }
+    }
+
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      setMode("home");
+      filterRestaurants(searchInput.value);
+    });
+
+    searchInput.addEventListener("input", (event) => {
+      setMode("home");
+      filterRestaurants(event.target.value);
+    });
+
+    refreshBtn.addEventListener("click", fetchRestaurants);
+    favoriteHeaderBtn.addEventListener("click", () => setMode("favorite"));
+    homeTab.addEventListener("click", () => setMode("home"));
+    favoriteTab.addEventListener("click", () => setMode("favorite"));
+    backBtn.addEventListener("click", closeDetail);
+
+    fetchRestaurants();
+  </script>
+</body>
+</html>

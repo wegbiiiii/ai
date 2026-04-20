@@ -3,15 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>지도 생성하기</title>
-    
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec"></script>
 </head>
 <body>
 <!-- 지도를 표시할 div 입니다 -->
 <div id="map" style="width:100%;height:350px;"></div>
 
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ba55f074c6737f19be5b6e2e4944c6ec"></script>
+
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨

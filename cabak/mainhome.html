@@ -35,7 +35,7 @@
       min-height: 100vh;
       margin: 0 auto;
       background: #fff;
-      padding-bottom: 72px;
+      padding-bottom: 84px;
       overflow: hidden;
     }
 
@@ -242,9 +242,9 @@
       z-index: 50;
       width: 100%;
       max-width: 375px;
-      height: 58px;
+      height: 70px;
       transform: translateX(-50%);
-      border-top: 1px solid #d9d9d9;
+      border-top: 1px solid #777;
       background: #fff;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -256,21 +256,38 @@
       align-items: center;
       justify-content: center;
       gap: 3px;
-      font-size: 11px;
-      font-weight: 500;
       color: #666;
     }
 
-    .nav-item svg {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      fill: none;
+    .nav-item > span:last-child {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0) opacity(0.65);
+      transition: filter 0.2s ease;
     }
 
     .nav-item.active {
       color: #526fb4;
+    }
+
+    .nav-item.active .nav-icon img {
+      filter: invert(43%) sepia(22%) saturate(1154%) hue-rotate(186deg) brightness(91%) contrast(88%);
     }
 
     @media (max-width: 374px) {
@@ -305,7 +322,7 @@
           <span>꽃놀이</span>
         </button>
         <button class="theme-item" type="button">
-          <span class="theme-icon"><img src="./images/noto_fire.png" alt="불멍" /></span>
+          <span class="theme-icon"><img src="./images/icon-park-solid_fireworks.png" alt="불멍" /></span>
           <span>불멍</span>
         </button>
         <button class="theme-item" type="button">
@@ -398,53 +415,47 @@
 
         <div class="action-row">
           <button class="action-btn primary" type="button">길찾기</button>
-          <button class="action-btn outline" type="button">해제하기</button>
+          <button class="action-btn outline" type="button">해체하기</button>
         </div>
       </section>
     </section>
   </main>
 
   <nav class="bottom-nav" aria-label="하단 메뉴">
-    <a href="./index.html" class="nav-item active">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 10.5 12 3l9 7.5" />
-        <path d="M5 10v10h14V10" />
-      </svg>
+    <!-- 하단 네비게이션 아이콘은 원하는 이미지 경로로 src 값을 변경하세요. -->
+    <a href="./mainhome.html" class="nav-item active">
+      <span class="nav-icon">
+        <img src="./images/iconamoon_home.png" alt="홈" />
+      </span>
       <span>홈</span>
     </a>
 
     <!-- 검색 버튼: 원하는 검색 페이지 경로로 href 값을 변경하세요. -->
     <a href="./index.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="11" cy="11" r="7" />
-        <path d="m16.5 16.5 4 4" />
-      </svg>
+      <span class="nav-icon">
+        <img src="./images/mingcute_search-line.png" alt="검색" />
+      </span>
       <span>검색</span>
     </a>
 
     <a href="./meeting.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="8" cy="8" r="2" />
-        <circle cx="16" cy="8" r="2" />
-        <circle cx="8" cy="16" r="2" />
-        <circle cx="16" cy="16" r="2" />
-      </svg>
+      <span class="nav-icon">
+        <img src="./images/fluent_people-community-12-regular.png" alt="모임" />
+      </span>
       <span>모임</span>
     </a>
 
     <a href="./live.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <rect x="4" y="7" width="16" height="12" rx="2" />
-        <path d="M9 7V4l6 3-6 3V7z" />
-      </svg>
+      <span class="nav-icon">
+        <img src="./images/mingcute_live-line.png" alt="LIVE" />
+      </span>
       <span>LIVE</span>
     </a>
 
     <a href="./my.html" class="nav-item">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 21c1.2-4 4-6 8-6s6.8 2 8 6" />
-      </svg>
+      <span class="nav-icon">
+        <img src="./images/ri_user-line.png" alt="MY" />
+      </span>
       <span>MY</span>
     </a>
   </nav>

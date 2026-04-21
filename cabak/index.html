@@ -64,7 +64,7 @@
     .screen {
       display: none;
       min-height: 100%;
-      padding-bottom: calc(92px + var(--safe-bottom));
+      padding-bottom: calc(70px + var(--safe-bottom));
       background: #fff;
     }
 
@@ -181,10 +181,11 @@
       z-index: 50;
       width: 100%;
       max-width: 375px;
-      height: calc(92px + var(--safe-bottom));
+      height: calc(70px + var(--safe-bottom));
       padding-bottom: var(--safe-bottom);
       display: grid;
       grid-template-columns: repeat(5, 1fr);
+      align-items: center;
       background: #fff;
       border-top: 1px solid #777;
     }
@@ -192,23 +193,39 @@
     .nav-item {
       text-decoration: none;
       height: 70px;
-      padding-top: 14px;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 3px;
       color: #555;
       font-size: 10px;
       font-weight: 800;
     }
 
-    .nav-item svg {
-      width: 23px;
-      height: 23px;
-      stroke-width: 2.1;
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0) opacity(0.65);
+      transition: filter 0.2s ease;
     }
 
     .nav-item.active { color: var(--primary); }
+
+    .nav-item.active .nav-icon img {
+      filter: brightness(0) saturate(100%) invert(43%) sepia(16%) saturate(1844%) hue-rotate(188deg) brightness(91%) contrast(86%);
+    }
 
     .page-header {
       height: 48px;
@@ -489,6 +506,89 @@
       background: #eee;
     }
 
+    .national-map-wrap {
+      position: relative;
+      width: 100%;
+      height: calc(100dvh - 48px - 70px - var(--safe-bottom));
+      min-height: 520px;
+      background: #eef1f6;
+    }
+
+    .national-map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-search-panel {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .map-search-panel input {
+      flex: 1;
+      height: 38px;
+      padding: 0 13px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid rgba(79, 105, 178, 0.35);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .map-search-panel button {
+      width: 58px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(79, 105, 178, 0.22);
+    }
+
+    .map-count-badge {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 10;
+      min-width: 104px;
+      height: 34px;
+      padding: 0 13px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-marker-label {
+      min-width: 72px;
+      max-width: 130px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 7px 15px rgba(79, 105, 178, 0.25);
+    }
+
     .route-btn {
       width: 100%;
       height: 42px;
@@ -591,6 +691,22 @@
       </div>
     </section>
 
+    <section id="mapScreen" class="screen">
+      <header class="page-header">
+        <button class="back-btn" type="button" data-goto="searchScreen" aria-label="뒤로가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19 8 12l7-7"/></svg></button>
+        <h1 class="page-title">전국 캠핑장 지도</h1>
+        <span></span>
+      </header>
+      <div class="national-map-wrap">
+        <div class="map-search-panel">
+          <input id="mapKeywordInput" type="search" placeholder="지도에서 검색할 지역 또는 캠핑장명" autocomplete="off">
+          <button id="mapSearchBtn" type="button">검색</button>
+        </div>
+        <div id="nationalMap" class="national-map"></div>
+        <div id="mapCountBadge" class="map-count-badge">캠핑장 0곳</div>
+      </div>
+    </section>
+
     <section id="resultScreen" class="screen">
       <header class="page-header">
         <button class="back-btn" type="button" data-goto="searchScreen" aria-label="뒤로가기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19 8 12l7-7"/></svg></button>
@@ -650,11 +766,11 @@
     </section>
 
     <nav class="bottom-nav">
-      <a class="nav-item" href="./mainhome.html" aria-label="홈으로 이동"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H5v-8h14"/></svg><span>홈</span></a>
-      <button class="nav-item active" type="button" data-goto="searchScreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>검색</span></button>
-      <button class="nav-item" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/></svg><span>모임</span></button>
-      <button class="nav-item" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 8h16v12H4z"/><path d="M10 13l4 2-4 2v-4Z"/></svg><span>LIVE</span></button>
-      <button id="favoriteNavBtn" class="nav-item" type="button" data-goto="favoriteScreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.2-6 8-6s6.5 2 8 6"/></svg><span>MY</span></button>
+      <a class="nav-item" href="./mainhome.html" aria-label="홈으로 이동"><span class="nav-icon"><img src="./images/iconamoon_home.png" alt="홈"></span><span>홈</span></a>
+      <button class="nav-item active" type="button" data-goto="searchScreen"><span class="nav-icon"><img src="./images/mingcute_search-line.png" alt="검색"></span><span>검색</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon"><img src="./images/fluent_people-community-12-regular.png" alt="모임"></span><span>모임</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon"><img src="./images/mingcute_live-line.png" alt="라이브"></span><span>LIVE</span></button>
+      <button id="favoriteNavBtn" class="nav-item" type="button" data-goto="favoriteScreen"><span class="nav-icon"><img src="./images/ri_user-line.png" alt="마이페이지"></span><span>MY</span></button>
     </nav>
 
     <div id="toast" class="toast"></div>
@@ -677,7 +793,11 @@
       previousScreen: "resultScreen",
       userPosition: null,
       map: null,
-      marker: null
+      marker: null,
+      nationalMap: null,
+      nationalMarkers: [],
+      nationalItems: [],
+      isMapLoaded: false
     };
 
     const $ = (selector) => document.querySelector(selector);
@@ -950,6 +1070,106 @@
       updateBookmarkUI();
     }
 
+    async function openNationalMap() {
+      showScreen("mapScreen");
+
+      if (!window.kakao || !window.kakao.maps) {
+        $("#nationalMap").innerHTML = `<div class="thumb-empty">카카오 JavaScript 키를 확인해 주세요.</div>`;
+        return;
+      }
+
+      kakao.maps.load(() => {
+        const mapEl = $("#nationalMap");
+        const center = new kakao.maps.LatLng(36.5, 127.8);
+
+        if (!state.nationalMap) {
+          state.nationalMap = new kakao.maps.Map(mapEl, {
+            center,
+            level: 13
+          });
+        }
+
+        setTimeout(() => {
+          state.nationalMap.relayout();
+          state.nationalMap.setCenter(center);
+        }, 80);
+
+        if (!state.isMapLoaded) {
+          loadNationalCampingMarkers();
+        }
+      });
+    }
+
+    async function loadNationalCampingMarkers(keyword = "") {
+      const countBadge = $("#mapCountBadge");
+      countBadge.textContent = "불러오는 중...";
+
+      try {
+        const endpoint = keyword.trim() ? "searchList" : "basedList";
+        const params = keyword.trim()
+          ? { keyword: keyword.trim(), pageNo: 1, numOfRows: 80 }
+          : { pageNo: 1, numOfRows: 120 };
+
+        const body = await fetchGoCamping(endpoint, params);
+        const items = normalizeItems(body?.items?.item).filter((item) => Number(item.mapX) && Number(item.mapY));
+
+        state.nationalItems = items;
+        state.isMapLoaded = true;
+        renderNationalMarkers(items);
+      } catch (error) {
+        countBadge.textContent = "지도 오류";
+        showToast(error.message);
+      }
+    }
+
+    function clearNationalMarkers() {
+      state.nationalMarkers.forEach((marker) => marker.setMap(null));
+      state.nationalMarkers = [];
+    }
+
+    function renderNationalMarkers(items) {
+      clearNationalMarkers();
+
+      if (!state.nationalMap) return;
+
+      const bounds = new kakao.maps.LatLngBounds();
+
+      items.forEach((item, index) => {
+        const lat = Number(item.mapY);
+        const lng = Number(item.mapX);
+        const position = new kakao.maps.LatLng(lat, lng);
+        const title = compact(item.facltNm, "캠핑장");
+        const label = document.createElement("button");
+        label.type = "button";
+        label.className = "map-marker-label";
+        label.textContent = title;
+
+        const overlay = new kakao.maps.CustomOverlay({
+          position,
+          content: label,
+          yAnchor: 1.2
+        });
+
+        label.addEventListener("click", () => {
+          state.items = items;
+          openDetail(index, "result");
+        });
+
+        overlay.setMap(state.nationalMap);
+        state.nationalMarkers.push(overlay);
+        bounds.extend(position);
+      });
+
+      if (items.length) {
+        state.nationalMap.setBounds(bounds);
+      } else {
+        state.nationalMap.setCenter(new kakao.maps.LatLng(36.5, 127.8));
+        state.nationalMap.setLevel(13);
+      }
+
+      $("#mapCountBadge").textContent = `캠핑장 ${items.length.toLocaleString()}곳`;
+    }
+
     function renderError(message) {
       $("#resultMeta").textContent = "검색 오류";
       $("#moreBtn").hidden = true;
@@ -1201,13 +1421,25 @@
       $("#routeBtn").addEventListener("click", openKakaoRoute);
 
       $("#mapGuideBtn").addEventListener("click", () => {
-        showToast("상세 화면에서 카카오 지도를 확인할 수 있습니다.");
+        openNationalMap();
+      });
+
+      $("#mapSearchBtn").addEventListener("click", () => {
+        loadNationalCampingMarkers($("#mapKeywordInput").value);
+      });
+
+      $("#mapKeywordInput").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          loadNationalCampingMarkers($("#mapKeywordInput").value);
+        }
       });
     }
 
     function initBanner() {
       const img = $("#mainBanner");
       const placeholder = $("#bannerPlaceholder");
+
       if (img.getAttribute("src")) {
         img.hidden = false;
         placeholder.hidden = true;

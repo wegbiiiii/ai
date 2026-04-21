@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모바일 메인 페이지</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: none;
+      background: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 375px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #fff;
+      padding-bottom: 72px;
+      overflow: hidden;
+    }
+
+    /* 상단 배경 이미지 */
+    .hero {
+      width: 100%;
+      height: 215px;
+      overflow: hidden;
+      background: #e7edf6;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .content {
+      padding: 0 24px;
+    }
+
+    .section-title {
+      margin-top: 28px;
+      margin-bottom: 24px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #526fb4;
+      letter-spacing: -0.03em;
+    }
+
+    /* 테마별 카테고리 */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 24px;
+      column-gap: 18px;
+    }
+
+    .theme-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: #333;
+      letter-spacing: -0.03em;
+    }
+
+    .theme-icon {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .quick-menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .quick-btn {
+      height: 37px;
+      border-radius: 8px;
+      background: #c6d0ec;
+      color: #526fb4;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: -0.03em;
+    }
+
+    .quick-btn img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    /* 장소 랭킹 */
+    .ranking-title {
+      margin-top: 26px;
+      margin-bottom: 22px;
+      font-size: 18px;
+      font-weight: 800;
+      color: #526fb4;
+      letter-spacing: -0.03em;
+    }
+
+    .ranking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .rank-card {
+      width: 100%;
+      height: 254px;
+      overflow: hidden;
+      background: #edf1f8;
+    }
+
+    .rank-card img,
+    .wide-place img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .wide-place {
+      width: 100%;
+      height: 128px;
+      margin-top: 15px;
+      overflow: hidden;
+      background: #edf1f8;
+    }
+
+    /* 장소 정보 */
+    .place-info {
+      padding: 24px 0 15px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .place-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .place-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #222;
+      letter-spacing: -0.03em;
+    }
+
+    .bookmark-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bookmark-btn svg {
+      width: 22px;
+      height: 22px;
+      stroke: #111;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .place-address {
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #333;
+      letter-spacing: -0.03em;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 100px;
+      gap: 24px;
+    }
+
+    .action-btn {
+      height: 48px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .action-btn.primary {
+      background: #526fb4;
+      color: #fff;
+    }
+
+    .action-btn.outline {
+      border: 1px solid #526fb4;
+      background: #fff;
+      color: #526fb4;
+    }
+
+    /* 하단 네비게이션 */
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 50;
+      width: 100%;
+      max-width: 375px;
+      height: 58px;
+      transform: translateX(-50%);
+      border-top: 1px solid #d9d9d9;
+      background: #fff;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #666;
+    }
+
+    .nav-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+    }
+
+    .nav-item.active {
+      color: #526fb4;
+    }
+
+    @media (max-width: 374px) {
+      .content {
+        padding: 0 18px;
+      }
+
+      .theme-grid {
+        column-gap: 12px;
+      }
+
+      .action-row {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <!-- 배경이미지: 원하는 이미지 경로로 src 값을 변경하세요. -->
+    <section class="hero">
+      <img src="./images/mainpageimg.jpg" alt="메인 배경 이미지" />
+    </section>
+
+    <section class="content">
+      <h2 class="section-title">테마별 카테고리</h2>
+
+      <div class="theme-grid">
+        <!-- 아이콘은 원하는 이미지 경로로 src 값을 변경하세요. -->
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/flower.png" alt="꽃놀이" /></span>
+          <span>꽃놀이</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/noto_fire.png" alt="불멍" /></span>
+          <span>불멍</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/city.png" alt="도심" /></span>
+          <span>도심</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/noto_glowing-star.png" alt="별감상" /></span>
+          <span>별감상</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/noto_guide-dog.png" alt="반려견" /></span>
+          <span>반려견</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/noto_mountain.png" alt="오지" /></span>
+          <span>오지</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/noto_fried-shrimp.png" alt="바베큐" /></span>
+          <span>바베큐</span>
+        </button>
+        <button class="theme-item" type="button">
+          <span class="theme-icon"><img src="./images/twemoji_camping.png" alt="장비" /></span>
+          <span>장비</span>
+        </button>
+      </div>
+
+      <div class="quick-menu">
+        <button class="quick-btn" type="button">
+          <img src="./images/bxs_coupon.png" alt="쿠폰" />
+          쿠폰
+        </button>
+        <button class="quick-btn" type="button">
+          <img src="./images/icon-park-solid_fireworks.png" alt="이벤트" />
+          이벤트
+        </button>
+        <button class="quick-btn" type="button">
+          <img src="./images/mdi_present.png" alt="혜택" />
+          혜택
+        </button>
+      </div>
+
+      <h2 class="ranking-title">장소 랭킹 Top 10</h2>
+
+      <div class="ranking-grid">
+        <article class="rank-card">
+          <img src="./images/top1.jpg" alt="랭킹 장소 이미지 1" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top2.jpg" alt="랭킹 장소 이미지 2" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top3.jpg" alt="랭킹 장소 이미지 3" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top4.jpg" alt="랭킹 장소 이미지 4" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top5.jpg" alt="랭킹 장소 이미지 5" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top6.jpg" alt="랭킹 장소 이미지 6" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top7.jpg" alt="랭킹 장소 이미지 7" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top8.jpg" alt="랭킹 장소 이미지 8" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top9.jpg" alt="랭킹 장소 이미지 9" />
+        </article>
+        <article class="rank-card">
+          <img src="./images/top10.jpg" alt="랭킹 장소 이미지 10" />
+        </article>
+      </div>
+
+      <section class="place-info">
+        <div class="place-title-row">
+          <h2 class="place-title">테마별 카테고리</h2>
+          <button class="bookmark-btn" type="button" aria-label="북마크">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 3h12v18l-6-4-6 4V3z" />
+            </svg>
+          </button>
+        </div>
+
+        <p class="place-address">강원도 원주시 치악면 치악산 1번지</p>
+
+        <div class="action-row">
+          <button class="action-btn primary" type="button">길찾기</button>
+          <button class="action-btn outline" type="button">해제하기</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="하단 메뉴">
+    <a href="./index.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 10.5 12 3l9 7.5" />
+        <path d="M5 10v10h14V10" />
+      </svg>
+      <span>홈</span>
+    </a>
+
+    <!-- 검색 버튼: 원하는 검색 페이지 경로로 href 값을 변경하세요. -->
+    <a href="./index.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m16.5 16.5 4 4" />
+      </svg>
+      <span>검색</span>
+    </a>
+
+    <a href="./meeting.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="8" cy="8" r="2" />
+        <circle cx="16" cy="8" r="2" />
+        <circle cx="8" cy="16" r="2" />
+        <circle cx="16" cy="16" r="2" />
+      </svg>
+      <span>모임</span>
+    </a>
+
+    <a href="./live.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="4" y="7" width="16" height="12" rx="2" />
+        <path d="M9 7V4l6 3-6 3V7z" />
+      </svg>
+      <span>LIVE</span>
+    </a>
+
+    <a href="./my.html" class="nav-item">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c1.2-4 4-6 8-6s6.8 2 8 6" />
+      </svg>
+      <span>MY</span>
+    </a>
+  </nav>
+
+  <script>
+    const bookmarkBtn = document.querySelector('.bookmark-btn');
+    const bookmarkIconPath = document.querySelector('.bookmark-btn svg path');
+
+    bookmarkBtn.addEventListener('click', function () {
+      bookmarkBtn.classList.toggle('is-active');
+
+      if (bookmarkBtn.classList.contains('is-active')) {
+        bookmarkIconPath.style.fill = '#111';
+      } else {
+        bookmarkIconPath.style.fill = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

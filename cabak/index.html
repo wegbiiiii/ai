@@ -147,7 +147,7 @@
     .popular { margin-top: 50px; }
 
     .banner-box {
-        height: 120px;
+      height: 120px;
       margin-top: 108px;
       position: relative;
       overflow: hidden;
@@ -190,6 +190,7 @@
     }
 
     .nav-item {
+      text-decoration: none;
       height: 70px;
       padding-top: 14px;
       display: flex;
@@ -649,7 +650,7 @@
     </section>
 
     <nav class="bottom-nav">
-      <button class="nav-item" type="button" data-goto="searchScreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H5v-8h14"/></svg><span>홈</span></button>
+      <a class="nav-item" href="./mainhome.html" aria-label="홈으로 이동"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5 12 3l9 7.5V21H5v-8h14"/></svg><span>홈</span></a>
       <button class="nav-item active" type="button" data-goto="searchScreen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span>검색</span></button>
       <button class="nav-item" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/></svg><span>모임</span></button>
       <button class="nav-item" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 8h16v12H4z"/><path d="M10 13l4 2-4 2v-4Z"/></svg><span>LIVE</span></button>
@@ -695,7 +696,7 @@
       if (screenId === "favoriteScreen") {
         $("#favoriteNavBtn")?.classList.add("active");
       } else {
-        $$('.nav-item[data-goto="searchScreen"]')[1]?.classList.add("active");
+        $$('.nav-item[data-goto="searchScreen"]')[0]?.classList.add("active");
       }
     }
 

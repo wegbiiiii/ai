@@ -1,0 +1,14 @@
+전국 캠핑장 현황 
+
+-인증키
+de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b
+
+
+-xml
+http://apis.data.go.kr/B551011/GoCamping/basedList?serviceKey=de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b&numOfRows=10&pageNo=1&MobileOS=AND&MobileApp=appName
+
+
+
+
+-json
+http://apis.data.go.kr/B551011/GoCamping/basedList?serviceKey=de187fd45d650881be9a659b12d26ea56f75c3bb95e5dedc89b25cd5a1ae692b&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp&_type=json

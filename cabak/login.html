@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHABAK 로그인</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f5f6f8;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+      color: #4f68ac;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      border: none;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .mobile-login {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      background: #f5f6f8;
+    }
+
+    .login-phone {
+      width: 100%;
+      max-width: 375px;
+      min-height: 812px;
+      background: #fff;
+      padding: 72px 24px 40px;
+    }
+
+    .logo-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 42px;
+    }
+
+    .logo-box {
+      width: 210px;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .login-form {
+      width: 100%;
+    }
+
+    .input-row {
+      width: 100%;
+      height: 76px;
+      border-bottom: 1px solid #d9d9d9;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-row + .input-row {
+      margin-top: 0;
+    }
+
+    .input-row input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2f3d68;
+      letter-spacing: -0.02em;
+    }
+
+    .input-row input::placeholder {
+      color: #4f68ac;
+      opacity: 1;
+    }
+
+    .button-area {
+      margin-top: 38px;
+    }
+
+    .login-btn,
+    .join-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .login-btn:active,
+    .join-btn:active,
+    .social-link:active {
+      transform: scale(0.98);
+    }
+
+    .login-btn {
+      background: #526bb6;
+      color: #fff;
+    }
+
+    .join-btn {
+      margin-top: 8px;
+      background: #fff;
+      color: #526bb6;
+      border: 1px solid #526bb6;
+    }
+
+    .account-menu {
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #4f68ac;
+      letter-spacing: -0.02em;
+    }
+
+    .account-menu span {
+      width: 1px;
+      height: 12px;
+      background: #4f68ac;
+      opacity: 0.8;
+    }
+
+    .simple-login {
+      margin-top: 14px;
+    }
+
+    .simple-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #526bb6;
+      letter-spacing: -0.02em;
+    }
+
+    .simple-title::before,
+    .simple-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #9aa8d4;
+    }
+
+    .social-list {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .social-link {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .social-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 374px) {
+      .login-phone {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo-box {
+        width: 190px;
+        height: 118px;
+      }
+
+      .social-list {
+        gap: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="mobile-login">
+    <section class="login-phone">
+      <div class="logo-area">
+        <div class="logo-box">
+          <!-- 상단 로고 이미지는 아래 src 값만 변경해서 사용하세요. -->
+          <img src="./images/Gemini_Generated_Image_3srmew3srmew3srm2 1.png" alt="CHABAK 로고" />
+        </div>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <label class="input-row">
+          <input type="text" id="userId" placeholder="아이디" autocomplete="username" />
+        </label>
+
+        <label class="input-row">
+          <input type="password" id="userPw" placeholder="비밀번호" autocomplete="current-password" />
+        </label>
+
+        <div class="button-area">
+          <button type="submit" class="login-btn">로그인</button>
+          <button type="button" class="join-btn" onclick="location.href='./join.html'">회원가입</button>
+        </div>
+      </form>
+
+      <nav class="account-menu" aria-label="계정 메뉴">
+        <a href="./find-id.html">아이디 찾기</a>
+        <span aria-hidden="true"></span>
+        <a href="./find-password.html">비밀번호 찾기</a>
+        <span aria-hidden="true"></span>
+        <a href="./look-around.html">둘러보기</a>
+      </nav>
+
+      <section class="simple-login">
+        <div class="simple-title">간편로그인</div>
+
+        <div class="social-list">
+          <a href="#" class="social-link" aria-label="카카오톡 로그인">
+            <!-- 카카오톡 로고 이미지는 아래 src 값만 변경해서 사용하세요. -->
+            <img src="./images/download_kakaotalk_logo.svg.png" alt="카카오톡" />
+          </a>
+          <a href="#" class="social-link" aria-label="구글 로그인">
+            <!-- 구글 로고 이미지는 아래 src 값만 변경해서 사용하세요. -->
+            <img src="./images/google.png" alt="구글" />
+          </a>
+          <a href="#" class="social-link" aria-label="네이버 로그인">
+            <!-- 네이버 로고 이미지는 아래 src 값만 변경해서 사용하세요. -->
+            <img src="./images/naver.png" alt="네이버" />
+          </a>
+          <a href="#" class="social-link" aria-label="페이스북 로그인">
+            <!-- 페이스북 로고 이미지는 아래 src 값만 변경해서 사용하세요. -->
+            <img src="./images/facebook.png" alt="페이스북" />
+          </a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const loginForm = document.querySelector('#loginForm');
+    const userId = document.querySelector('#userId');
+    const userPw = document.querySelector('#userPw');
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      if (userId.value.trim() === '') {
+        alert('아이디를 입력해주세요.');
+        userId.focus();
+        return;
+      }
+
+      if (userPw.value.trim() === '') {
+        alert('비밀번호를 입력해주세요.');
+        userPw.focus();
+        return;
+      }
+
+      alert('로그인 정보가 입력되었습니다.');
+      // 실제 로그인 페이지 연결이 필요하면 아래 주소를 수정하세요.
+      // location.href = './main.html';
+    });
+  </script>
+</body>
+</html>

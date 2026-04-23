@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이펙트 버튼 데모</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  overflow: visible;
+}
+
+    body {
+      font-family: Arial, "Malgun Gothic", sans-serif;
+      color: #111;
+      padding: 8px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .controls button {
+      padding: 4px 10px;
+      border: 1px solid #999;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .section {
+      width: 650px;
+      border: 5px solid #ccc;
+      background: #fff;
+      padding: 0;
+      margin-bottom: 22px;
+      overflow: visible;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      position: relative;
+      overflow: visible;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      padding: 8px;
+      font-size: 14px;
+      color: #000;
+      overflow: visible;
+      transition: opacity 0.4s ease, height 0.4s ease, left 0.4s ease, margin 0.4s ease;
+    }
+
+    #animationBox {
+      position: relative;
+      left: 0;
+      z-index: 10;
+      overflow: visible;
+    }
+
+    .red { background: #ff130d; }
+    .green { background: #008f00; }
+    .orange { background: #ffa500; }
+    .yellow { background: #ffff00; }
+    .blue { background: #1eb6dc; }
+
+    .hidden-opacity {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .hidden-display {
+      display: none !important;
+    }
+
+    .height-zero {
+      height: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .collapsed {
+      height: 0 !important;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      pointer-events: none;
+    }
+
+    .active-highlight {
+      outline: 6px solid #111;
+      outline-offset: -6px;
+    }
+
+    .move-right {
+      left: 440px;
+    }
+
+    .circle {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="fadeOutBtn">부드럽게 사라짐</button>
+    <button id="fadeInBtn">부드럽게 보이기</button>
+    <button id="toggleBtn">보이기/숨기기</button>
+    <button id="heightZeroBtn">높이를 0</button>
+    <button id="heightAutoBtn">높이를 요소크기만큼</button>
+    <button id="heightToggleBtn">높이 0/높이 요소크기만큼</button>
+    <button id="animation1Btn">애니메이션1</button>
+    <button id="animation2Btn">애니메이션2</button>
+    <button id="addClassBtn">class추가</button>
+    <button id="removeClassBtn">class삭제</button>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div id="fadeBox" class="box red">fadein/fadeout</div>
+      <div id="fadeToggleBox" class="box green">fadetoggle</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <div id="slideBox" class="box orange">slideup/down</div>
+      <div id="slideToggleBox" class="box yellow">slidetoggle</div>
+      <div id="animationBox" class="box blue">animation</div>
+    </div>
+  </div>
+
+  <script>
+    const fadeBox = document.getElementById('fadeBox');
+    const fadeToggleBox = document.getElementById('fadeToggleBox');
+    const slideBox = document.getElementById('slideBox');
+    const slideToggleBox = document.getElementById('slideToggleBox');
+    const animationBox = document.getElementById('animationBox');
+
+    let fadeVisible = true;
+    let slideVisible = true;
+    let slideToggleVisible = true;
+    let toggleVisible = true;
+    
+    document.getElementById('fadeOutBtn').addEventListener('click', () => {
+      fadeBox.classList.add('hidden-opacity');
+      fadeVisible = false;
+    });
+
+    document.getElementById('fadeInBtn').addEventListener('click', () => {
+      fadeBox.classList.remove('hidden-opacity');
+      fadeVisible = true;
+    });
+
+    document.getElementById('toggleBtn').addEventListener('click', () => {
+      toggleVisible = !toggleVisible;
+      fadeToggleBox.classList.toggle('hidden-opacity', !toggleVisible);
+    });
+
+    document.getElementById('heightZeroBtn').addEventListener('click', () => {
+      slideBox.classList.add('height-zero');
+      slideVisible = false;
+    });
+
+    document.getElementById('heightAutoBtn').addEventListener('click', () => {
+      slideBox.classList.remove('height-zero');
+      slideVisible = true;
+    });
+
+    document.getElementById('heightToggleBtn').addEventListener('click', () => {
+      slideToggleVisible = !slideToggleVisible;
+      slideToggleBox.classList.toggle('collapsed', !slideToggleVisible);
+    });
+
+    document.getElementById('animation1Btn').addEventListener('click', () => {
+      animationBox.style.left = '440px';
+    });
+
+    document.getElementById('animation2Btn').addEventListener('click', () => {
+      animationBox.style.left = '0px';
+    });
+
+    document.getElementById('addClassBtn').addEventListener('click', () => {
+      animationBox.classList.add('active-highlight', 'circle');
+    });
+
+    document.getElementById('removeClassBtn').addEventListener('click', () => {
+      animationBox.classList.remove('active-highlight', 'circle');
+    });
+  </script>
+</body>
+</html>

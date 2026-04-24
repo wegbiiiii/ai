@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Tabs</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background:#f5f5f5; }
+
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .inner {
+      width: 1140px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+      list-style: none;
+    }
+
+    .tabs li {
+      list-style: none;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active {
+      background: #ff6a00;
+      color: #fff;
+      border-color: #ff6a00;
+    }
+
+    .tab-content {
+      display: none;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      list-style: none;
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    .tab-content li {
+      width: 200px;
+      text-align: center;
+      list-style: none;
+    }
+
+    .tab-content img {
+     
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .tab-content p {
+      margin-top: 10px;
+    }
+
+    .more-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 30px;
+      border: 1px solid #ff6a00;
+      color: #ff6a00;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .more-btn:hover {
+      background: #ff6a00;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<section class="section">
+  <div class="inner">
+    <h1>BRAND</h1>
+    <p class="desc">건강하고 창의적인 미래를 만들기 위한 다양한 브랜드를 소개합니다.</p>
+
+    <ul class="tabs">
+      <li><button class="tab-btn active" data-tab="tab1">삼양1963</button></li>
+      <li><button class="tab-btn" data-tab="tab2">삼양라면</button></li>
+      <li><button class="tab-btn" data-tab="tab3">불닭볶음면</button></li>
+      <!--<li><button class="tab-btn" data-tab="tab4">짜짜로니</button></li>-->
+    </ul>
+
+    <!-- tab1 -->
+    <ul class="tab-content active" id="tab1">
+      <li>
+        <img src="./images/imgi_4_20251028144634490285.png" />
+        <p>삼양라면</p>
+      </li>
+      <!--<li>
+        <img src="https://picsum.photos/200/150?2" />
+        <p>큰컵 삼양라면</p>
+      </li>
+      <li>
+        <img src="https://picsum.photos/200/150?3" />
+        <p>매운맛</p>
+      </li>
+      <li>
+        <img src="https://picsum.photos/200/150?4" />
+        <p>큰컵 매운맛</p>
+      </li>-->
+    </ul>
+
+    <!-- tab2 -->
+    <ul class="tab-content" id="tab2">
+      <li>
+        <img src="./images/imgi_4_20230912173938560414.png" />
+        <p>삼양라면</p>
+      </li>
+      <li>
+        <img src="./images/imgi_5_20231017135003166448.png" />
+        <p>큰컵 삼양라면</p>
+      </li>
+      <li>
+        <img src="./images/imgi_6_20231017141211454452.png" />
+        <p>삼양라면 매운맛</p>
+      </li>
+      <li>
+        <img src="./images/imgi_7_20250110104513271125.png" />
+        <p>큰컵 삼양라면 매운맛</p>
+      </li>
+    </ul>
+
+    <!-- tab3 -->
+    <ul class="tab-content" id="tab3">
+      <li>
+        <img src="./images/imgi_4_20231117142511652471.png" />
+        <p>불닭볶음면</p>
+      </li>
+      <li>
+        <img src="./images/imgi_5_20250312174532041193.png" />
+        <p>까르보 불닭볶음면</p>
+      </li>
+      <li>
+        <img src="./images/imgi_6_20250520092351672181.png" />
+        <p>로제 불닭볶음면</p>
+      </li>
+      <li>
+        <img src="./images/imgi_7_20250312171448230174.png" />
+        <p>불닭볶음탕면</p>
+      </li>
+    </ul>
+
+    <!-- tab4 -->
+    <!--<ul class="tab-content" id="tab4">
+      <li>
+        <img src="https://picsum.photos/200/150?9" />
+        <p>짜짜로니</p>
+      </li>
+      <li>
+        <img src="https://picsum.photos/200/150?10" />
+        <p>짜장 컵라면</p>
+      </li>
+    </ul>-->
+
+    <a href="#" class="more-btn">more →</a>
+
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(btn => btn.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

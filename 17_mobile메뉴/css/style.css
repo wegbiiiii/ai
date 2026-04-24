@@ -58,7 +58,7 @@ header h1 a {
 
 .mobile-menu {
     
-    width: calc(100%-32px);
+    width: calc(100% - 32px);
     height: 100%;
     background-color: #1f2937;
     position: absolute;

@@ -51,13 +51,21 @@ header h1 a {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.8);
-    display: none;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    /*겹침방지*/
+    pointer-events: none;
+}
+
+.cover.on {
+    opacity: 1;
+    pointer-events: none;
 }
 
 /*모바일 메뉴 숨기기*/
 
 .mobile-menu {
-    
+    /*cal의 연산자는 띄어쓰기 필요*/
     width: calc(100% - 32px);
     height: 100%;
     background-color: #1f2937;
@@ -65,11 +73,12 @@ header h1 a {
     right: -100%;
     top: 0;
     padding: 24px;
+    transition: all 0.5s ease-in-out;
 }
 
-/*.mobile-menu.on {
+.mobile-menu.on {
     right: 0;
-}*/
+}
 
 .mobile-menu ul {
     padding-top: 48px;

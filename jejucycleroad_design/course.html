@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제주 자전거길 전체 지도</title>
+
+  <link rel="stylesheet" href="./css/course.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <script
+    defer
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=KAKAO_JS_KEY&autoload=false"
+  ></script>
+
+  <script defer src="./script/course.js"></script>
+</head>
+<body>
+  <div class="app">
+    <main class="course-page">
+      <header class="top-header map-header">
+        <button type="button" class="header-btn" id="courseBackBtn" aria-label="뒤로가기">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <h1>전체 지도</h1>
+
+        <span class="header-space"></span>
+      </header>
+
+      <section class="all-map-section">
+        <div class="all-map-title-box">
+          <h2>제주도 자전거길 전체 지도</h2>
+          <p>커뮤니티에서 추천한 자전거길 위치를 한눈에 확인해보세요.</p>
+        </div>
+
+        <div id="allKakaoMap"></div>
+
+        <div class="map-course-list" id="mapCourseList">
+          <!-- JS에서 코스 리스트 생성 -->
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="./main.html" class="nav-item">
+        <img src="./images/home_symbol-2.svg" alt="홈">
+        <span>홈</span>
+      </a>
+
+      <a href="./community.html" class="nav-item">
+        <img src="./images/community_symbol-2.svg" alt="커뮤니티">
+        <span>커뮤니티</span>
+      </a>
+
+      <a href="./course.html" class="nav-item active">
+        <img src="./images/map_symbol.svg" alt="코스">
+        <span>코스</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <img src="./images/crown_symbol.svg" alt="랭킹">
+        <span>랭킹</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <img src="./images/user_symbol.svg" alt="마이">
+        <span>마이</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제주도 자전거 여행정보</title>
+
+  <link rel="stylesheet" href="./css/main_style.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body>
+
+  <div class="app">
+
+  <!-- 상단 히어로 이미지 -->
+  <section class="hero" aria-label="제주도 메인 이미지 슬라이드">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide hero-slide">
+          <img src="./images/main_heroslide1.jpg" alt="제주도 메인 슬라이드 이미지 1">
+        </div>
+
+        <div class="swiper-slide hero-slide">
+          <img src="./images/main_heroslide2.jpg" alt="제주도 메인 슬라이드 이미지 2">
+        </div>
+
+        <div class="swiper-slide hero-slide">
+          <img src="./images/main_heroslide3.jpg" alt="제주도 메인 슬라이드 이미지 3">
+        </div>
+
+        <div class="swiper-slide hero-slide">
+          <img src="./images/main_heroslide4.jpg" alt="제주도 메인 슬라이드 이미지 4">
+        </div>
+
+        <div class="swiper-slide hero-slide">
+          <img src="./images/main_heroslide5.jpg" alt="제주도 메인 슬라이드 이미지 5">
+        </div>
+
+      </div>
+
+      <div class="swiper-pagination hero-pagination"></div>
+    </div>
+  </section>
+
+  <!--메인-->
+
+  <main class="app-main">
+
+    <section class="weather-section" aria-label="제주도 날씨 정보">
+      <article class="weather-card">
+        <div class="weather-left">
+          <p class="weather-title" id="weatherCity">Jeju Sunny</p>
+
+          <div class="weather-info">
+            <strong id="weatherTemp">--°</strong>
+
+            <div class="weather-icon-box">
+              <img id="weatherIcon" src="images/weather-icon.png" alt="날씨 아이콘">
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="weather-side-cards" aria-label="자전거 여행 요약 정보">
+        <article class="info-card">
+          <span>완주코스</span>
+          <strong>1/10</strong>
+        </article>
+
+        <article class="info-card">
+          <span>이동거리</span>
+          <strong>15km</strong>
+        </article>
+      </aside>
+    </section>
+
+    <section class="guide-section" aria-labelledby="guide-title">
+      <h2 id="guide-title">제주도 자전거 여행정보 가이드</h2>
+
+      <div class="guide-slider">
+        <div class="guide-track">
+          <article class="guide-card">
+            <img src="./images/mainslide1.jpg" alt="자전거 가이드 이미지 1">
+          </article>
+
+          <article class="guide-card">
+            <img src="./images/mainslide2.jpg" alt="자전거 가이드 이미지 2">
+          </article>
+
+          <article class="guide-card">
+            <img src="./images/mainslide3.jpg" alt="자전거 가이드 이미지 3">
+          </article>
+
+          <article class="guide-card">
+            <img src="./images/mainslide4.jpg" alt="자전거 가이드 이미지 4">
+          </article>
+
+          <article class="guide-card">
+            <img src="./images/mainslide5.jpg" alt="자전거 가이드 이미지 5">
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="photo-section" aria-labelledby="photo-title">
+      <h2 id="photo-title">제주도 자전거 여행정보 가이드</h2>
+
+      <div class="photo-list">
+        <article class="photo-card">
+          <img src="./images/mainslide1.jpg" alt="제주 자전거 여행 이미지 1">
+        </article>
+
+        <article class="photo-card">
+          <img src="./images/mainslide2.jpg" alt="제주 자전거 여행 이미지 2">
+        </article>
+
+        <article class="photo-card">
+          <img src="./images/mainslide3.jpg" alt="제주 자전거 여행 이미지 3">
+        </article>
+
+        <article class="photo-card">
+          <img src="./images/mainslide4.jpg" alt="제주 자전거 여행 이미지 4">
+        </article>
+
+        <article class="photo-card">
+          <img src="./images/mainslide5.jpg" alt="제주 자전거 여행 이미지 5">
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+
+
+    <!-- 하단 네비게이션 -->
+      <footer class="app-footer">
+    <nav class="bottom-nav" aria-label="하단 주요 메뉴">
+      <a href="./main.html" class="nav-item active">
+        <img src="./images/home_symbol.svg" alt="홈">
+        <span>홈</span>
+      </a>
+
+      <a href="./community.html" class="nav-item">
+        <img src="./images/community_symbol.svg" alt="커뮤니티">
+        <span>커뮤니티</span>
+      </a>
+
+      <a href="./course.html" class="nav-item">
+        <img src="./images/map_symbol.svg" alt="코스">
+        <span>코스</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <img src="./images/crown_symbol.svg" alt="랭킹">
+        <span>랭킹</span>
+      </a>
+
+      <a href="./user.html" class="nav-item">
+        <img src="./images/user_symbol.svg" alt="마이">
+        <span>마이</span>
+      </a>
+    </nav>
+  </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="./script/main_script.js"></script>
+</body>
+</html>

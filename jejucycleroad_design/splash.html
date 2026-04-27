@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제주환상 자전거길 Splash</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      background: #111;
+    }
+
+    .splash-wrap {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+    }
+
+    .splash-link {
+      display: block;
+      width: 375px;
+      height: 100vh;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .splash {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #87cefa;
+    }
+
+    .splash-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .splash-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 24px 48px;
+    }
+
+    .logo-box {
+      width: 220px;
+      margin-top: 10px;
+    }
+
+    .logo-box img {
+      width: 100%;
+      display: block;
+    }
+
+    .loading-area {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 54px;
+      z-index: 3;
+    }
+
+    .percent-text {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: #ffffff;
+      transition: width 0.05s linear;
+    }
+
+    @media (max-width: 375px) {
+      .splash-link {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="splash-wrap">
+    <a href="./slide.html" class="splash-link" id="splashLink">
+      <section class="splash">
+
+        <!-- 배경 이미지 : 원하는 이미지 경로로 변경 -->
+        <img src="./images/ChatGPT Image 2026년 3월 6일 오후 03_57_27.png" alt="스플래쉬 배경" class="splash-bg" />
+
+        <div class="splash-content">
+
+          <!-- 로고 이미지 : 원하는 로고 이미지 경로로 변경 -->
+          <div class="logo-box">
+            <img src="./images/logo.png" alt="제주환상 자전거길 로고" />
+          </div>
+
+          <div class="loading-area">
+            <p class="percent-text">
+              <span id="percentText">0</span>%
+            </p>
+
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </a>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById("progressFill");
+    const percentText = document.getElementById("percentText");
+    const splashLink = document.getElementById("splashLink");
+
+    const loadingTime = 3000;
+    const startTime = Date.now();
+
+    function startLoading() {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+
+      let percent = Math.floor((elapsedTime / loadingTime) * 100);
+
+      if (percent > 100) {
+        percent = 100;
+      }
+
+      progressFill.style.width = percent + "%";
+      percentText.textContent = percent;
+
+      if (percent < 100) {
+        requestAnimationFrame(startLoading);
+      } else {
+        setTimeout(function () {
+          splashLink.click();
+        }, 300);
+      }
+    }
+
+    startLoading();
+  </script>
+</body>
+</html>

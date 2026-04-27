@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeju Bike Onboarding</title>
+
+  <!-- Swiper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #eee;
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mobile-wrap {
+      width: 375px;
+      min-height: 100vh;
+      background: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .onboarding-swiper {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .swiper-slide {
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-img-box {
+      width: 100%;
+      height: 474px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .slide-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-content {
+      flex: 1;
+      padding: 34px 24px 0;
+      background: #fff;
+    }
+
+    .slide-title {
+      font-size: 30px;
+      line-height: 1.18;
+      font-weight: 900;
+      color: #ffad00;
+      letter-spacing: -1.2px;
+      margin-bottom: 12px;
+    }
+
+    .slide-desc {
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 500;
+      color: #d7d7d7;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-bottom {
+      position: absolute;
+      left: 0;
+      bottom: 37px;
+      z-index: 20;
+      width: 100%;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .custom-pagination {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .custom-pagination .swiper-pagination-bullet {
+      width: 16px;
+      height: 16px;
+      margin: 0 !important;
+      background: #c9c9c9;
+      opacity: 1;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-pagination .swiper-pagination-bullet-active {
+      width: 70px;
+      background: #ffad00;
+    }
+
+    .skip-btn {
+      font-size: 16px;
+      color: #d6d6d6;
+      font-weight: 700;
+      text-decoration: none;
+      pointer-events: auto;
+    }
+
+    .skip-btn:hover {
+      color: #ffad00;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mobile-wrap">
+    <div class="swiper onboarding-swiper">
+      <div class="swiper-wrapper">
+
+        <!-- slide 01 -->
+        <div class="swiper-slide">
+          <div class="slide-img-box">
+            <!-- 원하는 이미지 경로로 변경 -->
+            <img src="./images/sl1.png" alt="제주도 자전거 여행 이미지 1" />
+          </div>
+
+          <div class="slide-content">
+            <h2 class="slide-title">
+              색다르게 경험하는<br />
+              제주도 여행
+            </h2>
+            <p class="slide-desc">
+              자전거를 이용해 제주도에서 색다른 경험을 해보세요.
+              자신에게 맞는 코스추천과 안전한 10개의 메인코스를
+              즐겨볼 수 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- slide 02 -->
+        <div class="swiper-slide">
+          <div class="slide-img-box">
+            <!-- 원하는 이미지 경로로 변경 -->
+            <img src="./images/sl2.png" alt="제주도 자전거 여행 이미지 2" />
+          </div>
+
+          <div class="slide-content">
+            <h2 class="slide-title">
+              함께 즐겨보는<br />
+              자전거 여행
+            </h2>
+            <p class="slide-desc">
+              지역마다 숨어있는 다양한 미션과 선의의 경쟁을 통해
+              더 재미있는 자전거 여행을 경험해 볼 수 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- slide 03 -->
+        <div class="swiper-slide">
+          <div class="slide-img-box">
+            <!-- 원하는 이미지 경로로 변경 -->
+            <img src="./images/sl3.jpg" alt="제주도 자전거 여행 이미지 3" />
+          </div>
+
+          <div class="slide-content">
+            <h2 class="slide-title">
+              다양한 사람들의<br />
+              여행 이야기
+            </h2>
+            <p class="slide-desc">
+              커뮤니티 공간에서 다양한 사람들이 달성한 목표와
+              여행이야기를 듣고 나눠보세요.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="slide-bottom">
+      <div class="custom-pagination"></div>
+
+      <!-- 로그인 페이지 링크 -->
+      <a href="./login.html" class="skip-btn">Skip</a>
+    </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    const onboardingSwiper = new Swiper(".onboarding-swiper", {
+      slidesPerView: 1,
+      speed: 600,
+      loop: true,
+
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+
+      pagination: {
+        el: ".custom-pagination",
+        clickable: true,
+      },
+    });
+  </script>
+</body>
+</html>

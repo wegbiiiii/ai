@@ -457,7 +457,7 @@ function openDetailPage(category, productId) {
   detailDesc.textContent = product.desc;
   detailPrice.textContent = product.price;
 
-  orderBtn.href = `./order.html?id=${product.id}`;
+  orderBtn.href = '#';
 
   listPage.classList.remove("active");
   detailPage.classList.add("active");

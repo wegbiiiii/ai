@@ -34,8 +34,8 @@ const mockStores = [
     parking: true,
     lat: 37.64579,
     lng: 126.66731,
-    image: "./images/store-01.jpg",
-    detailImage: "./images/store-main.jpg"
+    image: "./images/city1.jpg",
+    detailImage: "./images/city1.jpg"
   },
   {
     id: 2,
@@ -46,8 +46,8 @@ const mockStores = [
     parking: true,
     lat: 37.64195,
     lng: 126.6712,
-    image: "./images/store-02.jpg",
-    detailImage: "./images/store-main.jpg"
+    image: "./images/city2.jpg",
+    detailImage: "./images/city2.jpg"
   },
   {
     id: 3,
@@ -58,8 +58,8 @@ const mockStores = [
     parking: true,
     lat: 37.63974,
     lng: 126.67572,
-    image: "./images/store-03.jpg",
-    detailImage: "./images/store-main.jpg"
+    image: "./images/city3.jpg",
+    detailImage: "./images/city3.jpg"
   },
   {
     id: 4,
@@ -70,8 +70,8 @@ const mockStores = [
     parking: false,
     lat: 37.64508,
     lng: 126.62871,
-    image: "./images/store-04.jpg",
-    detailImage: "./images/store-main.jpg"
+    image: "./images/city4.jpg",
+    detailImage: "./images/city4.jpg"
   },
   {
     id: 5,
@@ -82,8 +82,8 @@ const mockStores = [
     parking: true,
     lat: 37.61913,
     lng: 126.71682,
-    image: "./images/store-05.jpg",
-    detailImage: "./images/store-main.jpg"
+    image: "./images/city5.jpg",
+    detailImage: "./images/city5.jpg"
   }
 ];
 
@@ -94,63 +94,63 @@ const mockProducts = [
     name: "FRESH 한입 쏙 미니버거",
     price: "4,800원",
     category: "recommend",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg9.jpg"
   },
   {
     id: 2,
     name: "통밀 샌드위치",
     price: "6,200원",
     category: "sandwich",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg16.png"
   },
   {
     id: 3,
     name: "쫄깃한 소금빵",
     price: "3,200원",
     category: "bread",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg15.jpg"
   },
   {
     id: 4,
     name: "생크림 케이크 조각",
     price: "5,800원",
     category: "cake",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg29.jpg"
   },
   {
     id: 5,
     name: "미니 마들렌 세트",
     price: "4,500원",
     category: "dessert",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg32.jpg"
   },
   {
     id: 6,
     name: "아이스 아메리카노",
     price: "3,500원",
     category: "coffee",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg28.jpg"
   },
   {
     id: 7,
     name: "딸기 크림빵",
     price: "4,300원",
     category: "recommend",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg35.jpg"
   },
   {
     id: 8,
     name: "모닝 바게트",
     price: "3,900원",
     category: "bread",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg53.png"
   },
   {
     id: 9,
     name: "치킨 샐러드",
     price: "7,200원",
     category: "sandwich",
-    image: "./images/product-burger.jpg"
+    image: "./images/productimg/pg22.png"
   }
 ];
 

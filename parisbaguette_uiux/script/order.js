@@ -339,34 +339,6 @@ const productsByCategory = {
       price: "4,200원",
       image: "./images/productimg/pg36.jpg",
       desc: "풍성한 거품이 매력적인 커피입니다."
-    },
-    {
-      id: "coffee-5",
-      name: "콜드브루",
-      price: "4,500원",
-      image: "./images/productimg/pg33.jpg",
-      desc: "차갑고 깔끔하게 즐기는 콜드브루입니다."
-    },
-    {
-      id: "coffee-6",
-      name: "레몬에이드",
-      price: "4,300원",
-      image: "./images/productimg/pg17.jpg",
-      desc: "상큼하게 즐기는 레몬에이드입니다."
-    },
-    {
-      id: "coffee-7",
-      name: "자몽에이드",
-      price: "4,500원",
-      image: "./images/productimg/pg8.jpg",
-      desc: "쌉싸름하고 상큼한 자몽에이드입니다."
-    },
-    {
-      id: "coffee-8",
-      name: "아이스티",
-      price: "3,800원",
-      image: "./images/productimg/pg44.jpg",
-      desc: "시원하고 달콤하게 즐기는 아이스티입니다."
     }
   ]
 };

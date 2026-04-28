@@ -527,16 +527,21 @@ li {
 }
 
 .store-main-img {
+  .store-main-img {
   width: 303px;
   height: 194px;
   overflow: hidden;
-  margin-bottom: 14px;
+  margin: 0 auto 14px;
+  border-radius: 14px;
+  background: #f3f3f3;
+}
 }
 
 .store-main-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Order Type */

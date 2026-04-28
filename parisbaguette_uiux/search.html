@@ -25,120 +25,123 @@
       </button>
     </header>
 
-    <!-- Search Page -->
-    <main id="searchPage" class="page search-page active">
-      <section class="search-area">
-        <form id="searchForm" class="search-form">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="지역또는 키워드를 입력해주세요."
-            autocomplete="off"
-          />
-          <button type="button" id="mapOpenBtn" class="map-open-btn" aria-label="지도 보기">
-            <img src="./images/map-icon.svg" alt="지도 보기" class="map-icon-img" />
-          </button>
-        </form>
-      </section>
-
-      <section class="keyword-section">
-        <h2>최근 검색어</h2>
-        <div id="recentKeywords" class="keyword-list"></div>
-      </section>
-
-      <section class="keyword-section">
-        <h2>인기 키워드</h2>
-        <div class="keyword-list">
-          <button type="button" class="keyword-btn popular" data-keyword="딜리버리">딜리버리</button>
-          <button type="button" class="keyword-btn popular" data-keyword="주차가능">주차가능</button>
-        </div>
-      </section>
-    </main>
-
-    <!-- Result Page -->
-    <main id="resultPage" class="page result-page">
-      <div class="sub-header">
-        <button type="button" class="back-btn" data-target="searchPage" aria-label="뒤로가기"></button>
-        <h1>검색결과</h1>
-      </div>
-
-      <section id="resultList" class="result-list"></section>
-    </main>
-
-    <!-- Map Page -->
-    <main id="mapPage" class="page map-page">
-      <div class="sub-header">
-        <button type="button" class="back-btn" data-target="searchPage" aria-label="뒤로가기"></button>
-        <h1>전국 맵 지도</h1>
-      </div>
-
-      <section class="map-box">
-        <div id="kakaoMap" class="kakao-map"></div>
-      </section>
-
-      <section id="mapStoreList" class="map-store-list"></section>
-    </main>
-
-    <!-- Detail Page -->
-    <main id="detailPage" class="page detail-page">
-      <div class="detail-header">
-        <button type="button" class="back-btn detail-back" data-target="resultPage" aria-label="뒤로가기"></button>
-      </div>
-
-      <section class="store-visual">
-        <div class="store-title-row">
-          <span class="store-logo-symbol"></span>
-          <div>
-            <h1 id="detailStoreName">김포청송마을점</h1>
-            <p id="detailStoreAddress">경기도 김포시 장기동 1324</p>
+    <!-- main -->
+    <main>
+      <!-- Search Page -->
+      <section id="searchPage" class="page search-page active">
+        <section class="search-area">
+          <form id="searchForm" class="search-form">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="지역또는 키워드를 입력해주세요."
+              autocomplete="off"
+            />
+            <button type="button" id="mapOpenBtn" class="map-open-btn" aria-label="지도 보기">
+              <img src="./images/map-icon.svg" alt="지도 보기" class="map-icon-img" />
+            </button>
+          </form>
+        </section>
+      
+        <section class="keyword-section">
+          <h2>최근 검색어</h2>
+          <div id="recentKeywords" class="keyword-list"></div>
+        </section>
+      
+        <section class="keyword-section">
+          <h2>인기 키워드</h2>
+          <div class="keyword-list">
+            <button type="button" class="keyword-btn popular" data-keyword="딜리버리">딜리버리</button>
+            <button type="button" class="keyword-btn popular" data-keyword="주차가능">주차가능</button>
           </div>
-        </div>
-
-        <div class="store-main-img">
-          <img id="detailStoreImage" src="./images/store-main.jpg" alt="매장 이미지" />
-        </div>
+        </section>
       </section>
-
-      <section class="order-type">
-        <button type="button" class="order-tab active" data-order="delivery">DELIVERY</button>
-        <button type="button" class="order-tab" data-order="pickup">PICK UP</button>
-      </section>
-
-      <section id="deliveryInfo" class="order-info active">
-        <div class="info-row">
-          <span>배달비</span>
-          <strong>0원</strong>
+      
+      <!-- Result Page -->
+      <section id="resultPage" class="page result-page">
+        <div class="sub-header">
+          <button type="button" class="back-btn" data-target="searchPage" aria-label="뒤로가기"></button>
+          <h1>검색결과</h1>
         </div>
-        <div class="info-row">
-          <span>최소주문금액</span>
-          <strong>15,000원</strong>
+      
+        <section id="resultList" class="result-list"></section>
+      </section>
+      
+      <!-- Map Page -->
+      <section id="mapPage" class="page map-page">
+        <div class="sub-header">
+          <button type="button" class="back-btn" data-target="searchPage" aria-label="뒤로가기"></button>
+          <h1>전국 맵 지도</h1>
         </div>
+      
+        <section class="map-box">
+          <div id="kakaoMap" class="kakao-map"></div>
+        </section>
+      
+        <section id="mapStoreList" class="map-store-list"></section>
       </section>
-
-      <section id="pickupInfo" class="order-info">
-        <div class="pickup-title-row">
-          <strong>도착예정 시간</strong>
-          <button type="button">예약설정</button>
+      
+      <!-- Detail Page -->
+      <section id="detailPage" class="page detail-page">
+        <div class="detail-header">
+          <button type="button" class="back-btn detail-back" data-target="resultPage" aria-label="뒤로가기"></button>
         </div>
-        <p>주문 접수 순서대로 제품 준비됩니다. 점포 방문 후 대기번호를 확인해주세요.</p>
+      
+        <section class="store-visual">
+          <div class="store-title-row">
+            <span class="store-logo-symbol"></span>
+            <div>
+              <h1 id="detailStoreName">김포청송마을점</h1>
+              <p id="detailStoreAddress">경기도 김포시 장기동 1324</p>
+            </div>
+          </div>
+      
+          <div class="store-main-img">
+            <img id="detailStoreImage" src="./images/store-main.jpg" alt="매장 이미지" />
+          </div>
+        </section>
+      
+        <section class="order-type">
+          <button type="button" class="order-tab active" data-order="delivery">DELIVERY</button>
+          <button type="button" class="order-tab" data-order="pickup">PICK UP</button>
+        </section>
+      
+        <section id="deliveryInfo" class="order-info active">
+          <div class="info-row">
+            <span>배달비</span>
+            <strong>0원</strong>
+          </div>
+          <div class="info-row">
+            <span>최소주문금액</span>
+            <strong>15,000원</strong>
+          </div>
+        </section>
+      
+        <section id="pickupInfo" class="order-info">
+          <div class="pickup-title-row">
+            <strong>도착예정 시간</strong>
+            <button type="button">예약설정</button>
+          </div>
+          <p>주문 접수 순서대로 제품 준비됩니다. 점포 방문 후 대기번호를 확인해주세요.</p>
+        </section>
+      
+        <button type="button" class="order-submit-btn">주문하러가기</button>
+      
+        <section class="menu-tab-wrap">
+          <ul id="menuTabs" class="menu-tabs">
+            <li><button type="button" class="menu-tab active" data-category="all">전체</button></li>
+            <li><button type="button" class="menu-tab" data-category="recommend">추천메뉴</button></li>
+            <li><button type="button" class="menu-tab" data-category="bread">브레드</button></li>
+            <li><button type="button" class="menu-tab" data-category="cake">케이크</button></li>
+            <li><button type="button" class="menu-tab" data-category="sandwich">샌드위치/샐러드</button></li>
+            <li><button type="button" class="menu-tab" data-category="dessert">디저트/스낵</button></li>
+            <li><button type="button" class="menu-tab" data-category="coffee">커피/음료</button></li>
+          </ul>
+        </section>
+      
+        <section id="productList" class="product-list"></section>
       </section>
-
-      <button type="button" class="order-submit-btn">주문하러가기</button>
-
-      <section class="menu-tab-wrap">
-        <ul id="menuTabs" class="menu-tabs">
-          <li><button type="button" class="menu-tab active" data-category="all">전체</button></li>
-          <li><button type="button" class="menu-tab" data-category="recommend">추천메뉴</button></li>
-          <li><button type="button" class="menu-tab" data-category="bread">브레드</button></li>
-          <li><button type="button" class="menu-tab" data-category="cake">케이크</button></li>
-          <li><button type="button" class="menu-tab" data-category="sandwich">샌드위치/샐러드</button></li>
-          <li><button type="button" class="menu-tab" data-category="dessert">디저트/스낵</button></li>
-          <li><button type="button" class="menu-tab" data-category="coffee">커피/음료</button></li>
-        </ul>
-      </section>
-
-      <section id="productList" class="product-list"></section>
-    </main>
+    </main class="app-main">
 
     <!-- Bottom Navigation -->
     <nav class="bottom-nav" aria-label="하단 메뉴">

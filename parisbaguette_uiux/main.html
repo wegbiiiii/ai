@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paris Baguette Main</title>
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+  <div class="mobile-wrap">
+
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="logo">
+        <a href="./main.html">
+          <img src="./images/logobannerimg.png" alt="PARIS BAGUETTE 로고" />
+        </a>
+      </h1>
+
+      <button class="menu-btn" type="button" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- Hero Slide -->
+      <section class="hero-section" aria-label="메인 이미지 슬라이드">
+        <div class="hero-slider" id="heroSlider">
+          <article class="hero-slide">
+            <img src="./images/mainslide1.png" alt="메인 슬라이드 이미지 1" />
+          </article>
+          <article class="hero-slide">
+            <img src="./images/mainslide2.png" alt="메인 슬라이드 이미지 2" />
+          </article>
+          <article class="hero-slide">
+            <img src="./images/mainslide3.png" alt="메인 슬라이드 이미지 3" />
+          </article>
+          
+        </div>
+
+        <div class="hero-pagination" id="heroPagination" aria-label="메인 슬라이드 페이지 버튼"></div>
+      </section>
+
+      <!-- Service Cards -->
+      <section class="service-section" aria-label="주요 서비스">
+        <article class="service-card">
+            <a href="#">
+                <img src="./images/infobanner.png" alt="가까운 파리바게트 매장 찾기 배너" />
+            </a>
+        </article>
+
+        <article class="service-card">
+            <a href="#">
+                <img src="./images/infobanner-2.png" alt="딜리버리 주문 배너" />
+            </a>
+        </article>
+      </section>
+
+      <!-- New Menu -->
+      <section class="new-menu-section" aria-label="신메뉴 상품">
+        <header class="section-title-box">
+          <h2>신메뉴 상품</h2>
+        </header>
+
+        <div class="product-slider-wrap">
+          <button class="product-btn product-btn--prev" type="button" aria-label="이전 상품">
+            &#10094;
+          </button>
+
+          <div class="product-viewport">
+            <div class="product-track" id="productTrack">
+
+              <article class="product-card">
+                <a href="#">
+                  <figure>
+                    <img src="./images/newproduct1.png" alt="프레쉬 한입 쏙 미니버거" />
+                    <figcaption>FRESH 한입 쏙 미니버거</figcaption>
+                  </figure>
+                </a>
+              </article>
+
+              <article class="product-card">
+                <a href="#">
+                  <figure>
+                    <img src="./images/newproduct2.png" alt="어니언 크로크무슈" />
+                    <figcaption>어니언 크로크무슈</figcaption>
+                  </figure>
+                </a>
+              </article>
+
+              <article class="product-card">
+                <a href="#">
+                  <figure>
+                    <img src="./images/newproduct3.png" alt="BELT 샌드위치" />
+                    <figcaption>BELT 샌드위치</figcaption>
+                  </figure>
+                </a>
+              </article>
+
+              <article class="product-card">
+                <a href="#">
+                  <figure>
+                    <img src="./images/newproduct4.png" alt="베리밤 샌드" />
+                    <figcaption>베리밤 샌드</figcaption>
+                  </figure>
+                </a>
+              </article>
+
+              <article class="product-card">
+                <a href="#">
+                  <figure>
+                    <img src="./images/newproduct5.png" alt="로만밀 에그타르타르 샌드위치" />
+                    <figcaption>로만밀 에그타르타르 샌드위치</figcaption>
+                  </figure>
+                </a>
+              </article>
+
+            </div>
+          </div>
+
+          <button class="product-btn product-btn--next" type="button" aria-label="다음 상품">
+            &#10095;
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <a href="./main.html" class="nav-item active">
+        <img src="./images/home-symbol.svg" alt="홈" />
+        <span>홈</span>
+      </a>
+      <a href="./search.html" class="nav-item">
+        <img src="./images/search-symbol.svg" alt="검색" />
+        <span>검색</span>
+      </a>
+      <a href="./order.html" class="nav-item nav-item--order">
+        <img src="./images/bread-loaf-bold.svg" alt="주문" />
+        <span>주문</span>
+      </a>
+      <a href="#" class="nav-item">
+        <img src="./images/coupon-line.svg" alt="혜택" />
+        <span>혜택</span>
+      </a>
+      <a href="#" class="nav-item">
+        <img src="./images/meteor-icons_user.svg" alt="마이" />
+        <span>MY</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="./script/main.js"></script>
+</body>
+</html>

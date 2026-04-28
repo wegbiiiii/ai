@@ -1,0 +1,263 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans KR", Arial, sans-serif;
+  background: #f5f5f5;
+  color: #2528bd;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+.login-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: #f5f5f5;
+  transition: opacity 0.45s ease;
+}
+
+.login-page.fade-out {
+  opacity: 0;
+}
+
+.login-wrap {
+  width: 375px;
+  min-height: 812px;
+  padding: 45px 24px 0;
+  background: #fff;
+}
+
+/* 로고 */
+.logo-area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 42px;
+}
+
+.logo-area img {
+  width: 150px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* 로그인 폼 */
+.login-form {
+  width: 100%;
+}
+
+/*아이디, 비밀번호 칸*/
+.input-box {
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 12px;
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.input-box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 2px;
+  background: #2528bd;
+  transition: width 0.35s ease;
+}
+
+.input-box:focus-within {
+  border-bottom-color: transparent;
+  transform: translateY(-2px);
+}
+
+.input-box:focus-within::after {
+  width: 100%;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #2528bd;
+  background: transparent;
+  transition: padding-left 0.3s ease, font-size 0.3s ease;
+}
+
+.input-box input:focus {
+  padding-left: 6px;
+  font-size: 16px;
+}
+
+
+.input-box input::placeholder {
+  color: #2528bd;
+  opacity: 1;
+}
+
+/*로그인 버튼*/
+.login-btn {
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-radius: 20px;
+  background: #2d2fc1;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.3s ease, 
+              transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              opacity 0.3s ease;
+  
+}
+
+.login-btn:hover {
+  background: #171a9f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37, 40, 189, 0.25);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 회원가입 버튼에 hover 했을 때 로그인 버튼 불투명 처리 */
+.login-form:has(.join-btn:hover) .login-btn {
+  opacity: 0.55;
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/*회원가입 버튼*/
+.join-btn {
+  width: 100%;
+  height: 36px;
+  border: 1px solid #2528bd;
+  border-radius: 20px;
+  color: #2528bd;
+  font-size: 15px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 9px;
+
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.join-btn:hover {
+  background: #2528bd;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37, 40, 189, 0.18);
+}
+
+.join-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 찾기 메뉴 */
+.find-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: 24px;
+}
+
+.find-menu li {
+  position: relative;
+  padding: 0 14px;
+}
+
+.find-menu li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 1px;
+  height: 12px;
+  background: #2528bd;
+  transform: translateY(-50%);
+}
+
+.find-menu a {
+  font-size: 12px;
+  color: #2528bd;
+}
+
+/* 간편 로그인 */
+.easy-login {
+  margin-top: 26px;
+}
+
+.easy-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.easy-title span {
+  width: 118px;
+  height: 1px;
+  background: #2528bd;
+}
+
+.easy-title p {
+  font-size: 12px;
+  color: #2528bd;
+  white-space: nowrap;
+}
+
+.sns-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.sns-list li a {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.sns-list img {
+  width: 24px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+}

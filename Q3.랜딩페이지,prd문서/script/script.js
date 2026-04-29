@@ -8,7 +8,7 @@ const applyPhone = document.querySelector("#applyPhone");
 const applyMessage = document.querySelector("#applyMessage");
 
 // Google Sheets 편집 링크가 아니라 Apps Script 배포 URL을 넣어야 합니다.
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/1ZMlWLXMVNCnFz3bZZaRyOQnCl2JIBMLUAd0kMPJN6jJlM_KyQok0VtAz/1";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxozPMi8HgkLP3EEqmjU6Lqu47Et6BGSyXMj-cHje2Ztt3W8LWwYOp6RnYgOZ3FNJci8Q/exec";
 
 function openApplyModal() {
   applyModal.classList.add("is-active");

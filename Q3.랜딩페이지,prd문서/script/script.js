@@ -7,7 +7,6 @@ const applyName = document.querySelector("#applyName");
 const applyPhone = document.querySelector("#applyPhone");
 const applyMessage = document.querySelector("#applyMessage");
 
-// Google Sheets 편집 링크가 아니라 Apps Script 배포 URL을 넣어야 합니다.
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxozPMi8HgkLP3EEqmjU6Lqu47Et6BGSyXMj-cHje2Ztt3W8LWwYOp6RnYgOZ3FNJci8Q/exec";
 
 function openApplyModal() {
@@ -62,39 +61,45 @@ document.addEventListener("keydown", (event) => {
 applyForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const formData = new FormData();
+  const nameValue = applyName.value.trim();
+  const phoneValue = applyPhone.value.trim();
+  const messageValue = applyMessage.value.trim();
 
-  formData.append("Name", applyName.value.trim());
-  formData.append("Phone", applyPhone.value.trim());
-  formData.append("Message", applyMessage.value.trim());
-
-  if (!formData.get("Name")) {
+  if (!nameValue) {
     alert("이름을 입력해주세요.");
     applyName.focus();
     return;
   }
 
-  if (!formData.get("Phone")) {
+  if (!phoneValue) {
     alert("전화번호를 입력해주세요.");
     applyPhone.focus();
     return;
   }
 
-  if (!formData.get("Message")) {
+  if (!messageValue) {
     alert("메시지를 입력해주세요.");
     applyMessage.focus();
     return;
   }
 
+  const formData = new FormData();
+
+  formData.append("Name", nameValue);
+  formData.append("Phone", phoneValue);
+  formData.append("Message", messageValue);
+
   try {
     await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
+      mode: "no-cors",
       body: formData,
     });
 
     alert("지원 내용이 접수되었습니다.");
     applyForm.reset();
     closeApplyModal();
+
   } catch (error) {
     alert("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     console.error(error);

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paris Baguette Onboarding</title>
+
+  <!-- Swiper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+
+  <link rel="stylesheet" href="./css/slide.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="onboarding">
+      <div class="swiper onboarding-swiper">
+        <div class="swiper-wrapper">
+
+          <!-- Slide 01 -->
+          <article class="swiper-slide onboarding-slide">
+            <div class="text-box">
+              <h2>가까운 파리바게트</h2>
+              <p>빠르게 만나는 베이커리 경험</p>
+            </div>
+
+            <div class="image-box">
+              <img src="./images/slide1.png" alt="파리바게트 매장 이미지" />
+            </div>
+          </article>
+
+          <!-- Slide 02 -->
+          <article class="swiper-slide onboarding-slide">
+            <div class="text-box">
+              <h2>한눈에 보는</h2>
+              <p>오늘의 빵부터 특별한 케이크까지</p>
+            </div>
+
+            <div class="image-box phone-image-box">
+              <img src="./images/slide2.png" alt="모바일 상품 리스트 이미지" />
+            </div>
+          </article>
+
+          <!-- Slide 03 -->
+          <article class="swiper-slide onboarding-slide">
+            <div class="text-box">
+              <h2>내 주변 매장, 맞는 혜택</h2>
+              <p>베이커리를 가장 편리하게</p>
+            </div>
+
+            <div class="image-box map-image-box">
+              <img src="./images/slide3.png" alt="주변 매장 지도 이미지" />
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- 슬라이드 바 -->
+      <div class="slide-control">
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- 버튼 -->
+      <div class="button-area">
+        <button type="button" class="next-btn" id="nextBtn">다음</button>
+        <a href="./login.html" class="order-btn" id="orderBtn">주문하러 가기</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="./script/slide.js"></script>
+</body>
+</html>

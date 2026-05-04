@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paris Baguette Order</title>
+  <link rel="stylesheet" href="./css/order.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <a href="./main.html" class="logo-area" aria-label="파리바게뜨 메인으로 이동">
+        <!-- 로고 이미지는 원하는 이미지로 교체 -->
+        <img src="./images/logobannerimg.png" alt="PARIS BAGUETTE" class="logo-img" />
+      </a>
+
+      <button type="button" class="menu-btn" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true"></div>
+
+<!-- Mobile Menu Panel -->
+<aside class="mobile-menu-panel" id="mobileMenuPanel" aria-label="모바일 메뉴" aria-hidden="true">
+  <div class="mobile-menu-top">
+    <strong class="mobile-menu-title">MENU</strong>
+
+    <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="메뉴 닫기">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-menu-nav" aria-label="모바일 전체 메뉴">
+    <ul>
+      <li><a href="./main.html">홈</a></li>
+      <li><a href="#">회사소개</a></li>
+      <li><a href="./order.html">메뉴</a></li>
+      <li><a href="#">문의하기</a></li>
+    </ul>
+  </nav>
+</aside>
+
+    <main class="page-container">
+      <!-- Product List Page -->
+      <section class="page page-list active" id="listPage">
+      
+        <!-- Tab Menu -->
+        <nav class="tab-wrap" aria-label="상품 카테고리">
+          <ul class="tab-list" id="tabList">
+            <li><button type="button" class="tab-btn active" data-category="all">전체</button></li>
+            <li><button type="button" class="tab-btn" data-category="recommend">추천메뉴</button></li>
+            <li><button type="button" class="tab-btn" data-category="bread">브레드</button></li>
+            <li><button type="button" class="tab-btn" data-category="cake">케이크</button></li>
+            <li><button type="button" class="tab-btn" data-category="sandwich">샌드위치/샐러드</button></li>
+            <li><button type="button" class="tab-btn" data-category="dessert">디저트/스낵</button></li>
+            <li><button type="button" class="tab-btn" data-category="coffee">커피/음료</button></li>
+          </ul>
+        </nav>
+      
+        <!-- Product List -->
+        <section class="product-section">
+          <ul class="product-list" id="productList"></ul>
+        </section>
+      </section>
+      
+      <!-- Product Order Detail Page -->
+      <section class="page page-detail" id="detailPage">
+        <button type="button" class="back-btn" id="backBtn" aria-label="뒤로가기">
+          <span></span>
+        </button>
+      
+        <section class="detail-content">
+          <div class="detail-img-box">
+            <img src="#" alt="파리바게트 제품 이미지" id="detailImage" />
+          </div>
+      
+          <div class="detail-title-row">
+            <img src="./images/detail-logosym.svg" alt="브랜드 심볼" class="detail-symbol" />
+            <h1 id="detailTitle">상품명</h1>
+          </div>
+      
+          <p class="detail-desc" id="detailDesc">
+            상품 설명이 들어갑니다.
+          </p>
+      
+          <strong class="detail-price" id="detailPrice">0원</strong>
+      
+          <a href="#" class="order-btn" id="orderBtn">ORDER</a>
+        </section>
+      </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <a href="./main.html" class="nav-item">
+        <img src="./images/home-symbol.svg" alt="" />
+        <span>홈</span>
+      </a>
+
+      <a href="./search.html" class="nav-item">
+        <img src="./images/search-symbol.svg" alt="" />
+        <span>검색</span>
+      </a>
+
+      <a href="./order.html" class="nav-item active">
+        <img src="./images/bread-loaf-bold.svg" alt="" />
+        <span>주문</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <img src="./images/coupon-line.svg" alt="" />
+        <span>혜택</span>
+      </a>
+
+      <a href="#" class="nav-item">
+        <img src="./images/meteor-icons_user.svg" alt="" />
+        <span>MY</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="./script/order.js"></script>
+</body>
+</html>

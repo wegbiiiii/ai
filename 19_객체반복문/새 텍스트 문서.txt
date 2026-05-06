@@ -1,0 +1,5 @@
+https://api.themoviedb.org/3/movie/now_playing?api_key=53384633742c0f9d44462e8bba753b33&language=ko&page=1&region=KR
+
+
+
+https://image.tmdb.org/t/p/w1280
